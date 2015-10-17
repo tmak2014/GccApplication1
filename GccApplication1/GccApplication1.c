@@ -61,61 +61,74 @@
 #define MODE_5				5
 #define MODE_6				6
 
+//ADC port for IR sensors.
+#define		ADC_PORT_1	1
+#define		ADC_PORT_2	2
+#define		ADC_PORT_3	3
+#define		ADC_PORT_4	4
+#define		ADC_PORT_5	5
+#define		ADC_PORT_6	6
+
 int serCmd[SERIAL_BUFFER_SIZE] = {0};
-                         //RF1 RF2 LF2 LF1 LR1 LR2 RR2 RR1
-int servoId[SERVO_MAX] = {  3,  4, 17, 14, 16,  6,  7,  5 };
+                         //RF1 RF2 LF1 LF2 RR1 RR2 LR1 LR2
+int servoId[SERVO_MAX] = { 19,  4, 14, 17,  5,  7,  16,  6 };
+
+#define 	ANGLE_090 205
+#define 	ANGLE_180 512
+#define 	ANGLE_270 818
+
 int angleList[ACT_MAX][SERVO_MAX + 1] = {
-	//RF1  RF2  LF2  LF1  LR1  LR2  RR2  RR1  Speed
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//0
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//1
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//2
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//3
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//4
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//5
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//6
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//7
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//8
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//9
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//10
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//11
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//12
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//13
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//14
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//15
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//16
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//17
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//18
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//19
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//20
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//21
-	{ 462, 492, 562, 577, 512, 512, 477, 532, 200 },	//22 Walk2
-	{ 462, 492, 562, 567, 512, 512, 487, 427, 200 },	//23 Walk2
-	{ 502, 462, 512, 447, 532, 512, 512, 512, 200 },	//24 Walk2
-	{ 562, 457, 512, 447, 562, 512, 562, 532, 200 },	//25 Walk2
-	{ 547, 472, 682, 662, 562, 512, 562, 532, 200 },	//26 Walk2
-	{ 537, 587, 562, 662, 562, 512, 562, 532, 200 },	//27 Walk2
-	{ 512, 512, 582, 577, 492, 512, 522, 562, 200 },	//28 Walk2
-	{ 462, 492, 562, 547, 482, 512, 462, 562, 200 },	//29 Walk2
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//30
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//31
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//32
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//33
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//34
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//35
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//36
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//37
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//38
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//39
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//40
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//41
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//42
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//43
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//44
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//45
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//46
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//47
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//48
-	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//49
+	//RF1        RF2        LF1        LF2        RR1        RR2        LR1        LR2        Speed
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//0 Default
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//1 Pre Walk
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//2
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//3
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//4
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//5
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//6
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//7
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//8
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//9
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//10 Step
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//11 Step
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//12 Step
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//13 Step
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//14 Step
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//15 Step
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//16 Walk1
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//17 Walk1
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//18 Walk1
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//19 Walk1
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//20 Walk1
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//21 Walk1
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//22 Walk2
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//23 Walk2
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//24 Walk2
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//25 Walk2
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//26 Walk2
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//27 Walk2
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//28 Walk2
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//29 Walk2
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//30 Turn Left
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//31 Turn Left
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//32 Turn Left
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//33 Turn Left
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//34 Turn Left
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//35 Trun Right
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//36 Trun Right
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//37 Trun Right
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//38 Trun Right
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//39 Trun Right
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//40
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//41
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//42
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//43
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//44
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//45
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//46
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//47
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//48
+	{ ANGLE_090, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_270, ANGLE_180, ANGLE_090, ANGLE_180, 100 },	//49
 };
 
 int motion0[] =	{1, 0 };  //Default
@@ -188,8 +201,8 @@ void forceMotion( int motion, int times );
 void stopMotion(void);
 void move(void);
 void setModeAction();
-//void sensorInit(void);
-//void sensorTest(void);
+void sensorInit(void);
+void sensorTest(void);
 
 //Mode
 int mMode = MODE_0;
@@ -231,9 +244,13 @@ enum EventType {
 
 int main(void){
 	
-	//Start Switch
-	DDRA  = 0x00;
-	PORTA = 0x12;
+//	//Start Switch
+//	DDRA  = 0x00;
+//	PORTA = 0x12;
+	
+	//Start PORT A for switch and IR sensors
+	DDRA  = 0xFC;
+	PORTA = 0xFE;
 	
 	//LED Initial
 	DDRC  = 0x7F;
@@ -246,9 +263,11 @@ int main(void){
 	char * readData = NULL;	
 	int isFinish = 0;
 
-//sensorInit();
+    sensorInit();
 	
 	while(1){
+        sensorTest();
+
 		setMode();
 		
 		if( checkSerialRead() > 0 ){
@@ -343,23 +362,43 @@ int main(void){
 
 void sensorInit(void){
 printf( "### sensorInit\n");
-	dxl_initialize( 0, DEFAULT_BAUDNUM ); // Not using device index
-	sei();	// Interrupt Enable
+	
+//	DDRA  = 0xFC;
+//	PORTA = 0xFC;
+	
+	serial_initialize(57600);
+	sei();
 
 	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1); // ADC Enable, Clock 1/64div.
-//	ADMUX = ADC_PORT_1; // ADC Port 1 Select
-	ADMUX = 1; // ADC Port 1 Select
+	ADMUX = ADC_PORT_1; // ADC Port X Select
 }
 
 void sensorTest(void){
-	PORTA &= ~0x80; // ADC Port 1 IR ON
-//	_delay_us(12); // Short Delay for rising sensor signal
+	
+//	if (ADMUX == ADC_PORT_1) {
+		PORTA &= ~0x80;
+//	} else {
+//		PORTA &= ~0x40;	
+//	}
+	
+//	PORTA &= ~0x80;			// ADC Port 1 IR ON
+//	PORTA &= ~0x40;			// ADC Port 2 IR ON
+//	PORTA &= ~0x20;			// ADC Port 3 IR ON
+//	PORTA &= ~0x10;			// ADC Port 4 IR ON
+//	PORTA &= ~0x08;			// ADC Port 5 IR ON
+//	PORTA &= ~0x04;			// ADC Port 6 IR ON
+
+	_delay_us(12); // Short Delay for rising sensor signal
 	ADCSRA |= (1 << ADIF); // AD-Conversion Interrupt Flag Clear
 	ADCSRA |= (1 << ADSC); // AD-Conversion Start
+
 	while( !(ADCSRA & (1 << ADIF)) ); // Wait until AD-Conversion complete
-	PORTA = 0xFC; // IR-LED Off
+
+	PORTA = 0xFE; // IR-LED Off
+
 	printf( "### sensorTest() ADC :%d\r\n", ADC); // Print Value on USART
-//	_delay_ms(50);
+
+	_delay_ms(50);
 }
 
 void motionEdit(){
@@ -426,10 +465,7 @@ void setModeAction(){
 }
 
 void MotorInit(void){
-	printf( "### MortorInit Start ###\n");
-	int result; 
-	result = dxl_initialize( 0, DEFAULT_BAUDNUM ); // Not using device index
-	printf( "### result:%d\n", result);
+	dxl_initialize( 0, DEFAULT_BAUDNUM ); // Not using device index
 	//Wheel Mode
 //	dxl_write_word( 31, P_CW_ANGLE_LIMIT_L, 0 );
 //	dxl_write_word( 31, P_CCW_ANGLE_LIMIT_L, 0 );
@@ -489,7 +525,7 @@ void getAngle(){
 		tmp[i] = dxl_read_word( servoId[i], P_PRESENT_POSITION_L );
 	}
 	
-	printf( "getAngle() %d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
+	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
 	        EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
 }
 
@@ -506,7 +542,7 @@ void getLoad(void){
 		tmp[i] = dxl_read_word( servoId[i], P_PRESENT_LOAD_L );
 	}
 	
-	printf( "getLoad() %d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
+	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
 	EVT_GET_LOAD, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
 }
 
@@ -516,12 +552,11 @@ void getVoltage(void){
 		tmp[i] = dxl_get_lowbyte(dxl_read_word( servoId[i], P_PRESENT_VOLTAGE ));
 	}
 	
-	printf( "getVoltage() %d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
+	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
 	EVT_GET_VOLTAGE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
 }
 
 void MotorControl( int id, int power ){
-	printf( "### MotorControl Start ###\n");
 	int CommStatus;
 //	printf( "%d %d\n", id, power );
 //	dxl_write_word( id, P_GOAL_SPEED_L, power );
@@ -544,7 +579,6 @@ void MotorControl( int id, int power ){
 }
 
 void startMotion( int motion, int times ){
-	printf("### startMotion() START ###\n");
 	nextMotionNumber = motion;
 	nextMotionTimes = times;
 	if( motionTimes == 0 ){
@@ -552,11 +586,9 @@ void startMotion( int motion, int times ){
 		motionTimes = nextMotionTimes;
 		nextMotionTimes = 0;
 	}
-	printf("### nextMotionNumber:%d, nextMotionTimes:%d\n", nextMotionNumber, nextMotionTimes);
 }
 
 void forceMotion( int motion, int times ){
-	printf("### forceMotion() START ###\n");
 	motionNumber = motion;
 	motionTimes = times;
 	nextMotionTimes = 0;
@@ -565,7 +597,6 @@ void forceMotion( int motion, int times ){
 }
 
 void stopMotion(void){
-	printf("### stopMotion() START ###\n");
 	motionCount = 1;
 	motionTimes = 0;
 	motionTime = 0;
@@ -575,38 +606,29 @@ void stopMotion(void){
 void move(void){
 	if( motionTimes > 0 && isMoving() == 0 ){
 		int *motion = motionList[motionNumber];
-//        sensorTest();
-//		getAngle();
-//		getLoad();
-//		getVoltage();
-		printf("### motionNumber = %d\n", motionNumber);
+        printf("### motionNumber = %d\n", motionNumber);
 		int max = motion[0];
 		if( motionCount > max ){
-			printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
-//			printf("### %d,%d,%d,%d,%d,%d;\n", diffmaxTest[0],diffmaxTest[1],diffmaxTest[2],diffmaxTest[3],diffmaxTest[4],diffmaxTest[5] );
+        printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
+//			printf("#%d,%d,%d,%d,%d,%d;\n", diffmaxTest[0],diffmaxTest[1],diffmaxTest[2],diffmaxTest[3],diffmaxTest[4],diffmaxTest[5] );
 			motionCount = 1;
-			printf("### nextMotionTimes: %d, nextMotionNumber:%d, motionNumber:%d\n", nextMotionTimes, nextMotionNumber, motionNumber);
 			if( motionTimes < 99 && --motionTimes <= 0 ){
 				if( nextMotionTimes > 0 ){
 					if( (nextMotionNumber == ACT_WALK1 || nextMotionNumber == ACT_WALK2) &&
 						motionNumber != ACT_PRE_WALK ){
-						printf("### ACT_PRE_WALK\n");
 						motionNumber = ACT_PRE_WALK;
 						motionTimes = 1;
 					}else if( (motionNumber == ACT_TURN_LEFT && nextMotionNumber == ACT_TURN_RIGHT) ||
 						(nextMotionNumber == ACT_TURN_LEFT && motionNumber == ACT_TURN_RIGHT) ){
-						printf("### ACT_DEFAULT\n");
 						motionNumber = ACT_DEFAULT;
 						motionTimes = 1;
 					}else{
-						printf("### next motion\n");
 						motionNumber = nextMotionNumber;
 						motionTimes = nextMotionTimes;
 						nextMotionTimes = 0;
 					}
 					_delay_ms(300);
 				}else{
-					printf("### stopMotion\n");
 					stopMotion();
 				}
 				return;
@@ -652,11 +674,10 @@ void setSpeedTest( int act ){
 }
 
 void ServoControl( int act ){
-	printf( "###### ServoControl() START act:%d #######\n", act );
 	int i;
 	int CommStatus = 0;
 	if( act >= ACT_MAX ){
-		printf( "act error: %d / %d\n", act, SERVO_MAX );
+//		printf( "act error: %d / %d\n", act, SERVO_MAX );
 		return;
 	}
 	
@@ -667,19 +688,16 @@ void ServoControl( int act ){
 	for(int i=0; i<SERVO_MAX; i++ ){
 //		if( motionFirst < 0 ){
 			angle = dxl_read_word( servoId[i], P_PRESENT_POSITION_L );
-//printf( "### ServoControl() servoId[%d]:%d\n", i, servoId[i] );
 //		}else{
 //			angle = angleList[motionFirst][i];
 //		}
 		angleDiff[i] = angleList[act][i] - angle;
-printf( "### servoId: %d, Now angle:%d, angleDiff:%d\n", servoId[i], angle, angleDiff[i]);
 		if( angleDiff[i] < 0 ){
 			angleDiff[i] = angleDiff[i] * -1;
 		}
 		if( diffMax < angleDiff[i] ){
 			diffMax = angleDiff[i];
 		}
-//		printf( "### ServoControl() diffMax:%d\n", diffMax);
 	}
 //	motionFirst = act;
 	
@@ -735,7 +753,6 @@ printf( "### servoId: %d, Now angle:%d, angleDiff:%d\n", servoId[i], angle, angl
 	}else{
 		PrintCommStatus(CommStatus);
 	}
-	printf( "###### ServoControl() END #######\n");
 }
 
 void ServoReadState(){
