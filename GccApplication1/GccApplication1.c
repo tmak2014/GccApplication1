@@ -62,10 +62,10 @@
 #define MODE_6				6
 
 int serCmd[SERIAL_BUFFER_SIZE] = {0};
-                         //LF1,LF2,LR1,LR2,RF1,RF2,RR1,RR2
-int servoId[SERVO_MAX] = {  3,  4, 16,  6, 14, 17,  5,  7 };
+                         //RF1 RF2 LF2 LF1 LR1 LR2 RR2 RR1
+int servoId[SERVO_MAX] = {  3,  4, 17, 14, 16,  6,  7,  5 };
 int angleList[ACT_MAX][SERVO_MAX + 1] = {
-	//LF1, LF2, LR1, LR2, RF1, RF2, RR1, RR2, Speed
+	//RF1  RF2  LF2  LF1  LR1  LR2  RR2  RR1  Speed
 	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//0
 	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//1
 	{ 512, 502, 512, 512, 512, 512, 512, 522, 100 },	//2
@@ -188,8 +188,8 @@ void forceMotion( int motion, int times );
 void stopMotion(void);
 void move(void);
 void setModeAction();
-void sensorInit(void);
-void sensorTest(void);
+//void sensorInit(void);
+//void sensorTest(void);
 
 //Mode
 int mMode = MODE_0;
@@ -246,7 +246,7 @@ int main(void){
 	char * readData = NULL;	
 	int isFinish = 0;
 
-sensorInit();
+//sensorInit();
 	
 	while(1){
 		setMode();
@@ -426,7 +426,10 @@ void setModeAction(){
 }
 
 void MotorInit(void){
-	dxl_initialize( 0, DEFAULT_BAUDNUM ); // Not using device index
+	printf( "### MortorInit Start ###\n");
+	int result; 
+	result = dxl_initialize( 0, DEFAULT_BAUDNUM ); // Not using device index
+	printf( "### result:%d\n", result);
 	//Wheel Mode
 //	dxl_write_word( 31, P_CW_ANGLE_LIMIT_L, 0 );
 //	dxl_write_word( 31, P_CCW_ANGLE_LIMIT_L, 0 );
@@ -518,6 +521,7 @@ void getVoltage(void){
 }
 
 void MotorControl( int id, int power ){
+	printf( "### MotorControl Start ###\n");
 	int CommStatus;
 //	printf( "%d %d\n", id, power );
 //	dxl_write_word( id, P_GOAL_SPEED_L, power );
@@ -540,6 +544,7 @@ void MotorControl( int id, int power ){
 }
 
 void startMotion( int motion, int times ){
+	printf("### startMotion() START ###\n");
 	nextMotionNumber = motion;
 	nextMotionTimes = times;
 	if( motionTimes == 0 ){
@@ -547,9 +552,11 @@ void startMotion( int motion, int times ){
 		motionTimes = nextMotionTimes;
 		nextMotionTimes = 0;
 	}
+	printf("### nextMotionNumber:%d, nextMotionTimes:%d\n", nextMotionNumber, nextMotionTimes);
 }
 
 void forceMotion( int motion, int times ){
+	printf("### forceMotion() START ###\n");
 	motionNumber = motion;
 	motionTimes = times;
 	nextMotionTimes = 0;
@@ -558,6 +565,7 @@ void forceMotion( int motion, int times ){
 }
 
 void stopMotion(void){
+	printf("### stopMotion() START ###\n");
 	motionCount = 1;
 	motionTimes = 0;
 	motionTime = 0;
@@ -567,33 +575,38 @@ void stopMotion(void){
 void move(void){
 	if( motionTimes > 0 && isMoving() == 0 ){
 		int *motion = motionList[motionNumber];
-        sensorTest();
+//        sensorTest();
 //		getAngle();
 //		getLoad();
 //		getVoltage();
-		printf("### move() motionNumber = %d\n", motionNumber);
-		printf("### move() motionCount = %d\n", motionCount);
+		printf("### motionNumber = %d\n", motionNumber);
 		int max = motion[0];
 		if( motionCount > max ){
+			printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
 //			printf("### %d,%d,%d,%d,%d,%d;\n", diffmaxTest[0],diffmaxTest[1],diffmaxTest[2],diffmaxTest[3],diffmaxTest[4],diffmaxTest[5] );
 			motionCount = 1;
+			printf("### nextMotionTimes: %d, nextMotionNumber:%d, motionNumber:%d\n", nextMotionTimes, nextMotionNumber, motionNumber);
 			if( motionTimes < 99 && --motionTimes <= 0 ){
 				if( nextMotionTimes > 0 ){
 					if( (nextMotionNumber == ACT_WALK1 || nextMotionNumber == ACT_WALK2) &&
 						motionNumber != ACT_PRE_WALK ){
+						printf("### ACT_PRE_WALK\n");
 						motionNumber = ACT_PRE_WALK;
 						motionTimes = 1;
 					}else if( (motionNumber == ACT_TURN_LEFT && nextMotionNumber == ACT_TURN_RIGHT) ||
 						(nextMotionNumber == ACT_TURN_LEFT && motionNumber == ACT_TURN_RIGHT) ){
+						printf("### ACT_DEFAULT\n");
 						motionNumber = ACT_DEFAULT;
 						motionTimes = 1;
 					}else{
+						printf("### next motion\n");
 						motionNumber = nextMotionNumber;
 						motionTimes = nextMotionTimes;
 						nextMotionTimes = 0;
 					}
 					_delay_ms(300);
 				}else{
+					printf("### stopMotion\n");
 					stopMotion();
 				}
 				return;
@@ -639,7 +652,7 @@ void setSpeedTest( int act ){
 }
 
 void ServoControl( int act ){
-//	printf( "###### ServoControl() START act:%d\n #######\n", act );
+	printf( "###### ServoControl() START act:%d #######\n", act );
 	int i;
 	int CommStatus = 0;
 	if( act >= ACT_MAX ){
@@ -658,9 +671,8 @@ void ServoControl( int act ){
 //		}else{
 //			angle = angleList[motionFirst][i];
 //		}
-//printf( "### ServoControl() angle:%d\n", angle );
 		angleDiff[i] = angleList[act][i] - angle;
-//printf( "### ServoControl() angleDiff[%d]:%d\n", i, angleDiff[i]);
+printf( "### servoId: %d, Now angle:%d, angleDiff:%d\n", servoId[i], angle, angleDiff[i]);
 		if( angleDiff[i] < 0 ){
 			angleDiff[i] = angleDiff[i] * -1;
 		}
@@ -723,6 +735,7 @@ void ServoControl( int act ){
 	}else{
 		PrintCommStatus(CommStatus);
 	}
+	printf( "###### ServoControl() END #######\n");
 }
 
 void ServoReadState(){
