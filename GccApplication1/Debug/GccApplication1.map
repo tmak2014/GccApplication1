@@ -575,60 +575,66 @@ END GROUP
  .text.getReadBuffer
                 0x00000cee       0x22 SerialManager.o
                 0x00000cee                getReadBuffer
- .text.sendAck  0x00000d10       0x1a GccApplication1.o
-                0x00000d10                sendAck
+ .text.sensorInit
+                0x00000d10       0x22 GccApplication1.o
+                0x00000d10                sensorInit
+ .text.sensorTest
+                0x00000d32       0x3e GccApplication1.o
+                0x00000d32                sensorTest
+ .text.sendAck  0x00000d70       0x1a GccApplication1.o
+                0x00000d70                sendAck
  .text.MotorInit
-                0x00000d2a       0x48 GccApplication1.o
-                0x00000d2a                MotorInit
- .text.split    0x00000d72       0x5a GccApplication1.o
-                0x00000d72                split
+                0x00000d8a       0x48 GccApplication1.o
+                0x00000d8a                MotorInit
+ .text.split    0x00000dd2       0x5a GccApplication1.o
+                0x00000dd2                split
  .text.isMoving
-                0x00000dcc       0x34 GccApplication1.o
-                0x00000dcc                isMoving
+                0x00000e2c       0x34 GccApplication1.o
+                0x00000e2c                isMoving
  .text.setAngle
-                0x00000e00       0x40 GccApplication1.o
-                0x00000e00                setAngle
+                0x00000e60       0x40 GccApplication1.o
+                0x00000e60                setAngle
  .text.getAngle
-                0x00000e40       0xf6 GccApplication1.o
-                0x00000e40                getAngle
+                0x00000ea0       0xf6 GccApplication1.o
+                0x00000ea0                getAngle
  .text.sendActAngle
-                0x00000f36       0xca GccApplication1.o
-                0x00000f36                sendActAngle
- .text.getLoad  0x00001000       0xf6 GccApplication1.o
-                0x00001000                getLoad
+                0x00000f96       0xca GccApplication1.o
+                0x00000f96                sendActAngle
+ .text.getLoad  0x00001060       0xf6 GccApplication1.o
+                0x00001060                getLoad
  .text.getVoltage
-                0x000010f6       0xf8 GccApplication1.o
-                0x000010f6                getVoltage
+                0x00001156       0xfa GccApplication1.o
+                0x00001156                getVoltage
  .text.startMotion
-                0x000011ee       0x36 GccApplication1.o
-                0x000011ee                startMotion
+                0x00001250       0x36 GccApplication1.o
+                0x00001250                startMotion
  .text.setModeAction
-                0x00001224       0xb2 GccApplication1.o
-                0x00001224                setModeAction
+                0x00001286       0xb2 GccApplication1.o
+                0x00001286                setModeAction
  .text.forceMotion
-                0x000012d6       0x2e GccApplication1.o
-                0x000012d6                forceMotion
+                0x00001338       0x2e GccApplication1.o
+                0x00001338                forceMotion
  .text.stopMotion
-                0x00001304       0x2a GccApplication1.o
-                0x00001304                stopMotion
+                0x00001366       0x2a GccApplication1.o
+                0x00001366                stopMotion
  .text.PrintErrorCode
-                0x0000132e       0x80 GccApplication1.o
-                0x0000132e                PrintErrorCode
+                0x00001390       0x80 GccApplication1.o
+                0x00001390                PrintErrorCode
  .text.PrintCommStatus
-                0x000013ae       0x5a GccApplication1.o
-                0x000013ae                PrintCommStatus
+                0x00001410       0x5a GccApplication1.o
+                0x00001410                PrintCommStatus
  .text.MotorControl
-                0x00001408       0x84 GccApplication1.o
-                0x00001408                MotorControl
+                0x0000146a       0x84 GccApplication1.o
+                0x0000146a                MotorControl
  .text.ServoControl
-                0x0000148c      0x3f0 GccApplication1.o
-                0x0000148c                ServoControl
- .text.setMode  0x0000187c       0xb4 GccApplication1.o
-                0x0000187c                setMode
- .text.move     0x00001930      0x186 GccApplication1.o
-                0x00001930                move
- .text.main     0x00001ab6      0x266 GccApplication1.o
-                0x00001ab6                main
+                0x000014ee      0x384 GccApplication1.o
+                0x000014ee                ServoControl
+ .text.setMode  0x00001872       0xb4 GccApplication1.o
+                0x00001872                setMode
+ .text.move     0x00001926      0x18e GccApplication1.o
+                0x00001926                move
+ .text.main     0x00001ab4      0x268 GccApplication1.o
+                0x00001ab4                main
  .text.avr-libc.fplib
                 0x00001d1c        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libm.a(divsf3.o)
                 0x00001d1c                __divsf3
@@ -773,7 +779,7 @@ END GROUP
  *(.fini0)
                 0x00002abc                _etext = .
 
-.data           0x00800200      0x710 load address 0x00002abc
+.data           0x00800200      0x730 load address 0x00002abc
                 0x00800200                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800200        0x2 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
@@ -819,95 +825,95 @@ END GROUP
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x0080062a      0x2e6 GccApplication1.o
+                0x0080062a      0x306 GccApplication1.o
  *(.gnu.linkonce.d*)
-                0x00800910                . = ALIGN (0x2)
-                0x00800910                _edata = .
-                0x00800910                PROVIDE (__data_end, .)
+                0x00800930                . = ALIGN (0x2)
+                0x00800930                _edata = .
+                0x00800930                PROVIDE (__data_end, .)
 
-.bss            0x00800910      0x394
-                0x00800910                PROVIDE (__bss_start, .)
+.bss            0x00800930      0x394
+                0x00800930                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800910       0xea C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
-                0x00800910                gbInstructionPacket
-                0x008009b0                gbStatusPacket
-                0x008009f6                gbRxPacketLength
-                0x008009f7                gbRxGetLength
-                0x008009f8                giBusUsing
- .bss           0x008009fa      0x102 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
-                0x008009fa                gbDxlBuffer
-                0x00800afa                gbDxlBufferHead
-                0x00800afb                gbDxlBufferTail
- .bss           0x00800afc       0x84 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
-                0x00800afc                gbSerialBuffer
-                0x00800b7c                gbSerialBufferHead
-                0x00800b7d                gbSerialBufferTail
- .bss           0x00800b80        0x2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(strtok.o)
+ .bss           0x00800930       0xea C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+                0x00800930                gbInstructionPacket
+                0x008009d0                gbStatusPacket
+                0x00800a16                gbRxPacketLength
+                0x00800a17                gbRxGetLength
+                0x00800a18                giBusUsing
+ .bss           0x00800a1a      0x102 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+                0x00800a1a                gbDxlBuffer
+                0x00800b1a                gbDxlBufferHead
+                0x00800b1b                gbDxlBufferTail
+ .bss           0x00800b1c       0x84 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+                0x00800b1c                gbSerialBuffer
+                0x00800b9c                gbSerialBufferHead
+                0x00800b9d                gbSerialBufferTail
+ .bss           0x00800ba0        0x2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(strtok.o)
  *(.bss*)
  .bss.readBuffer
-                0x00800b82       0x50 SerialManager.o
-                0x00800b82                readBuffer
- .bss.buffCnt   0x00800bd2        0x2 SerialManager.o
-                0x00800bd2                buffCnt
- .bss.isRead    0x00800bd4        0x2 SerialManager.o
-                0x00800bd4                isRead
+                0x00800ba2       0x50 SerialManager.o
+                0x00800ba2                readBuffer
+ .bss.buffCnt   0x00800bf2        0x2 SerialManager.o
+                0x00800bf2                buffCnt
+ .bss.isRead    0x00800bf4        0x2 SerialManager.o
+                0x00800bf4                isRead
  .bss.iPreWalkFlag
-                0x00800bd6        0x2 GccApplication1.o
-                0x00800bd6                iPreWalkFlag
+                0x00800bf6        0x2 GccApplication1.o
+                0x00800bf6                iPreWalkFlag
  .bss.watchDogCnt
-                0x00800bd8        0x4 GccApplication1.o
-                0x00800bd8                watchDogCnt
+                0x00800bf8        0x4 GccApplication1.o
+                0x00800bf8                watchDogCnt
  .bss.nextMotionTimes
-                0x00800bdc        0x2 GccApplication1.o
-                0x00800bdc                nextMotionTimes
+                0x00800bfc        0x2 GccApplication1.o
+                0x00800bfc                nextMotionTimes
  .bss.nextMotionNumber
-                0x00800bde        0x2 GccApplication1.o
-                0x00800bde                nextMotionNumber
+                0x00800bfe        0x2 GccApplication1.o
+                0x00800bfe                nextMotionNumber
  .bss.movingTime
-                0x00800be0        0x2 GccApplication1.o
-                0x00800be0                movingTime
+                0x00800c00        0x2 GccApplication1.o
+                0x00800c00                movingTime
  .bss.motionTime
-                0x00800be2        0x2 GccApplication1.o
-                0x00800be2                motionTime
+                0x00800c02        0x2 GccApplication1.o
+                0x00800c02                motionTime
  .bss.motionTimes
-                0x00800be4        0x2 GccApplication1.o
-                0x00800be4                motionTimes
+                0x00800c04        0x2 GccApplication1.o
+                0x00800c04                motionTimes
  .bss.motionNumber
-                0x00800be6        0x2 GccApplication1.o
-                0x00800be6                motionNumber
+                0x00800c06        0x2 GccApplication1.o
+                0x00800c06                motionNumber
  .bss.modeCounter
-                0x00800be8        0x2 GccApplication1.o
-                0x00800be8                modeCounter
- .bss.modeWait  0x00800bea        0x2 GccApplication1.o
-                0x00800bea                modeWait
+                0x00800c08        0x2 GccApplication1.o
+                0x00800c08                modeCounter
+ .bss.modeWait  0x00800c0a        0x2 GccApplication1.o
+                0x00800c0a                modeWait
  .bss.SwitchSts
-                0x00800bec        0x2 GccApplication1.o
-                0x00800bec                SwitchSts
- .bss.mMode     0x00800bee        0x2 GccApplication1.o
-                0x00800bee                mMode
- .bss.serCmd    0x00800bf0       0xa0 GccApplication1.o
-                0x00800bf0                serCmd
+                0x00800c0c        0x2 GccApplication1.o
+                0x00800c0c                SwitchSts
+ .bss.mMode     0x00800c0e        0x2 GccApplication1.o
+                0x00800c0e                mMode
+ .bss.serCmd    0x00800c10       0xa0 GccApplication1.o
+                0x00800c10                serCmd
  *(COMMON)
- COMMON         0x00800c90        0xa C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
-                0x00800c90                gwReturnDelayCountNum
-                0x00800c92                gfByteTransTime_us
-                0x00800c96                gwTimeoutCountNum
-                0x00800c98                gwCountNum
- COMMON         0x00800c9a        0x6 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(iob.o)
-                0x00800c9a                __iob
- COMMON         0x00800ca0        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(malloc.o)
-                0x00800ca0                __brkval
-                0x00800ca2                __flp
-                0x00800ca4                PROVIDE (__bss_end, .)
+ COMMON         0x00800cb0        0xa C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+                0x00800cb0                gwReturnDelayCountNum
+                0x00800cb2                gfByteTransTime_us
+                0x00800cb6                gwTimeoutCountNum
+                0x00800cb8                gwCountNum
+ COMMON         0x00800cba        0x6 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(iob.o)
+                0x00800cba                __iob
+ COMMON         0x00800cc0        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(malloc.o)
+                0x00800cc0                __brkval
+                0x00800cc2                __flp
+                0x00800cc4                PROVIDE (__bss_end, .)
                 0x00002abc                __data_load_start = LOADADDR (.data)
-                0x000031cc                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000031ec                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800ca4        0x0
-                0x00800ca4                PROVIDE (__noinit_start, .)
+.noinit         0x00800cc4        0x0
+                0x00800cc4                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800ca4                PROVIDE (__noinit_end, .)
-                0x00800ca4                _end = .
-                0x00800ca4                PROVIDE (__heap_start, .)
+                0x00800cc4                PROVIDE (__noinit_end, .)
+                0x00800cc4                _end = .
+                0x00800cc4                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -978,18 +984,18 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x168
+.debug_aranges  0x00000000      0x178
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x38 SerialManager.o
  .debug_aranges
-                0x00000038       0xd0 GccApplication1.o
+                0x00000038       0xe0 GccApplication1.o
  .debug_aranges
-                0x00000108       0x20 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+                0x00000118       0x20 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
  .debug_aranges
-                0x00000128       0x20 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+                0x00000138       0x20 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
  .debug_aranges
-                0x00000148       0x20 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+                0x00000158       0x20 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
 
 .debug_pubnames
                 0x00000000      0x4bb
@@ -1001,58 +1007,58 @@ END GROUP
  .debug_pubnames
                 0x000003c1       0xfa C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
 
-.debug_info     0x00000000     0x26f1
+.debug_info     0x00000000     0x275c
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x2b1 SerialManager.o
- .debug_info    0x000002b1     0x1515 GccApplication1.o
- .debug_info    0x000017c6      0x5d9 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
- .debug_info    0x00001d9f      0x486 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
- .debug_info    0x00002225      0x4cc C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+ .debug_info    0x000002b1     0x1580 GccApplication1.o
+ .debug_info    0x00001831      0x5d9 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+ .debug_info    0x00001e0a      0x486 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+ .debug_info    0x00002290      0x4cc C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
 
-.debug_abbrev   0x00000000      0xaec
+.debug_abbrev   0x00000000      0xae3
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x1d2 SerialManager.o
- .debug_abbrev  0x000001d2      0x359 GccApplication1.o
- .debug_abbrev  0x0000052b      0x21d C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
- .debug_abbrev  0x00000748      0x173 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
- .debug_abbrev  0x000008bb      0x231 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+ .debug_abbrev  0x000001d2      0x350 GccApplication1.o
+ .debug_abbrev  0x00000522      0x21d C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+ .debug_abbrev  0x0000073f      0x173 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+ .debug_abbrev  0x000008b2      0x231 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
 
-.debug_line     0x00000000     0x1841
+.debug_line     0x00000000     0x1897
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x1bc SerialManager.o
- .debug_line    0x000001bc      0xa84 GccApplication1.o
- .debug_line    0x00000c40      0x533 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
- .debug_line    0x00001173      0x38e C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
- .debug_line    0x00001501      0x340 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+ .debug_line    0x000001bc      0xada GccApplication1.o
+ .debug_line    0x00000c96      0x533 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+ .debug_line    0x000011c9      0x38e C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+ .debug_line    0x00001557      0x340 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
 
-.debug_frame    0x00000000      0x6d8
+.debug_frame    0x00000000      0x708
  *(.debug_frame)
  .debug_frame   0x00000000       0x54 SerialManager.o
- .debug_frame   0x00000054      0x3c4 GccApplication1.o
- .debug_frame   0x00000418      0x160 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
- .debug_frame   0x00000578       0xc0 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
- .debug_frame   0x00000638       0xa0 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+ .debug_frame   0x00000054      0x3f4 GccApplication1.o
+ .debug_frame   0x00000448      0x160 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+ .debug_frame   0x000005a8       0xc0 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+ .debug_frame   0x00000668       0xa0 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
 
-.debug_str      0x00000000      0xb14
+.debug_str      0x00000000      0xb2a
  *(.debug_str)
  .debug_str     0x00000000      0x1f1 SerialManager.o
                                 0x22a (size before relaxing)
- .debug_str     0x000001f1      0x510 GccApplication1.o
-                                0x6ae (size before relaxing)
- .debug_str     0x00000701      0x18b C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+ .debug_str     0x000001f1      0x52f GccApplication1.o
+                                0x6cd (size before relaxing)
+ .debug_str     0x00000720      0x18b C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
                                 0x2c2 (size before relaxing)
- .debug_str     0x0000088c      0x1a0 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+ .debug_str     0x000008ab      0x197 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
                                 0x29d (size before relaxing)
- .debug_str     0x00000a2c       0xe8 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+ .debug_str     0x00000a42       0xe8 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
                                 0x1c6 (size before relaxing)
 
-.debug_loc      0x00000000     0x159d
+.debug_loc      0x00000000     0x15fe
  *(.debug_loc)
  .debug_loc     0x00000000       0xc5 SerialManager.o
- .debug_loc     0x000000c5      0xcfd GccApplication1.o
- .debug_loc     0x00000dc2      0x358 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
- .debug_loc     0x0000111a      0x29e C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
- .debug_loc     0x000013b8      0x1e5 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+ .debug_loc     0x000000c5      0xd5e GccApplication1.o
+ .debug_loc     0x00000e23      0x358 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+ .debug_loc     0x0000117b      0x29e C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+ .debug_loc     0x00001419      0x1e5 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1072,10 +1078,10 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x100
+.debug_ranges   0x00000000       0xf8
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x28 SerialManager.o
- .debug_ranges  0x00000028       0xd8 GccApplication1.o
+ .debug_ranges  0x00000028       0xd0 GccApplication1.o
 
 .debug_macro
  *(.debug_macro)

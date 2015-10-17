@@ -188,6 +188,8 @@ void forceMotion( int motion, int times );
 void stopMotion(void);
 void move(void);
 void setModeAction();
+void sensorInit(void);
+void sensorTest(void);
 
 //Mode
 int mMode = MODE_0;
@@ -243,6 +245,8 @@ int main(void){
 	initSerial();
 	char * readData = NULL;	
 	int isFinish = 0;
+
+sensorInit();
 	
 	while(1){
 		setMode();
@@ -335,6 +339,27 @@ int main(void){
 		_delay_ms(MAIN_DELAY);
 		watchDogCnt++;
 	}
+}
+
+void sensorInit(void){
+printf( "### sensorInit\n");
+	dxl_initialize( 0, DEFAULT_BAUDNUM ); // Not using device index
+	sei();	// Interrupt Enable
+
+	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1); // ADC Enable, Clock 1/64div.
+//	ADMUX = ADC_PORT_1; // ADC Port 1 Select
+	ADMUX = 1; // ADC Port 1 Select
+}
+
+void sensorTest(void){
+	PORTA &= ~0x80; // ADC Port 1 IR ON
+//	_delay_us(12); // Short Delay for rising sensor signal
+	ADCSRA |= (1 << ADIF); // AD-Conversion Interrupt Flag Clear
+	ADCSRA |= (1 << ADSC); // AD-Conversion Start
+	while( !(ADCSRA & (1 << ADIF)) ); // Wait until AD-Conversion complete
+	PORTA = 0xFC; // IR-LED Off
+	printf( "### sensorTest() ADC :%d\r\n", ADC); // Print Value on USART
+//	_delay_ms(50);
 }
 
 void motionEdit(){
@@ -461,7 +486,7 @@ void getAngle(){
 		tmp[i] = dxl_read_word( servoId[i], P_PRESENT_POSITION_L );
 	}
 	
-	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
+	printf( "getAngle() %d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
 	        EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
 }
 
@@ -478,7 +503,7 @@ void getLoad(void){
 		tmp[i] = dxl_read_word( servoId[i], P_PRESENT_LOAD_L );
 	}
 	
-	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
+	printf( "getLoad() %d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
 	EVT_GET_LOAD, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
 }
 
@@ -488,7 +513,7 @@ void getVoltage(void){
 		tmp[i] = dxl_get_lowbyte(dxl_read_word( servoId[i], P_PRESENT_VOLTAGE ));
 	}
 	
-	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
+	printf( "getVoltage() %d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
 	EVT_GET_VOLTAGE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
 }
 
@@ -542,6 +567,10 @@ void stopMotion(void){
 void move(void){
 	if( motionTimes > 0 && isMoving() == 0 ){
 		int *motion = motionList[motionNumber];
+        sensorTest();
+//		getAngle();
+//		getLoad();
+//		getVoltage();
 		printf("### move() motionNumber = %d\n", motionNumber);
 		printf("### move() motionCount = %d\n", motionCount);
 		int max = motion[0];
@@ -610,7 +639,7 @@ void setSpeedTest( int act ){
 }
 
 void ServoControl( int act ){
-	printf( "### ServoControl() act:%d\n", act );
+//	printf( "###### ServoControl() START act:%d\n #######\n", act );
 	int i;
 	int CommStatus = 0;
 	if( act >= ACT_MAX ){
@@ -625,19 +654,20 @@ void ServoControl( int act ){
 	for(int i=0; i<SERVO_MAX; i++ ){
 //		if( motionFirst < 0 ){
 			angle = dxl_read_word( servoId[i], P_PRESENT_POSITION_L );
+//printf( "### ServoControl() servoId[%d]:%d\n", i, servoId[i] );
 //		}else{
 //			angle = angleList[motionFirst][i];
 //		}
-printf( "### ServoControl() angle:%d\n", angle );
+//printf( "### ServoControl() angle:%d\n", angle );
 		angleDiff[i] = angleList[act][i] - angle;
-printf( "### ServoControl() angleDiff[%d]:%d\n", i, angleDiff[i]);
+//printf( "### ServoControl() angleDiff[%d]:%d\n", i, angleDiff[i]);
 		if( angleDiff[i] < 0 ){
 			angleDiff[i] = angleDiff[i] * -1;
 		}
 		if( diffMax < angleDiff[i] ){
 			diffMax = angleDiff[i];
 		}
-		printf( "### ServoControl() diffMax:%d\n", diffMax);
+//		printf( "### ServoControl() diffMax:%d\n", diffMax);
 	}
 //	motionFirst = act;
 	
