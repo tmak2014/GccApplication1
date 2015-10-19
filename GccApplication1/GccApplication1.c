@@ -111,18 +111,16 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ ANGLE_060, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_060, ANGLE_150, 100 },	//21 Walk1
 
 	
-	{ ANGLE_090, ANGLE_210, ANGLE_240, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_030, ANGLE_090, 100 },	//22 Walk2
-	{ ANGLE_090, ANGLE_210, ANGLE_270, ANGLE_150, ANGLE_210, ANGLE_150, ANGLE_030, ANGLE_090, 100 },	//23 Walk2
+	{ ANGLE_060, ANGLE_120, ANGLE_270, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_030, ANGLE_090, 100 },	//22 Walk2
+	{ ANGLE_060, ANGLE_120, ANGLE_270, ANGLE_150, ANGLE_210, ANGLE_150, ANGLE_030, ANGLE_090, 100 },	//23 Walk2
 	{ ANGLE_060, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_060, ANGLE_150, 100 },	//24 Walk2
 	
-	{ ANGLE_060, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_060, ANGLE_150, 100 },	//29 Walk2
-
-	{ ANGLE_060, ANGLE_150, ANGLE_210, ANGLE_090, ANGLE_270, ANGLE_210, ANGLE_060, ANGLE_150, 100 },	//29 Walk2
-	{ ANGLE_060, ANGLE_150, ANGLE_210, ANGLE_090, ANGLE_270, ANGLE_210, ANGLE_060, ANGLE_150, 100 },	//29 Walk2
-	{ ANGLE_030, ANGLE_150, ANGLE_210, ANGLE_090, ANGLE_270, ANGLE_210, ANGLE_090, ANGLE_150, 100 },	//29 Walk2
+	{ ANGLE_060, ANGLE_150, ANGLE_240, ANGLE_180, ANGLE_270, ANGLE_210, ANGLE_060, ANGLE_150, 100 },	//29 Walk2
+	{ ANGLE_060, ANGLE_150, ANGLE_240, ANGLE_180, ANGLE_270, ANGLE_210, ANGLE_060, ANGLE_150, 100 },	//29 Walk2
+	{ ANGLE_030, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_270, ANGLE_210, ANGLE_090, ANGLE_150, 100 },	//29 Walk2
 
 	{ ANGLE_060, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_060, ANGLE_150, 100 },	//29 Walk2
-	
+	{ ANGLE_060, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_060, ANGLE_150, 100 },	//29 Walk2
 	
 	{ ANGLE_060, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_060, ANGLE_150, 100 },	//30 Turn Left
 	{ ANGLE_060, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_240, ANGLE_150, ANGLE_060, ANGLE_150, 100 },	//31 Turn Left
@@ -275,13 +273,13 @@ enum EventType {
 
 int main(void){
 	
-//	//Start Switch
-//	DDRA  = 0x00;
-//	PORTA = 0x12;
+	//Start Switch
+	DDRA  = 0x00;
+	PORTA = 0x12;
 	
 	//Start PORT A for switch and IR sensors
-	DDRA  = 0xFC;
-	PORTA = 0xFE;
+//	DDRA  = 0xFC;
+//	PORTA = 0xFE;
 	
 	//LED Initial
 	DDRC  = 0x7F;
@@ -294,10 +292,9 @@ int main(void){
 	char * readData = NULL;	
 	int isFinish = 0;
 
-    sensorInit();
-	
+//    sensorInit();
 	while(1){
-        sensorTest();
+//        sensorTest();
 
 		setMode();
 		
@@ -368,15 +365,15 @@ int main(void){
 		}
 		memset( &serCmd[0], 0x00, sizeof(int) * SERIAL_BUFFER_SIZE );
 		
+		
+		
 		if (~PINA & SW_START ) {
-//			printf( "PINA is OFF\n");
 			if( iStart > 0 ){
 				iStart = 0;
 				PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_MANAGE|LED_PROGRAM|LED_PLAY;
 				ServoControl( 0 );
 			}
 		}else{
-//			printf( "PINA is ON\n");
 			if( iStart == 0 ){
 				PORTC &= ~LED_PLAY;
 				iStart = 1;
@@ -641,7 +638,7 @@ void stopMotion(void){
 void move(void){
 	if( motionTimes > 0 && isMoving() == 0 ){
 		int *motion = motionList[motionNumber];
-        printf("### motionNumber = %d\n", motionNumber);
+        printf("### motionNumber = %d, motion = %d\n", motionNumber, *motion);
 		int max = motion[0];
 		if( motionCount > max ){
         printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
