@@ -1006,13 +1006,13 @@ END GROUP
  .debug_pubnames
                 0x000003c1       0xfa C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
 
-.debug_info     0x00000000     0x2840
+.debug_info     0x00000000     0x284a
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x2b1 SerialManager.o
- .debug_info    0x000002b1     0x1664 GccApplication1.o
- .debug_info    0x00001915      0x5d9 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
- .debug_info    0x00001eee      0x486 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
- .debug_info    0x00002374      0x4cc C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+ .debug_info    0x000002b1     0x166e GccApplication1.o
+ .debug_info    0x0000191f      0x5d9 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+ .debug_info    0x00001ef8      0x486 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+ .debug_info    0x0000237e      0x4cc C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
 
 .debug_abbrev   0x00000000      0xaf8
  *(.debug_abbrev)
