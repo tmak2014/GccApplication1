@@ -103,7 +103,7 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
    // RF1    RF2    LF1    LF2    RR1    RR2    LR1    LR2    Speed
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//0 Default
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//1 Pre Walk
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//2
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//2 Pre Walk
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//3
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//4
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//5
@@ -117,10 +117,10 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//13 Step
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//14 Step
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//15 Step
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//16 Walk1
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//17 Walk1
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//18 Walk1
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//19 Walk1
+	{ ANGLE_4, ANGLE_7, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_3, ANGLE_5, 100 },	//16 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_0, ANGLE_3, 100 },	//17 Walk1_1
+	{ ANGLE_2, ANGLE_5, ANGLE_6, ANGLE_3, ANGLE_7, ANGLE_5, ANGLE_1, ANGLE_5, 100 },	//18 Walk1_1
+	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_10, ANGLE_7, ANGLE_2, ANGLE_5, 100 },	//19 Walk1_1
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//20 Walk1
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//21 Walk1
 
@@ -133,41 +133,42 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//28 Walk2
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//29 Walk2
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//28 Walk2
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//29 Walk2
 
 /* Turn Left */
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//30 Turn Left
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//31 Turn Left
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//32 Turn Left
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//33 Turn Left
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//34 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, SPEED_SLOW },	//29 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, SPEED_SLOW },	//30 Turn Left
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//31 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, SPEED_SLOW},	//32 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, SPEED_SLOW },	//33 Turn Left
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//34 Turn Left
 
 /* Turn Right */
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//35 Trun Right
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//36 Trun Right
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//37 Trun Right
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//38 Trun Right
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//39 Trun Right
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//35 Turn Right
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//36 Turn Right
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//37 Turn Right
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//38 Turn Right
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//39 Turn Right
 
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//40
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//41
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//42
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//43
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//44
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//45
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//46
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//47
+	{ ANGLE_4, ANGLE_7, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_0, ANGLE_3, 100 },	//40 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//41 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_0, ANGLE_3, 100 },	//42 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 100 },	//43 Walk1_1
+	{ ANGLE_2, ANGLE_5, ANGLE_6, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_4, 100 },	//44 Walk1_1
+	{ ANGLE_2, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_1, ANGLE_5, 100 },	//45 Walk1_1
+	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_10, ANGLE_7, ANGLE_2, ANGLE_5, 100 },	//46 Walk1_1
+	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 100 },	//47 Walk1_1
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//48
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//49
 };
 
 int motion0[] =	{1, 0 };  //Default
-int motion1[] =	{1, 1 };  //Pre Walk
-int motion2[] =	{6, 16, 17, 18, 19, 20, 21 };  //Walk1
+int motion1[] =	{1, 2 };  //Pre Walk
+//int motion2[] =	{6, 16, 17, 18, 19, 20, 21 };  //Walk1
+int motion2[] =	{8, 40, 41, 42, 43, 44, 45, 46, 47};  //Walk1
 //int motion3[] =	{8, 22, 23, 24, 25, 26, 27, 28, 29 };  //Walk2
 int motion3[] =	{4, 22, 23, 24, 25};  //Walk2
-int motion4[] =	{5, 30, 31, 32, 33, 34 };      //Turn Left
-int motion5[] =	{5, 35, 36, 37, 38, 39 };      //Trun Right
+int motion4[] =	{6, 29, 30, 31, 32, 33, 34 };      //Turn Left
+int motion5[] =	{5, 35, 36, 37, 38, 39 };      //Turn Right
 int motion6[] =	{6, 10, 11, 12, 13, 14, 15 };  //Step
 int *motionList[] = { &motion0[0], &motion1[0], &motion2[0], &motion3[0], &motion4[0], &motion5[0], &motion6[0] };
 enum ActType {
@@ -192,12 +193,13 @@ int mode1act[11][2] = {
      {    3,  10 },  //Walk2
      {    5,  4 },  //Turn Right
      {    3,  10 },  //Walk2
-     {    5,  4 },  //Trun Right
+     {    5,  4 },  //Turn Right
      {    3,  10 },  //Walk2
      {    0,  1 },  //Default
 };
 */
 
+/*
 int mode1act[11][2] = {
 	 { 1000, 10 },  //Start Wait, Total Num
      {    0,  1 },  //Default
@@ -211,6 +213,41 @@ int mode1act[11][2] = {
      {    3,  10 },  //Walk2
      {    0,  1 },  //Default
 };
+*/
+
+int mode1act[11][2] = {
+	 { 1000, 10 },  //Start Wait, Total Num
+     {    0,  1 },  //Default
+     {    4,  10 },  //Turn Left
+     {    4,  10 },  //Turn Left
+     {    4,  10 },  //Turn Left
+     {    4,  10 },  //Turn Left
+     {    4,  10 },  //Turn Left
+     {    4,  10 },  //Turn Left
+     {    4,  10 },  //Turn Left
+     {    4,  10 },  //Turn Left
+     {    0,  1 },  //Default
+};
+
+
+/*
+int mode1act[11][2] = {
+	 { 1000, 10 },  //Start Wait, Total Num
+     {    1,  1 },  //Pre Walk
+     {    2,  10 },  //Walk1
+     {    2,  10 },  //Walk1
+     {    2,  10 },  //Walk2
+     {    2,  10 },  //Walk1
+     {    2,  10 },  //Walk1
+     {    2,  10 },  //Walk1
+     {    2,  10 },  //Walk1
+     {    2,  10 },  //Walk1
+     {    1,  1 },  //Pre Walk
+};
+*/
+
+
+
 
 /*
 int minmaxList[2][SERVO_MAX] = {
@@ -274,6 +311,10 @@ int iStart = 1;
 long watchDogCnt = 0;
 int iPreWalkFlag = 0;
 
+//Sensor
+int sensorValue = 0;
+int sensorCounter = 0;
+
 //Event
 enum EventType {
 	EVT_ACTION          = 0,
@@ -294,12 +335,12 @@ enum EventType {
 int main(void){
 	
 	//Start Switch
-	DDRA  = 0x00;
-	PORTA = 0x12;
+//	DDRA  = 0x00;
+//	PORTA = 0x12;
 	
 	//Start PORT A for switch and IR sensors
-//	DDRA  = 0xFC;
-//	PORTA = 0xFE;
+	DDRA  = 0xFC;
+	PORTA = 0xFE;
 	
 	//LED Initial
 	DDRC  = 0x7F;
@@ -312,9 +353,9 @@ int main(void){
 	char * readData = NULL;	
 	int isFinish = 0;
 
-//    sensorInit();
+    sensorInit();
 	while(1){
-//        sensorTest();
+        sensorTest();
 
 		setMode();
 		
@@ -436,7 +477,7 @@ void sensorTest(void){
 //	PORTA &= ~0x08;			// ADC Port 5 IR ON
 //	PORTA &= ~0x04;			// ADC Port 6 IR ON
 
-	_delay_us(12); // Short Delay for rising sensor signal
+//	_delay_us(12); // Short Delay for rising sensor signal
 	ADCSRA |= (1 << ADIF); // AD-Conversion Interrupt Flag Clear
 	ADCSRA |= (1 << ADSC); // AD-Conversion Start
 
@@ -444,9 +485,9 @@ void sensorTest(void){
 
 	PORTA = 0xFE; // IR-LED Off
 
-//	printf( "### sensorTest() ADC :%d\r\n", ADC); // Print Value on USART
+	printf( "### sensorTest() ADC :%d\r\n", ADC); // Print Value on USART
 
-	_delay_ms(50);
+//	_delay_ms(50);
 }
 
 void motionEdit(){
@@ -655,6 +696,17 @@ void stopMotion(void){
 
 void move(void){
 	if( motionTimes > 0 && isMoving() == 0 ){
+		
+			if (ADC >= 100 && sensorValue == 0) {
+				motionNumber = ACT_WALK1;
+				motionTimes = 1;
+				sensorValue = 1;
+			} else if (ADC < 100 && sensorValue == 1) {
+				motionNumber = ACT_TURN_LEFT;
+				motionTimes = 1;
+				sensorValue = 0;
+			}
+		
 		int *motion = motionList[motionNumber];
         printf("### motionNumber = %d, motion = %d\n", motionNumber, *motion);
 		int max = motion[0];
@@ -662,6 +714,7 @@ void move(void){
         printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
 //			printf("#%d,%d,%d,%d,%d,%d;\n", diffmaxTest[0],diffmaxTest[1],diffmaxTest[2],diffmaxTest[3],diffmaxTest[4],diffmaxTest[5] );
 			motionCount = 1;
+			/*
 			if( motionTimes < 99 && --motionTimes <= 0 ){
 				if( nextMotionTimes > 0 ){
 					if( (nextMotionNumber == ACT_WALK1 || nextMotionNumber == ACT_WALK2) &&
@@ -683,6 +736,7 @@ void move(void){
 				}
 				return;
 			}
+			*/
 		}
 		printf("### motionCount:%d\n", motionCount);
 		ServoControl( motion[motionCount] );
