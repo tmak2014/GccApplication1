@@ -71,35 +71,36 @@
 
 int serCmd[SERIAL_BUFFER_SIZE] = {0};
                          //RF1 RF2 LF1 LF2 RR1 RR2 LR1 LR2
-int servoId[SERVO_MAX] = { 19,  4, 14, 17,  5,  7,  16,  6 };
+int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6 };
 
-#define 	ANGLE_0 0
-#define 	ANGLE_0_5 51
-#define 	ANGLE_1 102
-#define 	ANGLE_1_5 153
-#define 	ANGLE_2 205
-#define 	ANGLE_2_5 256
-#define 	ANGLE_3 307
-#define 	ANGLE_3_5 358
-#define 	ANGLE_4 410
-#define 	ANGLE_4_5 461
-#define 	ANGLE_5 512
-#define 	ANGLE_5_5 563
-#define 	ANGLE_6 614
-#define 	ANGLE_6_5 665
-#define 	ANGLE_7 716
-#define 	ANGLE_7_5 767
-#define 	ANGLE_8 818
-#define 	ANGLE_8_5 869
-#define 	ANGLE_9 920
-#define 	ANGLE_9_5 971
-#define 	ANGLE_10 1023
-#define 	SPEED_SLOW 50
-#define 	SPEED_MIDDLE 100
-#define 	SPEED_HIGH 300
+#define 	ANGLE_0    0
+#define 	ANGLE_0_5  51
+#define 	ANGLE_1    102
+#define 	ANGLE_1_5  153
+#define 	ANGLE_2    205
+#define 	ANGLE_2_5  256
+#define 	ANGLE_3    307
+#define 	ANGLE_3_5  358
+#define 	ANGLE_4    410
+#define 	ANGLE_4_5  461
+#define 	ANGLE_5    512
+#define 	ANGLE_5_5  563
+#define 	ANGLE_6    614
+#define 	ANGLE_6_5  665
+#define 	ANGLE_7    716
+#define 	ANGLE_7_5  767
+#define 	ANGLE_8    818
+#define 	ANGLE_8_5  869
+#define 	ANGLE_9    920
+#define 	ANGLE_9_5  971
+#define 	ANGLE_10   1023
+
+#define 	SPEED_SLOW     50
+#define 	SPEED_MIDDLE   100
+#define 	SPEED_HIGH     300
 
 int angleList[ACT_MAX][SERVO_MAX + 1] = {
-	//RF1        RF2        LF1        LF2        RR1        RR2        LR1        LR2        Speed
+   // RF1    RF2    LF1    LF2    RR1    RR2    LR1    LR2    Speed
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//0 Default
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//1 Pre Walk
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//2
@@ -123,27 +124,31 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//20 Walk1
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//21 Walk1
 
-	
-	{ ANGLE_0_5, ANGLE_3, ANGLE_8_5, ANGLE_7_5, ANGLE_9+5, ANGLE_7, ANGLE_1, ANGLE_2_5, SPEED_HIGH },	//22 Walk2
-	{ ANGLE_0_5, ANGLE_2_5, ANGLE_8_5, ANGLE_7, ANGLE_8_5+5, ANGLE_7, ANGLE_0_5, ANGLE_2_5, SPEED_HIGH },	//23 Walk2
-	{ ANGLE_1_5, ANGLE_2_5, ANGLE_9_5, ANGLE_7, ANGLE_8_5+5, ANGLE_7_5, ANGLE_0_5, ANGLE_3, SPEED_HIGH },	//24 Walk2
-	{ ANGLE_1_5, ANGLE_3, ANGLE_9_5, ANGLE_7_5, ANGLE_9+5, ANGLE_7_5, ANGLE_1, ANGLE_3, SPEED_HIGH },	//25 Walk2
-		
-	{ ANGLE_1, ANGLE_3, ANGLE_7, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, SPEED_SLOW },	//26 Walk2
-	{ ANGLE_3, ANGLE_4, ANGLE_9, ANGLE_6, ANGLE_9, ANGLE_6, ANGLE_3, ANGLE_4, SPEED_SLOW },	//27 Walk2
+/* Walk2 */
+	{ ANGLE_0_5, ANGLE_3, ANGLE_8_5, ANGLE_7_5, ANGLE_9_5, ANGLE_7, ANGLE_1, ANGLE_2_5, SPEED_MIDDLE },	//22 Walk2
+	{ ANGLE_0_5, ANGLE_2_5, ANGLE_8_5, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0_5, ANGLE_2_5, SPEED_MIDDLE },	//23 Walk2
+	{ ANGLE_1_5, ANGLE_2_5, ANGLE_9_5, ANGLE_7, ANGLE_9, ANGLE_7_5, ANGLE_0_5, ANGLE_3, SPEED_MIDDLE },	//24 Walk2
+	{ ANGLE_1_5, ANGLE_3, ANGLE_9_5, ANGLE_7_5, ANGLE_9_5, ANGLE_7_5, ANGLE_1, ANGLE_3, SPEED_MIDDLE },	//25 Walk2
 
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//28 Walk2
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//29 Walk2
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//29 
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//28 Walk2
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//29 Walk2
+
+/* Turn Left */
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//30 Turn Left
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//31 Turn Left
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//32 Turn Left
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//33 Turn Left
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//34 Turn Left
+
+/* Turn Right */
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//35 Trun Right
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//36 Trun Right
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//37 Trun Right
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//38 Trun Right
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//39 Trun Right
+
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//40
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//41
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//42
@@ -207,21 +212,23 @@ int mode1act[11][2] = {
      {    0,  1 },  //Default
 };
 
-//int minmaxList[2][SERVO_MAX] = {
-//	// L1,  L2,  L3,  L4,  L5,  L6,  R1,  R2,  R3,  R4,  R5,  R6
-//	{ 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512 },	//min
-//	{ 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512 },	//max
-//};
+/*
+int minmaxList[2][SERVO_MAX] = {
+	// L1,  L2,  L3,  L4,  L5,  L6,  R1,  R2,  R3,  R4,  R5,  R6
+	{ 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512 },	//min
+	{ 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512 },	//max
+};
 
-//int speedList[ACT_TYPE_MAX][SERVO_MAX] = {
-//	// L1,  L2,  L3,  L4,  L5,  L6,  R1,  R2,  R3,  R4,  R5,  R6
-//	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//0
-//	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//1
-//	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//2
-//	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//3
-//	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//4
-//	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//5
-//};
+int speedList[ACT_TYPE_MAX][SERVO_MAX] = {
+	// L1,  L2,  L3,  L4,  L5,  L6,  R1,  R2,  R3,  R4,  R5,  R6
+	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//0
+	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//1
+	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//2
+	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//3
+	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//4
+	{ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 },	//5
+};
+*/
 
 void setAngle(void);
 void getAngle(void);
@@ -314,7 +321,7 @@ int main(void){
 		if( checkSerialRead() > 0 ){
 			readData = getReadBuffer();
 			if( readData != NULL ){
-				printf( "readData=%s\n", &readData[0] );
+//				printf( "readData=%s\n", &readData[0] );
 				split( &readData[0] );
 				switch( serCmd[0] ){
 				case EVT_ACTION:
@@ -377,8 +384,6 @@ int main(void){
 			}
 		}
 		memset( &serCmd[0], 0x00, sizeof(int) * SERIAL_BUFFER_SIZE );
-		
-		
 		
 		if (~PINA & SW_START ) {
 			if( iStart > 0 ){
