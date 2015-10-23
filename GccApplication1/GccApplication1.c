@@ -11,7 +11,7 @@
 #include "SerialManager.h"
 #include "dynamixel.h"
 
-#define MAIN_DELAY 10
+#define MAIN_DELAY 1000
 
 //LED
 #define LED_BAT 0x01
@@ -288,7 +288,7 @@ void stopMotion(void);
 void move(void);
 void setModeAction();
 void sensorInit(void);
-void sensorTest(void);
+void sensorTest(int);
 
 //Mode
 int mMode = MODE_0;
@@ -312,8 +312,11 @@ long watchDogCnt = 0;
 int iPreWalkFlag = 0;
 
 //Sensor
-int sensorValue = 0;
-int sensorCounter = 0;
+int sensorValue[3] = {0};
+int sensorValueOld[3] = {0};
+int sensorValueArray[3][5];
+int walkCounter = 0;
+
 
 //Event
 enum EventType {
@@ -355,7 +358,9 @@ int main(void){
 
     sensorInit();
 	while(1){
-        sensorTest();
+        sensorTest(0);
+        sensorTest(1);
+        sensorTest(2);
 
 		setMode();
 		
@@ -444,6 +449,33 @@ int main(void){
 				modeWait -= MAIN_DELAY;
 			}
 		}
+		if (sensorValue[0] == 0 && sensorValueOld[0] != sensorValue[0]) {
+			printf( "### main() sensorValue[0] == 0\n");
+			PORTC &= ~LED_PROGRAM;
+		}else if (sensorValueOld[0] != sensorValue[0]){
+			printf( "### main() sensorValue[0] == 1\n");
+			PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_MANAGE|LED_PLAY;
+		}
+		
+		if (sensorValue[1] == 0 && sensorValueOld[1] != sensorValue[1]) {
+			printf( "### main() sensorValue[1] == 0\n");
+			PORTC &= ~LED_MANAGE;
+		}else if (sensorValueOld[1] != sensorValue[1]){
+			printf( "### main() sensorValue[1] == 1\n");
+			PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_PROGRAM|LED_PLAY;
+		}
+
+		if (sensorValue[2] == 0 && sensorValueOld[2] != sensorValue[2]) {
+			printf( "### main() sensorValue[2] == 0\n");
+			PORTC &= ~LED_AUX;
+		}else if (sensorValueOld[2] != sensorValue[2]){
+			printf( "### main() sensorValue[2] == 1\n");
+			PORTC = LED_BAT|LED_TxD|LED_RxD|LED_MANAGE|LED_PROGRAM|LED_PLAY;
+    	}
+	    sensorValueOld[0] = sensorValue[0];
+		sensorValueOld[1] = sensorValue[1];
+		sensorValueOld[2] = sensorValue[2];
+		
 		_delay_ms(MAIN_DELAY);
 		watchDogCnt++;
 	}
@@ -462,10 +494,27 @@ printf( "### sensorInit\n");
 	ADMUX = ADC_PORT_1; // ADC Port X Select
 }
 
-void sensorTest(void){
+void sensorTest(int iNum){
+	
+	int i, irValue;
+	
+	switch(iNum) {
+	case 0:
+		ADMUX = ADC_PORT_1; // ADC Port X Select
+		PORTA &= ~0x80;
+		break;
+	case 1:
+		ADMUX = ADC_PORT_2; // ADC Port X Select
+		PORTA &= ~0x40;
+		break;
+	case 2:
+		ADMUX = ADC_PORT_3; // ADC Port X Select
+		PORTA &= ~0x20;
+		break;
+	}
 	
 //	if (ADMUX == ADC_PORT_1) {
-		PORTA &= ~0x80;
+//		PORTA &= ~0x80;
 //	} else {
 //		PORTA &= ~0x40;	
 //	}
@@ -477,7 +526,7 @@ void sensorTest(void){
 //	PORTA &= ~0x08;			// ADC Port 5 IR ON
 //	PORTA &= ~0x04;			// ADC Port 6 IR ON
 
-//	_delay_us(12); // Short Delay for rising sensor signal
+	_delay_us(12); // Short Delay for rising sensor signal
 	ADCSRA |= (1 << ADIF); // AD-Conversion Interrupt Flag Clear
 	ADCSRA |= (1 << ADSC); // AD-Conversion Start
 
@@ -485,7 +534,19 @@ void sensorTest(void){
 
 	PORTA = 0xFE; // IR-LED Off
 
-	printf( "### sensorTest() ADC :%d\r\n", ADC); // Print Value on USART
+	irValue = 0;
+	for( i=0; i<4; i++) {
+		sensorValueArray[iNum][i] = sensorValueArray[iNum][i+1];
+		irValue += sensorValueArray[iNum][i];
+	}
+	irValue += sensorValueArray[iNum][5] = ADC;
+	if ((irValue / 5) > 30) {
+		sensorValue[iNum] = 1;
+	}else{
+		sensorValue[iNum] = 0;
+	}
+	
+//	printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
 
 //	_delay_ms(50);
 }
@@ -695,22 +756,38 @@ void stopMotion(void){
 }
 
 void move(void){
-	if( motionTimes > 0 && isMoving() == 0 ){
-		
-			if (ADC >= 100 && sensorValue == 0) {
-				motionNumber = ACT_WALK1;
-				motionTimes = 1;
-				sensorValue = 1;
-			} else if (ADC < 100 && sensorValue == 1) {
-				motionNumber = ACT_TURN_LEFT;
-				motionTimes = 1;
-				sensorValue = 0;
-			}
-		
+	if( /* motionTimes > 0 && */ isMoving() == 0 ){
 		int *motion = motionList[motionNumber];
-        printf("### motionNumber = %d, motion = %d\n", motionNumber, *motion);
+//        printf("### motionNumber = %d, motion = %d\n", motionNumber, *motion);
 		int max = motion[0];
 		if( motionCount > max ){
+			if (motionNumber != ACT_WALK2) {
+		        printf("### move 1\n");
+				motionNumber = ACT_WALK2;
+			}else{
+				if (sensorValue[2] == 1) {
+    		        printf("### move 2\n");
+					motionNumber = ACT_TURN_LEFT;
+					walkCounter = 0;
+				} else if (sensorValue[0] == 1 && sensorValue[1] == 1) {
+					printf("### move 3\n");
+					motionNumber = ACT_WALK2;
+					walkCounter = 0;
+				} else if (sensorValue[0] == 1 && sensorValue[1] == 0) {
+					printf("### move 4\n");
+//					motionNumber = ACT_TURN_LEFT;
+                    walkCounter = 0;
+				} else if (sensorValue[0] == 0 && sensorValue[1] == 1) {
+					printf("### move 5\n");
+					motionNumber = ACT_TURN_RIGHT;
+					walkCounter = 0;
+				} else if (++walkCounter > 5) {
+					printf("### move 6\n");
+					motionNumber = ACT_TURN_LEFT;
+					walkCounter = 0;
+				}
+			}
+			
         printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
 //			printf("#%d,%d,%d,%d,%d,%d;\n", diffmaxTest[0],diffmaxTest[1],diffmaxTest[2],diffmaxTest[3],diffmaxTest[4],diffmaxTest[5] );
 			motionCount = 1;
