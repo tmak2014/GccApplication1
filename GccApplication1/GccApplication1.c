@@ -96,13 +96,13 @@ int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6 };
 #define 	ANGLE_10   1023
 
 #define 	SPEED_SLOW     50
-#define 	SPEED_MIDDLE   100
+#define 	SPEED_MIDDLE   200
 #define 	SPEED_HIGH     300
 
 int angleList[ACT_MAX][SERVO_MAX + 1] = {
    // RF1    RF2    LF1    LF2    RR1    RR2    LR1    LR2    Speed
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//0 Default
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//1 Pre Walk
+	{ ANGLE_1_5, ANGLE_3_5, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0_5, ANGLE_2_5, 100 },	//1 Pre Walk
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//2 Pre Walk
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//3
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//4
@@ -125,11 +125,17 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//21 Walk1
 
 /* Walk2 */
+/* ‡F
 	{ ANGLE_0_5, ANGLE_3, ANGLE_8_5, ANGLE_7_5, ANGLE_9_5, ANGLE_7, ANGLE_1, ANGLE_2_5, SPEED_MIDDLE },	//22 Walk2
 	{ ANGLE_0_5, ANGLE_2_5, ANGLE_8_5, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0_5, ANGLE_2_5, SPEED_MIDDLE },	//23 Walk2
 	{ ANGLE_1_5, ANGLE_2_5, ANGLE_9_5, ANGLE_7, ANGLE_9, ANGLE_7_5, ANGLE_0_5, ANGLE_3, SPEED_MIDDLE },	//24 Walk2
 	{ ANGLE_1_5, ANGLE_3, ANGLE_9_5, ANGLE_7_5, ANGLE_9_5, ANGLE_7_5, ANGLE_1, ANGLE_3, SPEED_MIDDLE },	//25 Walk2
-
+		*/
+// ‡I
+	{ ANGLE_0_5, ANGLE_4, ANGLE_8, ANGLE_7_5, ANGLE_9_5, ANGLE_6, ANGLE_2, ANGLE_2_5, SPEED_MIDDLE },	//22 Walk2
+	{ ANGLE_0_5, ANGLE_2_5, ANGLE_8, ANGLE_6, ANGLE_8, ANGLE_6, ANGLE_0_5, ANGLE_2_5, SPEED_MIDDLE },	//23 Walk2
+	{ ANGLE_2, ANGLE_2_5, ANGLE_9_5, ANGLE_6, ANGLE_8, ANGLE_7_5, ANGLE_0_5, ANGLE_4, SPEED_MIDDLE },	//24 Walk2
+	{ ANGLE_2, ANGLE_4, ANGLE_9_5, ANGLE_7_5, ANGLE_9_5, ANGLE_7_5, ANGLE_2, ANGLE_4, SPEED_MIDDLE },	//25 Walk2
 /*
 	{ ANGLE_0, ANGLE_2_5, ANGLE_9, ANGLE_8, ANGLE_9_5, ANGLE_7, ANGLE_1, ANGLE_2_5, SPEED_MIDDLE },	//22 Walk2
 	{ ANGLE_0, ANGLE_2, ANGLE_9, ANGLE_7_5, ANGLE_9, ANGLE_7, ANGLE_0_5, ANGLE_2_5, SPEED_MIDDLE },	//23 Walk2
@@ -170,7 +176,7 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 };
 
 int motion0[] =	{1, 0 };  //Default
-int motion1[] =	{1, 2 };  //Pre Walk
+int motion1[] =	{1, 1 };  //Pre Walk
 //int motion2[] =	{6, 16, 17, 18, 19, 20, 21 };  //Walk1
 int motion2[] =	{8, 41, 42, 43, 44, 45, 46, 47, 48};  //Walk1
 //int motion3[] =	{8, 22, 23, 24, 25, 26, 27, 28, 29 };  //Walk2
@@ -226,7 +232,7 @@ int mode1act[11][2] = {
 int mode1act[11][2] = {
 	 { 1000, 10 },  //Start Wait, Total Num
      {    0,  1 },  //Default
-     {    4,  10 },  //Turn Left
+     {    1,  1 },  //Pre Walk
      {    4,  10 },  //Turn Left
      {    4,  10 },  //Turn Left
      {    4,  10 },  //Turn Left
@@ -319,6 +325,8 @@ int iStart = 1;
 long watchDogCnt = 0;
 int iPreWalkFlag = 0;
 
+int count1 = 0;
+
 //Sensor
 int sensorValue[3] = {0};
 int sensorValueOld[3] = {0};
@@ -365,6 +373,7 @@ int main(void){
 	int isFinish = 0;
 
     sensorInit();
+	dxl_write_byte( BROADCAST_ID, P_TORQUE_ENABLE, 0 );
 	while(1){
         sensorTest(0);
         sensorTest(1);
@@ -443,7 +452,7 @@ int main(void){
 			if( iStart > 0 ){
 				iStart = 0;
 				PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_MANAGE|LED_PROGRAM|LED_PLAY;
-				ServoControl( 0 );
+//				ServoControl( 0 );
 			}
 		}else{
 			if( iStart == 0 ){
@@ -451,8 +460,8 @@ int main(void){
 				iStart = 1;
 			}
 			if( modeWait <= 0 ){
-				setModeAction();
-				move();
+//				setModeAction();
+//				move();
 			}else{
 				modeWait -= MAIN_DELAY;
 			}
@@ -486,6 +495,12 @@ int main(void){
 		
 		_delay_ms(MAIN_DELAY);
 		watchDogCnt++;
+		
+		count1++;
+		if (count1 == 25){
+			getAngle();
+			count1 = 0;
+		}
 	}
 }
 
@@ -554,7 +569,7 @@ void sensorTest(int iNum){
 		sensorValue[iNum] = 0;
 	}
 	
-//	printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
+//	if(iNum == 0)printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
 
 //	_delay_ms(50);
 }
@@ -684,9 +699,11 @@ void getAngle(){
 	for(int i=0; i<SERVO_MAX; i++ ){
 		tmp[i] = dxl_read_word( servoId[i], P_PRESENT_POSITION_L );
 	}
-	
-	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
-	        EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
+//	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
+//	        EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
+	printf( "%d:{%d, %d, %d, %d, %d, %d, %d, %d, SPEED_MIDDLE}\n",
+	EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7] );
+
 }
 
 void sendActAngle( int act ){
@@ -769,9 +786,10 @@ void move(void){
 //        printf("### motionNumber = %d, motion = %d\n", motionNumber, *motion);
 		int max = motion[0];
 		if( motionCount > max ){
-			if (motionNumber != ACT_WALK2) {
+//			if (motionNumber != ACT_WALK2) {
 		        printf("### move 1\n");
 				motionNumber = ACT_WALK2;
+				/*
 			}else{
 				if (sensorValue[2] == 1) {
     		        printf("### move 2\n");
@@ -794,7 +812,8 @@ void move(void){
 					motionNumber = ACT_TURN_LEFT;
 					walkCounter = 0;
 				}
-			}
+				*/
+//			}
 			
         printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
 //			printf("#%d,%d,%d,%d,%d,%d;\n", diffmaxTest[0],diffmaxTest[1],diffmaxTest[2],diffmaxTest[3],diffmaxTest[4],diffmaxTest[5] );
