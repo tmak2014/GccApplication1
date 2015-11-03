@@ -1,0 +1,8 @@
+シート"ResponseList"
+
+1. Port open
+※Roboplus terminalは閉じて置くこと。
+
+2. ACTIONを選択
+
+3.Send & Actionを押す。

@@ -70,8 +70,9 @@
 #define		ADC_PORT_6	6
 
 int serCmd[SERIAL_BUFFER_SIZE] = {0};
-                         //RF1 RF2 LF1 LF2 RR1 RR2 LR1 LR2
-int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6 };
+                         //RF1 RF2 LF1 LF2 RR1 RR2 LR1 LR2 Necks
+//int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6,   13,12,11,10,9,8,2  };
+int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6};
 
 #define 	ANGLE_0    0
 #define 	ANGLE_0_5  51
@@ -101,10 +102,12 @@ int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6 };
 
 int angleList[ACT_MAX][SERVO_MAX + 1] = {
    // RF1    RF2    LF1    LF2    RR1    RR2    LR1    LR2    Speed
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//0 Default
-	{ 114, 337, 920, 716, 920, 716, 78, 246, SPEED_MIDDLE },	//1 Pre Walk
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, SPEED_MIDDLE },	//2 Pre Walk
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//3
+	{ 256, 578, 753, 437, 723, 414, 301, 619,  100 },	//0 Default
+	{ 447, 647, 734, 420, 730, 414, 456, 859, SPEED_MIDDLE },	//1 Pre Walk
+	{ 37, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, SPEED_MIDDLE },	//2 Pre Walk
+		
+/* Neck */
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//3 Neck default
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//4
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//5
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//6
@@ -113,15 +116,17 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//9
 
 /* Walk2 */
-	{ 240, 323, 920, 716, 920, 716, 78, 246, SPEED_MIDDLE },	//10 Walk2
-	{ 232, 425, 920, 716, 920, 716, 78, 246, SPEED_MIDDLE },	//11 Walk2
-	{ 197, 273, 936, 768, 925, 654, 134, 399, SPEED_MIDDLE },	//12 Walk2
-	{ 197, 273, 936, 768, 925, 654, 42, 300, SPEED_MIDDLE },	//13 Walk2
-	{ 197, 273, 936, 768, 925, 654, 47, 410, SPEED_MIDDLE },	//14 Walk2
-	{ 197, 273, 909, 700, 965, 773, 47, 410, SPEED_MIDDLE },	//15 Walk2
-	{ 197, 273, 814, 698, 965, 773, 47, 410, SPEED_MIDDLE },	//16 Walk2
-	{ 107, 228, 882, 776, 886, 650, 78, 400, SPEED_MIDDLE },	//17 Walk2
-	{ 107, 228, 882, 776, 989, 757, 78, 400, SPEED_MIDDLE },	//18 Walk2
+
+	{ 313, 638, 694, 156, 596, 403, 349, 659, SPEED_MIDDLE },	//10 Walk2
+	{ 298, 613, 570, 310, 562, 159, 292, 608, SPEED_MIDDLE },	//11 Walk2
+	{ 348, 762, 683, 360, 660, 353, 432, 605, SPEED_MIDDLE },	//12 Walk2
+	{ 461, 748, 673, 338, 593, 295, 540, 858, SPEED_MIDDLE },	//13 Walk2
+	{ 306, 639, 667, 229, 625, 426, 340, 648, SPEED_MIDDLE },	//14 Walk2
+	{ 344, 663, 542, 283, 533, 163, 343, 658, SPEED_MIDDLE },	//15 Walk2
+	{ 319, 821, 727, 405, 683, 372, 384, 596, SPEED_MIDDLE },	//16 Walk2
+	{ 444, 721, 716, 395, 671, 363, 478, 837, SPEED_MIDDLE },	//17 Walk2
+		
+	{ 304, 639, 685, 273, 635, 459, 338, 674, SPEED_MIDDLE },	//18 Walk2
 	{ 107, 228, 882, 776, 982, 612, 78, 400, SPEED_MIDDLE },	//19 Walk2
 
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//20 Walk2
@@ -167,7 +172,7 @@ int motion1[] =	{1, 1 };  //Pre Walk
 //int motion2[] =	{6, 16, 17, 18, 19, 20, 21 };  //Walk1
 int motion2[] =	{8, 41, 42, 43, 44, 45, 46, 47, 48};  //Walk1
 //int motion3[] =	{8, 22, 23, 24, 25, 26, 27, 28, 29 };  //Walk2
-int motion3[] =	{10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};  //Walk2
+int motion3[] =	{8, 10, 11, 12, 13, 14, 15, 16, 17};  //Walk2
 int motion4[] =	{6, 29, 30, 31, 32, 33, 34 };      //Turn Left
 int motion5[] =	{6, 35, 36, 37, 38, 39, 40 };      //Turn Right
 int motion6[] =	{6, 10, 11, 12, 13, 14, 15 };  //Step
@@ -295,8 +300,8 @@ long watchDogCnt = 0;
 int iPreWalkFlag = 0;
 
 // Capture.
-int count1 = 0;
-int isCaptureMode = 1;
+int caputureCount1 = 0;
+int isCaptureMode = 0;
 
 //Sensor
 int sensorValue[3] = {0};
@@ -467,10 +472,10 @@ int main(void){
 		_delay_ms(MAIN_DELAY);
 		watchDogCnt++;
 		
-		count1++;
-		if (count1 == 25){
+		caputureCount1++;
+		if (caputureCount1 == 25){
 			getAngle();
-			count1 = 0;
+			caputureCount1 = 0;
 		}
 	}
 }
@@ -672,8 +677,12 @@ void getAngle(){
 	}
 //	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
 //	        EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
-	printf( "%d:{%d, %d, %d, %d, %d, %d, %d, %d, SPEED_MIDDLE}\n",
-	EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7] );
+// Legs
+	printf( "%d:{%d, %d, %d, %d, %d, %d, %d, %d}\n",
+			EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7] );
+// Necks
+//    printf( "%d:{%d, %d, %d, %d, %d, %d, %d, %d}\n",
+//			EVT_GET_NOW_ANGLE, tmp[8],tmp[9],tmp[10],tmp[11],tmp[12],tmp[13],tmp[14]);
 
 }
 
