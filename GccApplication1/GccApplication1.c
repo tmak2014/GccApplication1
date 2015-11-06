@@ -97,13 +97,14 @@ int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6};
 #define 	ANGLE_10   1023
 
 #define 	SPEED_SLOW     50
+#define 	SPEED_NORMAL   200
 #define 	SPEED_MIDDLE   200
-#define 	SPEED_HIGH     300
+#define 	SPEED_HIGH     400
 
 int angleList[ACT_MAX][SERVO_MAX + 1] = {
    // RF1    RF2    LF1    LF2    RR1    RR2    LR1    LR2    Speed
-	{ 256, 578, 753, 437, 723, 414, 301, 619,  100 },	//0 Default
-	{ 447, 647, 734, 420, 730, 414, 456, 859, SPEED_MIDDLE },	//1 Pre Walk
+    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//0 Default
+    { 112, 307, 910, 706, 910, 706,  37, 342,  100 },	//1 Pre Walk
 	{ 37, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, SPEED_MIDDLE },	//2 Pre Walk
 		
 /* Neck */
@@ -116,18 +117,17 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//9
 
 /* Walk2 */
-
-	{ 313, 638, 694, 156, 596, 403, 349, 659, SPEED_MIDDLE },	//10 Walk2
-	{ 298, 613, 570, 310, 562, 159, 292, 608, SPEED_MIDDLE },	//11 Walk2
-	{ 348, 762, 683, 360, 660, 353, 432, 605, SPEED_MIDDLE },	//12 Walk2
-	{ 461, 748, 673, 338, 593, 295, 540, 858, SPEED_MIDDLE },	//13 Walk2
-	{ 306, 639, 667, 229, 625, 426, 340, 648, SPEED_MIDDLE },	//14 Walk2
-	{ 344, 663, 542, 283, 533, 163, 343, 658, SPEED_MIDDLE },	//15 Walk2
-	{ 319, 821, 727, 405, 683, 372, 384, 596, SPEED_MIDDLE },	//16 Walk2
-	{ 444, 721, 716, 395, 671, 363, 478, 837, SPEED_MIDDLE },	//17 Walk2
-		
-	{ 304, 639, 685, 273, 635, 459, 338, 674, SPEED_MIDDLE },	//18 Walk2
-	{ 107, 228, 882, 776, 982, 612, 78, 400, SPEED_MIDDLE },	//19 Walk2
+    { 222, 357, 930, 706, 910, 706, 47, 352, SPEED_NORMAL },	//10 Walk2
+    { 92, 317, 960, 736, 860, 666, 112, 317, SPEED_NORMAL },	//11 Walk2
+    { 92, 317, 960, 736, 975, 671, 112, 317, SPEED_NORMAL },	//12 Walk2
+    { 92, 317, 800, 656, 975, 671, 112, 317, SPEED_NORMAL },	//13 Walk2
+    { 82, 297, 930, 706, 910, 686, 162, 327, SPEED_NORMAL },	//14 Walk2
+    { 82, 297, 930, 706, 910, 706, 47, 352, SPEED_NORMAL },		//15 Walk2
+	
+    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//16
+    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//17
+    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//18
+    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//19
 
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//20 Walk2
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//21 Walk2
@@ -172,7 +172,7 @@ int motion1[] =	{1, 1 };  //Pre Walk
 //int motion2[] =	{6, 16, 17, 18, 19, 20, 21 };  //Walk1
 int motion2[] =	{8, 41, 42, 43, 44, 45, 46, 47, 48};  //Walk1
 //int motion3[] =	{8, 22, 23, 24, 25, 26, 27, 28, 29 };  //Walk2
-int motion3[] =	{8, 10, 11, 12, 13, 14, 15, 16, 17};  //Walk2
+int motion3[] =	{6, 10, 11, 12, 13, 14, 15};  //Walk2
 int motion4[] =	{6, 29, 30, 31, 32, 33, 34 };      //Turn Left
 int motion5[] =	{6, 35, 36, 37, 38, 39, 40 };      //Turn Right
 int motion6[] =	{6, 10, 11, 12, 13, 14, 15 };  //Step
