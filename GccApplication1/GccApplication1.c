@@ -45,7 +45,8 @@
 #define P_PRESENT_VOLTAGE	42
 #define P_MOVING	  		46
 #define P_EEP_LOCK  		47
-#define SERVO_MAX	  		8
+//#define SERVO_MAX	  		8
+#define SERVO_MAX	  		15
 #define ACT_MAX				50
 
 //Servo Speed
@@ -71,8 +72,8 @@
 
 int serCmd[SERIAL_BUFFER_SIZE] = {0};
                          //RF1 RF2 LF1 LF2 RR1 RR2 LR1 LR2 Necks
-//int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6,   13,12,11,10,9,8,2  };
-int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6};
+int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6,   13,12,11,10,9,8,2  };
+//int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6};
 
 #define 	ANGLE_0    0
 #define 	ANGLE_0_5  51
@@ -103,80 +104,80 @@ int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6};
 
 int angleList[ACT_MAX][SERVO_MAX + 1] = {
    // RF1    RF2    LF1    LF2    RR1    RR2    LR1    LR2    Speed
-    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//0 Default
-    { 112, 307, 910, 706, 910, 706,  37, 342,  100 },	//1 Pre Walk
-	{ 37, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, SPEED_MIDDLE },	//2 Pre Walk
+    { 112, 317, 910, 706, 910, 706, 112, 317, 815, 202, 302, 842, 853, 237, 471, 100 },	//0 Default
+    { 112, 307, 910, 706, 910, 706,  37, 342, 815, 202, 302, 842, 853, 237, 471, 100 },	//1 Pre Walk
+	{ 37, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 815, 202, 302, 842, 853, 237, 471, SPEED_MIDDLE },	//2 Pre Walk
 		
 /* Neck */
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//3 Neck default
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//4
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//5
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//6
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//7
-	{ ANGLE_1, ANGLE_4, ANGLE_9, ANGLE_6, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 100 },	//8
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//9
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 557, 198, 515, 874, 830, 379, 471, 100 },	//3 Neck stretch 1
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 434, 820, 475, 893, 757, 335, 471, 100 },	//4 Neck stretch 2
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 523, 814, 578, 466, 585, 394, 471, 100 },	//5 Neck stretch goal
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 530, 954, 647, 460, 631, 444, 471, 100 },	//6 Neck swing 1
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 520, 673, 707, 465, 642, 457, 471, 100 },	//7 Neck swing 2
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 520, 673, 707, 465, 642, 457, 950, 100 },	//8 Neck release
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 520, 673, 707, 465, 642, 457, 950, 100 },	//9 Neck 
 
 /* Walk2 */
-    { 222, 357, 930, 706, 910, 706, 47, 352, SPEED_NORMAL },	//10 Walk2
-    { 92, 317, 960, 736, 860, 666, 112, 317, SPEED_NORMAL },	//11 Walk2
-    { 92, 317, 960, 736, 975, 671, 112, 317, SPEED_NORMAL },	//12 Walk2
-    { 92, 317, 800, 656, 975, 671, 112, 317, SPEED_NORMAL },	//13 Walk2
-    { 82, 297, 930, 706, 910, 686, 162, 327, SPEED_NORMAL },	//14 Walk2
-    { 82, 297, 930, 706, 910, 706, 47, 352, SPEED_NORMAL },		//15 Walk2
+    { 222, 357, 930, 706, 910, 706, 47, 352, 815, 202, 302, 842, 853, 237, 455, 150 },	//10 Walk2
+    { 92, 317, 960, 736, 860, 666, 112, 317, 815, 202, 302, 842, 853, 237, 455, 150 },	//11 Walk2
+    { 92, 317, 960, 736, 975, 671, 112, 317, 815, 202, 302, 842, 853, 237, 455, 150 },	//12 Walk2
+    { 92, 317, 800, 656, 975, 671, 112, 317, 815, 202, 302, 842, 853, 237, 455, 150 },	//14 Walk2
+    { 82, 297, 930, 706, 910, 686, 162, 327, 815, 202, 302, 842, 853, 237, 455, 150 },	//15 Walk2
+    { 82, 297, 930, 706, 910, 706, 47, 352, 815, 202, 302, 842, 853, 237, 455, 150 },   //16 Walk2
 	
-    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//16
-    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//17
-    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//18
-    { 112, 317, 910, 706, 910, 706, 112, 317,  100 },	//19
 
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//20 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//21 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//22 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//23 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//24 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//25 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//26 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//27 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//28 Walk2
+{ 122, 347, 960, 736, 975, 671, 52, 302, 815, 202, 302, 842, 853, 237, 455, 100 },	//13 Walk2
+		{ 82, 297, 905, 706, 915, 711, 62, 352, 815, 202, 302, 842, 853, 237, 455, 100 },	//17 Walk2
+    { 112, 317, 910, 706, 910, 706, 112, 317,  815, 202, 302, 842, 853, 237, 455, 100 },	//18
+    { 112, 317, 910, 706, 910, 706, 112, 317,  815, 202, 302, 842, 853, 237, 455, 100 },	//19
+
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//20 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//21 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//22 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//23 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//24 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//25 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//26 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//27 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//28 Walk2
 
 /* Turn Left */
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, SPEED_SLOW },	//29 Turn Left
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, SPEED_SLOW },	//30 Turn Left
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//31 Turn Left
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, SPEED_SLOW},	//32 Turn Left
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, SPEED_SLOW },	//33 Turn Left
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, SPEED_SLOW },	//34 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//29 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//30 Turn Left
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//31 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW},	//32 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//33 Turn Left
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//34 Turn Left
 
 /* Turn Right */
-	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 100 },	//35 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//36 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//37 Turn Right
-	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 100 },	//38 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//39 Turn Right
-    { ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 100 },	//40 Turn Right
+	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 815, 202, 302, 842, 853, 237, 455, 100 },	//35 Turn Right
+	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//36 Turn Right
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//37 Turn Right
+	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 815, 202, 302, 842, 853, 237, 455, 100 },	//38 Turn Right
+	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//39 Turn Right
+    { ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//40 Turn Right
 	
-	{ ANGLE_4, ANGLE_7, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_0, ANGLE_3, 100 },	//41 Walk1_1
-	{ ANGLE_3, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//42 Walk1_1
-	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_0, ANGLE_3, 100 },	//43 Walk1_1
-	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 100 },	//44 Walk1_1
-	{ ANGLE_2, ANGLE_5, ANGLE_6, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_4, 100 },	//45 Walk1_1
-	{ ANGLE_2, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_1, ANGLE_5, 100 },	//46 Walk1_1
-	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_10, ANGLE_7, ANGLE_2, ANGLE_5, 100 },	//47 Walk1_1
-	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 100 },	//48 Walk1_1
+	{ ANGLE_4, ANGLE_7, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//41 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_2, ANGLE_5, 815, 202, 302, 842, 853, 237, 455, 100 },	//42 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//43 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 815, 202, 302, 842, 853, 237, 455, 100 },	//44 Walk1_1
+	{ ANGLE_2, ANGLE_5, ANGLE_6, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_4, 815, 202, 302, 842, 853, 237, 455, 100 },	//45 Walk1_1
+	{ ANGLE_2, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_1, ANGLE_5, 815, 202, 302, 842, 853, 237, 455, 100 },	//46 Walk1_1
+	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_10, ANGLE_7, ANGLE_2, ANGLE_5, 815, 202, 302, 842, 853, 237, 455, 100 },	//47 Walk1_1
+	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 815, 202, 302, 842, 853, 237, 455, 100 },	//48 Walk1_1
 	
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 100 },	//49
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 815, 202, 302, 842, 853, 237, 455, 100 },	//49
 };
 
 int motion0[] =	{1, 0 };  //Default
 int motion1[] =	{1, 1 };  //Pre Walk
-//int motion2[] =	{6, 16, 17, 18, 19, 20, 21 };  //Walk1
 int motion2[] =	{8, 41, 42, 43, 44, 45, 46, 47, 48};  //Walk1
-//int motion3[] =	{8, 22, 23, 24, 25, 26, 27, 28, 29 };  //Walk2
 int motion3[] =	{6, 10, 11, 12, 13, 14, 15};  //Walk2
 int motion4[] =	{6, 29, 30, 31, 32, 33, 34 };      //Turn Left
 int motion5[] =	{6, 35, 36, 37, 38, 39, 40 };      //Turn Right
 int motion6[] =	{6, 10, 11, 12, 13, 14, 15 };  //Step
-int *motionList[] = { &motion0[0], &motion1[0], &motion2[0], &motion3[0], &motion4[0], &motion5[0], &motion6[0] };
+int motion7[] =	{7, 3, 4, 5, 6, 7, 8, 9 };  //Neck
+int *motionList[] = { &motion0[0], &motion1[0], &motion2[0], &motion3[0], &motion4[0], &motion5[0], &motion6[0], &motion7[0] };
 enum ActType {
 	ACT_DEFAULT         = 0,
 	ACT_PRE_WALK        = 1,
@@ -184,8 +185,8 @@ enum ActType {
 	ACT_WALK2           = 3,
 	ACT_TURN_LEFT       = 4,
 	ACT_TURN_RIGHT      = 5,
-	ACT_WALK_LEFT       = 6,
-	ACT_WALK_RIGHT      = 7,
+    ACT_STEP            = 6,
+	ACT_NECK            = 7,
 	ACT_TYPE_MAX
 };
 
@@ -678,11 +679,11 @@ void getAngle(){
 //	printf( "%d:%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
 //	        EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11] );
 // Legs
-	printf( "%d:{%d, %d, %d, %d, %d, %d, %d, %d}\n",
-			EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7] );
-// Necks
-//    printf( "%d:{%d, %d, %d, %d, %d, %d, %d, %d}\n",
-//			EVT_GET_NOW_ANGLE, tmp[8],tmp[9],tmp[10],tmp[11],tmp[12],tmp[13],tmp[14]);
+//	printf( "Legs... %d:{%d, %d, %d, %d, %d, %d, %d, %d}\n",
+//			EVT_GET_NOW_ANGLE, tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7] );
+// Neck
+    printf( "Neck... %d:{%d, %d, %d, %d, %d, %d, %d}\n",
+			EVT_GET_NOW_ANGLE, tmp[8],tmp[9],tmp[10],tmp[11],tmp[12],tmp[13],tmp[14]);
 
 }
 
