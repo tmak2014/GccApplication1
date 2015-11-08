@@ -3,31 +3,31 @@ GccApplication1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000c8c  00800200  00002bbe  00002c52  2**0
+  0 .data         00000c8e  00800200  00002bbe  00002c52  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         00002bbe  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          000003c4  00800e8c  00800e8c  000038de  2**0
+  2 .bss          000003c2  00800e8e  00800e8e  000038e0  2**0
                   ALLOC
-  3 .comment      0000005c  00000000  00000000  000038de  2**0
+  3 .comment      0000005c  00000000  00000000  000038e0  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000180  00000000  00000000  0000393a  2**0
+  4 .debug_aranges 00000180  00000000  00000000  0000393c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_pubnames 000004bb  00000000  00000000  00003aba  2**0
+  5 .debug_pubnames 000004bb  00000000  00000000  00003abc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00002a43  00000000  00000000  00003f75  2**0
+  6 .debug_info   00002a43  00000000  00000000  00003f77  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000aef  00000000  00000000  000069b8  2**0
+  7 .debug_abbrev 00000aef  00000000  00000000  000069ba  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000199c  00000000  00000000  000074a7  2**0
+  8 .debug_line   0000199c  00000000  00000000  000074a9  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000006e4  00000000  00000000  00008e44  2**2
+  9 .debug_frame  000006e4  00000000  00000000  00008e48  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000bae  00000000  00000000  00009528  2**0
+ 10 .debug_str    00000bae  00000000  00000000  0000952c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001640  00000000  00000000  0000a0d6  2**0
+ 11 .debug_loc    00001640  00000000  00000000  0000a0da  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000100  00000000  00000000  0000b716  2**0
+ 12 .debug_ranges 00000100  00000000  00000000  0000b71a  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -157,13 +157,13 @@ Disassembly of section .text:
       ea:	02 c0       	rjmp	.+4      	; 0xf0 <__do_copy_data+0x14>
       ec:	07 90       	elpm	r0, Z+
       ee:	0d 92       	st	X+, r0
-      f0:	ac 38       	cpi	r26, 0x8C	; 140
+      f0:	ae 38       	cpi	r26, 0x8E	; 142
       f2:	b1 07       	cpc	r27, r17
       f4:	d9 f7       	brne	.-10     	; 0xec <__do_copy_data+0x10>
 
 000000f6 <__do_clear_bss>:
       f6:	22 e1       	ldi	r18, 0x12	; 18
-      f8:	ac e8       	ldi	r26, 0x8C	; 140
+      f8:	ae e8       	ldi	r26, 0x8E	; 142
       fa:	be e0       	ldi	r27, 0x0E	; 14
       fc:	01 c0       	rjmp	.+2      	; 0x100 <.do_clear_bss_start>
 
@@ -186,28 +186,28 @@ Disassembly of section .text:
      118:	08 95       	ret
 
 0000011a <dxl_set_txpacket_id>:
-     11a:	80 93 8e 0e 	sts	0x0E8E, r24
+     11a:	80 93 90 0e 	sts	0x0E90, r24
      11e:	08 95       	ret
 
 00000120 <dxl_set_txpacket_instruction>:
-     120:	80 93 90 0e 	sts	0x0E90, r24
+     120:	80 93 92 0e 	sts	0x0E92, r24
      124:	08 95       	ret
 
 00000126 <dxl_set_txpacket_parameter>:
      126:	fc 01       	movw	r30, r24
-     128:	e4 57       	subi	r30, 0x74	; 116
+     128:	e2 57       	subi	r30, 0x72	; 114
      12a:	f1 4f       	sbci	r31, 0xF1	; 241
      12c:	65 83       	std	Z+5, r22	; 0x05
      12e:	08 95       	ret
 
 00000130 <dxl_set_txpacket_length>:
-     130:	80 93 8f 0e 	sts	0x0E8F, r24
+     130:	80 93 91 0e 	sts	0x0E91, r24
      134:	08 95       	ret
 
 00000136 <dxl_get_rxpacket_error>:
      136:	20 e0       	ldi	r18, 0x00	; 0
      138:	30 e0       	ldi	r19, 0x00	; 0
-     13a:	90 91 30 0f 	lds	r25, 0x0F30
+     13a:	90 91 32 0f 	lds	r25, 0x0F32
      13e:	98 23       	and	r25, r24
      140:	11 f0       	breq	.+4      	; 0x146 <dxl_get_rxpacket_error+0x10>
      142:	21 e0       	ldi	r18, 0x01	; 1
@@ -216,13 +216,13 @@ Disassembly of section .text:
      148:	08 95       	ret
 
 0000014a <dxl_get_rxpacket_length>:
-     14a:	80 91 2f 0f 	lds	r24, 0x0F2F
+     14a:	80 91 31 0f 	lds	r24, 0x0F31
      14e:	90 e0       	ldi	r25, 0x00	; 0
      150:	08 95       	ret
 
 00000152 <dxl_get_rxpacket_parameter>:
      152:	fc 01       	movw	r30, r24
-     154:	e4 5d       	subi	r30, 0xD4	; 212
+     154:	e2 5d       	subi	r30, 0xD2	; 210
      156:	f0 4f       	sbci	r31, 0xF0	; 240
      158:	85 81       	ldd	r24, Z+5	; 0x05
      15a:	90 e0       	ldi	r25, 0x00	; 0
@@ -253,12 +253,12 @@ Disassembly of section .text:
      17c:	1f 93       	push	r17
      17e:	cf 93       	push	r28
      180:	df 93       	push	r29
-     182:	80 91 74 0f 	lds	r24, 0x0F74
-     186:	90 91 75 0f 	lds	r25, 0x0F75
+     182:	80 91 76 0f 	lds	r24, 0x0F76
+     186:	90 91 77 0f 	lds	r25, 0x0F77
      18a:	89 2b       	or	r24, r25
      18c:	09 f4       	brne	.+2      	; 0x190 <dxl_rx_packet+0x16>
      18e:	b8 c0       	rjmp	.+368    	; 0x300 <dxl_rx_packet+0x186>
-     190:	80 91 8e 0e 	lds	r24, 0x0E8E
+     190:	80 91 90 0e 	lds	r24, 0x0E90
      194:	8e 3f       	cpi	r24, 0xFE	; 254
      196:	09 f4       	brne	.+2      	; 0x19a <dxl_rx_packet+0x20>
      198:	a9 c0       	rjmp	.+338    	; 0x2ec <dxl_rx_packet+0x172>
@@ -266,28 +266,28 @@ Disassembly of section .text:
      19e:	90 91 01 02 	lds	r25, 0x0201
      1a2:	89 2b       	or	r24, r25
      1a4:	29 f4       	brne	.+10     	; 0x1b0 <dxl_rx_packet+0x36>
-     1a6:	10 92 73 0f 	sts	0x0F73, r1
+     1a6:	10 92 75 0f 	sts	0x0F75, r1
      1aa:	86 e0       	ldi	r24, 0x06	; 6
-     1ac:	80 93 72 0f 	sts	0x0F72, r24
-     1b0:	80 91 73 0f 	lds	r24, 0x0F73
+     1ac:	80 93 74 0f 	sts	0x0F74, r24
+     1b0:	80 91 75 0f 	lds	r24, 0x0F75
      1b4:	90 e0       	ldi	r25, 0x00	; 0
-     1b6:	60 91 72 0f 	lds	r22, 0x0F72
+     1b6:	60 91 74 0f 	lds	r22, 0x0F74
      1ba:	70 e0       	ldi	r23, 0x00	; 0
      1bc:	68 1b       	sub	r22, r24
      1be:	79 0b       	sbc	r23, r25
-     1c0:	84 5d       	subi	r24, 0xD4	; 212
+     1c0:	82 5d       	subi	r24, 0xD2	; 210
      1c2:	90 4f       	sbci	r25, 0xF0	; 240
      1c4:	49 d3       	rcall	.+1682   	; 0x858 <dxl_hal_rx>
-     1c6:	90 91 73 0f 	lds	r25, 0x0F73
+     1c6:	90 91 75 0f 	lds	r25, 0x0F75
      1ca:	98 0f       	add	r25, r24
-     1cc:	90 93 73 0f 	sts	0x0F73, r25
-     1d0:	80 91 72 0f 	lds	r24, 0x0F72
+     1cc:	90 93 75 0f 	sts	0x0F75, r25
+     1d0:	80 91 74 0f 	lds	r24, 0x0F74
      1d4:	98 17       	cp	r25, r24
      1d6:	18 f4       	brcc	.+6      	; 0x1de <dxl_rx_packet+0x64>
      1d8:	4a d2       	rcall	.+1172   	; 0x66e <dxl_hal_timeout>
      1da:	01 97       	sbiw	r24, 0x01	; 1
      1dc:	71 f0       	breq	.+28     	; 0x1fa <dxl_rx_packet+0x80>
-     1de:	70 91 73 0f 	lds	r23, 0x0F73
+     1de:	70 91 75 0f 	lds	r23, 0x0F75
      1e2:	47 2f       	mov	r20, r23
      1e4:	50 e0       	ldi	r21, 0x00	; 0
      1e6:	da 01       	movw	r26, r20
@@ -297,10 +297,10 @@ Disassembly of section .text:
      1ee:	10 40       	sbci	r17, 0x00	; 0
      1f0:	60 e0       	ldi	r22, 0x00	; 0
      1f2:	ed 01       	movw	r28, r26
-     1f4:	c4 5d       	subi	r28, 0xD4	; 212
+     1f4:	c2 5d       	subi	r28, 0xD2	; 210
      1f6:	d0 4f       	sbci	r29, 0xF0	; 240
      1f8:	18 c0       	rjmp	.+48     	; 0x22a <dxl_rx_packet+0xb0>
-     1fa:	80 91 73 0f 	lds	r24, 0x0F73
+     1fa:	80 91 75 0f 	lds	r24, 0x0F75
      1fe:	88 23       	and	r24, r24
      200:	09 f0       	breq	.+2      	; 0x204 <dxl_rx_packet+0x8a>
      202:	71 c0       	rjmp	.+226    	; 0x2e6 <dxl_rx_packet+0x16c>
@@ -308,7 +308,7 @@ Disassembly of section .text:
      206:	90 e0       	ldi	r25, 0x00	; 0
      208:	73 c0       	rjmp	.+230    	; 0x2f0 <dxl_rx_packet+0x176>
      20a:	f9 01       	movw	r30, r18
-     20c:	e4 5d       	subi	r30, 0xD4	; 212
+     20c:	e2 5d       	subi	r30, 0xD2	; 210
      20e:	f0 4f       	sbci	r31, 0xF0	; 240
      210:	80 81       	ld	r24, Z
      212:	8f 3f       	cpi	r24, 0xFF	; 255
@@ -334,7 +334,7 @@ Disassembly of section .text:
      23a:	42 1b       	sub	r20, r18
      23c:	53 0b       	sbc	r21, r19
      23e:	08 c0       	rjmp	.+16     	; 0x250 <dxl_rx_packet+0xd6>
-     240:	e4 5d       	subi	r30, 0xD4	; 212
+     240:	e2 5d       	subi	r30, 0xD2	; 210
      242:	f0 4f       	sbci	r31, 0xF0	; 240
      244:	df 01       	movw	r26, r30
      246:	a2 0f       	add	r26, r18
@@ -348,18 +348,18 @@ Disassembly of section .text:
      256:	f5 07       	cpc	r31, r21
      258:	9c f3       	brlt	.-26     	; 0x240 <dxl_rx_packet+0xc6>
      25a:	76 1b       	sub	r23, r22
-     25c:	70 93 73 0f 	sts	0x0F73, r23
-     260:	20 91 73 0f 	lds	r18, 0x0F73
-     264:	80 91 72 0f 	lds	r24, 0x0F72
+     25c:	70 93 75 0f 	sts	0x0F75, r23
+     260:	20 91 75 0f 	lds	r18, 0x0F75
+     264:	80 91 74 0f 	lds	r24, 0x0F74
      268:	28 17       	cp	r18, r24
      26a:	28 f1       	brcs	.+74     	; 0x2b6 <dxl_rx_packet+0x13c>
-     26c:	90 91 8e 0e 	lds	r25, 0x0E8E
-     270:	80 91 2e 0f 	lds	r24, 0x0F2E
+     26c:	90 91 90 0e 	lds	r25, 0x0E90
+     270:	80 91 30 0f 	lds	r24, 0x0F30
      274:	98 17       	cp	r25, r24
      276:	b9 f5       	brne	.+110    	; 0x2e6 <dxl_rx_packet+0x16c>
-     278:	60 91 2f 0f 	lds	r22, 0x0F2F
+     278:	60 91 31 0f 	lds	r22, 0x0F31
      27c:	6c 5f       	subi	r22, 0xFC	; 252
-     27e:	60 93 72 0f 	sts	0x0F72, r22
+     27e:	60 93 74 0f 	sts	0x0F74, r22
      282:	26 17       	cp	r18, r22
      284:	88 f4       	brcc	.+34     	; 0x2a8 <dxl_rx_packet+0x12e>
      286:	82 2f       	mov	r24, r18
@@ -367,16 +367,16 @@ Disassembly of section .text:
      28a:	70 e0       	ldi	r23, 0x00	; 0
      28c:	68 1b       	sub	r22, r24
      28e:	79 0b       	sbc	r23, r25
-     290:	84 5d       	subi	r24, 0xD4	; 212
+     290:	82 5d       	subi	r24, 0xD2	; 210
      292:	90 4f       	sbci	r25, 0xF0	; 240
      294:	e1 d2       	rcall	.+1474   	; 0x858 <dxl_hal_rx>
-     296:	90 91 73 0f 	lds	r25, 0x0F73
+     296:	90 91 75 0f 	lds	r25, 0x0F75
      29a:	98 0f       	add	r25, r24
-     29c:	90 93 73 0f 	sts	0x0F73, r25
-     2a0:	80 91 72 0f 	lds	r24, 0x0F72
+     29c:	90 93 75 0f 	sts	0x0F75, r25
+     2a0:	80 91 74 0f 	lds	r24, 0x0F74
      2a4:	98 17       	cp	r25, r24
      2a6:	38 f0       	brcs	.+14     	; 0x2b6 <dxl_rx_packet+0x13c>
-     2a8:	80 91 2f 0f 	lds	r24, 0x0F2F
+     2a8:	80 91 31 0f 	lds	r24, 0x0F31
      2ac:	a8 2f       	mov	r26, r24
      2ae:	b0 e0       	ldi	r27, 0x00	; 0
      2b0:	20 e0       	ldi	r18, 0x00	; 0
@@ -387,7 +387,7 @@ Disassembly of section .text:
      2ba:	90 93 01 02 	sts	0x0201, r25
      2be:	80 93 00 02 	sts	0x0200, r24
      2c2:	1e c0       	rjmp	.+60     	; 0x300 <dxl_rx_packet+0x186>
-     2c4:	e4 5d       	subi	r30, 0xD4	; 212
+     2c4:	e2 5d       	subi	r30, 0xD2	; 210
      2c6:	f0 4f       	sbci	r31, 0xF0	; 240
      2c8:	82 81       	ldd	r24, Z+2	; 0x02
      2ca:	98 0f       	add	r25, r24
@@ -397,7 +397,7 @@ Disassembly of section .text:
      2d2:	ae 17       	cp	r26, r30
      2d4:	bf 07       	cpc	r27, r31
      2d6:	b4 f7       	brge	.-20     	; 0x2c4 <dxl_rx_packet+0x14a>
-     2d8:	a4 5d       	subi	r26, 0xD4	; 212
+     2d8:	a2 5d       	subi	r26, 0xD2	; 210
      2da:	b0 4f       	sbci	r27, 0xF0	; 240
      2dc:	90 95       	com	r25
      2de:	13 96       	adiw	r26, 0x03	; 3
@@ -411,8 +411,8 @@ Disassembly of section .text:
      2ee:	90 e0       	ldi	r25, 0x00	; 0
      2f0:	90 93 01 02 	sts	0x0201, r25
      2f4:	80 93 00 02 	sts	0x0200, r24
-     2f8:	10 92 75 0f 	sts	0x0F75, r1
-     2fc:	10 92 74 0f 	sts	0x0F74, r1
+     2f8:	10 92 77 0f 	sts	0x0F77, r1
+     2fc:	10 92 76 0f 	sts	0x0F76, r1
      300:	df 91       	pop	r29
      302:	cf 91       	pop	r28
      304:	1f 91       	pop	r17
@@ -421,19 +421,19 @@ Disassembly of section .text:
 
 0000030a <dxl_tx_packet>:
      30a:	1f 93       	push	r17
-     30c:	80 91 74 0f 	lds	r24, 0x0F74
-     310:	90 91 75 0f 	lds	r25, 0x0F75
+     30c:	80 91 76 0f 	lds	r24, 0x0F76
+     310:	90 91 77 0f 	lds	r25, 0x0F77
      314:	01 97       	sbiw	r24, 0x01	; 1
      316:	09 f4       	brne	.+2      	; 0x31a <dxl_tx_packet+0x10>
      318:	5d c0       	rjmp	.+186    	; 0x3d4 <dxl_tx_packet+0xca>
      31a:	81 e0       	ldi	r24, 0x01	; 1
      31c:	90 e0       	ldi	r25, 0x00	; 0
-     31e:	90 93 75 0f 	sts	0x0F75, r25
-     322:	80 93 74 0f 	sts	0x0F74, r24
-     326:	80 91 8f 0e 	lds	r24, 0x0E8F
+     31e:	90 93 77 0f 	sts	0x0F77, r25
+     322:	80 93 76 0f 	sts	0x0F76, r24
+     326:	80 91 91 0e 	lds	r24, 0x0E91
      32a:	89 39       	cpi	r24, 0x99	; 153
      32c:	40 f4       	brcc	.+16     	; 0x33e <dxl_tx_packet+0x34>
-     32e:	90 91 90 0e 	lds	r25, 0x0E90
+     32e:	90 91 92 0e 	lds	r25, 0x0E92
      332:	89 2f       	mov	r24, r25
      334:	81 50       	subi	r24, 0x01	; 1
      336:	86 30       	cpi	r24, 0x06	; 6
@@ -444,15 +444,15 @@ Disassembly of section .text:
      340:	90 e0       	ldi	r25, 0x00	; 0
      342:	2f c0       	rjmp	.+94     	; 0x3a2 <dxl_tx_packet+0x98>
      344:	8f ef       	ldi	r24, 0xFF	; 255
-     346:	80 93 8c 0e 	sts	0x0E8C, r24
-     34a:	80 93 8d 0e 	sts	0x0E8D, r24
-     34e:	80 91 8f 0e 	lds	r24, 0x0E8F
+     346:	80 93 8e 0e 	sts	0x0E8E, r24
+     34a:	80 93 8f 0e 	sts	0x0E8F, r24
+     34e:	80 91 91 0e 	lds	r24, 0x0E91
      352:	a8 2f       	mov	r26, r24
      354:	b0 e0       	ldi	r27, 0x00	; 0
      356:	20 e0       	ldi	r18, 0x00	; 0
      358:	90 e0       	ldi	r25, 0x00	; 0
      35a:	05 c0       	rjmp	.+10     	; 0x366 <dxl_tx_packet+0x5c>
-     35c:	e4 57       	subi	r30, 0x74	; 116
+     35c:	e2 57       	subi	r30, 0x72	; 114
      35e:	f1 4f       	sbci	r31, 0xF1	; 241
      360:	82 81       	ldd	r24, Z+2	; 0x02
      362:	98 0f       	add	r25, r24
@@ -462,7 +462,7 @@ Disassembly of section .text:
      36a:	ae 17       	cp	r26, r30
      36c:	bf 07       	cpc	r27, r31
      36e:	b4 f7       	brge	.-20     	; 0x35c <dxl_tx_packet+0x52>
-     370:	a4 57       	subi	r26, 0x74	; 116
+     370:	a2 57       	subi	r26, 0x72	; 114
      372:	b1 4f       	sbci	r27, 0xF1	; 241
      374:	90 95       	com	r25
      376:	13 96       	adiw	r26, 0x03	; 3
@@ -473,9 +473,9 @@ Disassembly of section .text:
      384:	02 97       	sbiw	r24, 0x02	; 2
      386:	08 f4       	brcc	.+2      	; 0x38a <dxl_tx_packet+0x80>
      388:	38 d1       	rcall	.+624    	; 0x5fa <dxl_hal_clear>
-     38a:	10 91 8f 0e 	lds	r17, 0x0E8F
+     38a:	10 91 91 0e 	lds	r17, 0x0E91
      38e:	1c 5f       	subi	r17, 0xFC	; 252
-     390:	8c e8       	ldi	r24, 0x8C	; 140
+     390:	8e e8       	ldi	r24, 0x8E	; 142
      392:	9e e0       	ldi	r25, 0x0E	; 14
      394:	61 2f       	mov	r22, r17
      396:	70 e0       	ldi	r23, 0x00	; 0
@@ -486,13 +486,13 @@ Disassembly of section .text:
      3a0:	90 e0       	ldi	r25, 0x00	; 0
      3a2:	90 93 01 02 	sts	0x0201, r25
      3a6:	80 93 00 02 	sts	0x0200, r24
-     3aa:	10 92 75 0f 	sts	0x0F75, r1
-     3ae:	10 92 74 0f 	sts	0x0F74, r1
+     3aa:	10 92 77 0f 	sts	0x0F77, r1
+     3ae:	10 92 76 0f 	sts	0x0F76, r1
      3b2:	10 c0       	rjmp	.+32     	; 0x3d4 <dxl_tx_packet+0xca>
-     3b4:	80 91 90 0e 	lds	r24, 0x0E90
+     3b4:	80 91 92 0e 	lds	r24, 0x0E92
      3b8:	82 30       	cpi	r24, 0x02	; 2
      3ba:	29 f4       	brne	.+10     	; 0x3c6 <dxl_tx_packet+0xbc>
-     3bc:	80 91 92 0e 	lds	r24, 0x0E92
+     3bc:	80 91 94 0e 	lds	r24, 0x0E94
      3c0:	90 e0       	ldi	r25, 0x00	; 0
      3c2:	06 96       	adiw	r24, 0x06	; 6
      3c4:	02 c0       	rjmp	.+4      	; 0x3ca <dxl_tx_packet+0xc0>
@@ -519,41 +519,41 @@ Disassembly of section .text:
 
 000003f6 <dxl_write_word>:
      3f6:	28 2f       	mov	r18, r24
-     3f8:	80 91 74 0f 	lds	r24, 0x0F74
-     3fc:	90 91 75 0f 	lds	r25, 0x0F75
+     3f8:	80 91 76 0f 	lds	r24, 0x0F76
+     3fc:	90 91 77 0f 	lds	r25, 0x0F77
      400:	89 2b       	or	r24, r25
      402:	91 f4       	brne	.+36     	; 0x428 <dxl_write_word+0x32>
-     404:	20 93 8e 0e 	sts	0x0E8E, r18
+     404:	20 93 90 0e 	sts	0x0E90, r18
      408:	83 e0       	ldi	r24, 0x03	; 3
-     40a:	80 93 90 0e 	sts	0x0E90, r24
-     40e:	60 93 91 0e 	sts	0x0E91, r22
+     40a:	80 93 92 0e 	sts	0x0E92, r24
+     40e:	60 93 93 0e 	sts	0x0E93, r22
      412:	ca 01       	movw	r24, r20
-     414:	40 93 92 0e 	sts	0x0E92, r20
+     414:	40 93 94 0e 	sts	0x0E94, r20
      418:	80 70       	andi	r24, 0x00	; 0
-     41a:	90 93 93 0e 	sts	0x0E93, r25
+     41a:	90 93 95 0e 	sts	0x0E95, r25
      41e:	85 e0       	ldi	r24, 0x05	; 5
-     420:	80 93 8f 0e 	sts	0x0E8F, r24
+     420:	80 93 91 0e 	sts	0x0E91, r24
      424:	d9 cf       	rjmp	.-78     	; 0x3d8 <dxl_txrx_packet>
      426:	08 95       	ret
      428:	ff cf       	rjmp	.-2      	; 0x428 <dxl_write_word+0x32>
 
 0000042a <dxl_read_word>:
      42a:	28 2f       	mov	r18, r24
-     42c:	80 91 74 0f 	lds	r24, 0x0F74
-     430:	90 91 75 0f 	lds	r25, 0x0F75
+     42c:	80 91 76 0f 	lds	r24, 0x0F76
+     430:	90 91 77 0f 	lds	r25, 0x0F77
      434:	89 2b       	or	r24, r25
      436:	b1 f4       	brne	.+44     	; 0x464 <dxl_read_word+0x3a>
-     438:	20 93 8e 0e 	sts	0x0E8E, r18
+     438:	20 93 90 0e 	sts	0x0E90, r18
      43c:	82 e0       	ldi	r24, 0x02	; 2
-     43e:	80 93 90 0e 	sts	0x0E90, r24
-     442:	60 93 91 0e 	sts	0x0E91, r22
-     446:	80 93 92 0e 	sts	0x0E92, r24
+     43e:	80 93 92 0e 	sts	0x0E92, r24
+     442:	60 93 93 0e 	sts	0x0E93, r22
+     446:	80 93 94 0e 	sts	0x0E94, r24
      44a:	84 e0       	ldi	r24, 0x04	; 4
-     44c:	80 93 8f 0e 	sts	0x0E8F, r24
+     44c:	80 93 91 0e 	sts	0x0E91, r24
      450:	c3 df       	rcall	.-122    	; 0x3d8 <dxl_txrx_packet>
-     452:	30 91 32 0f 	lds	r19, 0x0F32
+     452:	30 91 34 0f 	lds	r19, 0x0F34
      456:	20 e0       	ldi	r18, 0x00	; 0
-     458:	80 91 31 0f 	lds	r24, 0x0F31
+     458:	80 91 33 0f 	lds	r24, 0x0F33
      45c:	28 0f       	add	r18, r24
      45e:	31 1d       	adc	r19, r1
      460:	c9 01       	movw	r24, r18
@@ -562,52 +562,52 @@ Disassembly of section .text:
 
 00000466 <dxl_write_byte>:
      466:	28 2f       	mov	r18, r24
-     468:	80 91 74 0f 	lds	r24, 0x0F74
-     46c:	90 91 75 0f 	lds	r25, 0x0F75
+     468:	80 91 76 0f 	lds	r24, 0x0F76
+     46c:	90 91 77 0f 	lds	r25, 0x0F77
      470:	89 2b       	or	r24, r25
      472:	71 f4       	brne	.+28     	; 0x490 <dxl_write_byte+0x2a>
-     474:	20 93 8e 0e 	sts	0x0E8E, r18
+     474:	20 93 90 0e 	sts	0x0E90, r18
      478:	83 e0       	ldi	r24, 0x03	; 3
-     47a:	80 93 90 0e 	sts	0x0E90, r24
-     47e:	60 93 91 0e 	sts	0x0E91, r22
-     482:	40 93 92 0e 	sts	0x0E92, r20
+     47a:	80 93 92 0e 	sts	0x0E92, r24
+     47e:	60 93 93 0e 	sts	0x0E93, r22
+     482:	40 93 94 0e 	sts	0x0E94, r20
      486:	84 e0       	ldi	r24, 0x04	; 4
-     488:	80 93 8f 0e 	sts	0x0E8F, r24
+     488:	80 93 91 0e 	sts	0x0E91, r24
      48c:	a5 cf       	rjmp	.-182    	; 0x3d8 <dxl_txrx_packet>
      48e:	08 95       	ret
      490:	ff cf       	rjmp	.-2      	; 0x490 <dxl_write_byte+0x2a>
 
 00000492 <dxl_read_byte>:
      492:	28 2f       	mov	r18, r24
-     494:	80 91 74 0f 	lds	r24, 0x0F74
-     498:	90 91 75 0f 	lds	r25, 0x0F75
+     494:	80 91 76 0f 	lds	r24, 0x0F76
+     498:	90 91 77 0f 	lds	r25, 0x0F77
      49c:	89 2b       	or	r24, r25
      49e:	91 f4       	brne	.+36     	; 0x4c4 <dxl_read_byte+0x32>
-     4a0:	20 93 8e 0e 	sts	0x0E8E, r18
+     4a0:	20 93 90 0e 	sts	0x0E90, r18
      4a4:	82 e0       	ldi	r24, 0x02	; 2
-     4a6:	80 93 90 0e 	sts	0x0E90, r24
-     4aa:	60 93 91 0e 	sts	0x0E91, r22
+     4a6:	80 93 92 0e 	sts	0x0E92, r24
+     4aa:	60 93 93 0e 	sts	0x0E93, r22
      4ae:	81 e0       	ldi	r24, 0x01	; 1
-     4b0:	80 93 92 0e 	sts	0x0E92, r24
+     4b0:	80 93 94 0e 	sts	0x0E94, r24
      4b4:	84 e0       	ldi	r24, 0x04	; 4
-     4b6:	80 93 8f 0e 	sts	0x0E8F, r24
+     4b6:	80 93 91 0e 	sts	0x0E91, r24
      4ba:	8e df       	rcall	.-228    	; 0x3d8 <dxl_txrx_packet>
-     4bc:	80 91 31 0f 	lds	r24, 0x0F31
+     4bc:	80 91 33 0f 	lds	r24, 0x0F33
      4c0:	90 e0       	ldi	r25, 0x00	; 0
      4c2:	08 95       	ret
      4c4:	ff cf       	rjmp	.-2      	; 0x4c4 <dxl_read_byte+0x32>
 
 000004c6 <dxl_ping>:
      4c6:	28 2f       	mov	r18, r24
-     4c8:	80 91 74 0f 	lds	r24, 0x0F74
-     4cc:	90 91 75 0f 	lds	r25, 0x0F75
+     4c8:	80 91 76 0f 	lds	r24, 0x0F76
+     4cc:	90 91 77 0f 	lds	r25, 0x0F77
      4d0:	89 2b       	or	r24, r25
      4d2:	51 f4       	brne	.+20     	; 0x4e8 <dxl_ping+0x22>
-     4d4:	20 93 8e 0e 	sts	0x0E8E, r18
+     4d4:	20 93 90 0e 	sts	0x0E90, r18
      4d8:	81 e0       	ldi	r24, 0x01	; 1
-     4da:	80 93 90 0e 	sts	0x0E90, r24
+     4da:	80 93 92 0e 	sts	0x0E92, r24
      4de:	82 e0       	ldi	r24, 0x02	; 2
-     4e0:	80 93 8f 0e 	sts	0x0E8F, r24
+     4e0:	80 93 91 0e 	sts	0x0E91, r24
      4e4:	79 cf       	rjmp	.-270    	; 0x3d8 <dxl_txrx_packet>
      4e6:	08 95       	ret
      4e8:	ff cf       	rjmp	.-2      	; 0x4e8 <dxl_ping+0x22>
@@ -647,8 +647,8 @@ Disassembly of section .text:
      528:	90 e0       	ldi	r25, 0x00	; 0
      52a:	90 93 01 02 	sts	0x0201, r25
      52e:	80 93 00 02 	sts	0x0200, r24
-     532:	10 92 75 0f 	sts	0x0F75, r1
-     536:	10 92 74 0f 	sts	0x0F74, r1
+     532:	10 92 77 0f 	sts	0x0F77, r1
+     536:	10 92 76 0f 	sts	0x0F76, r1
      53a:	21 e0       	ldi	r18, 0x01	; 1
      53c:	30 e0       	ldi	r19, 0x00	; 0
      53e:	c9 01       	movw	r24, r18
@@ -713,8 +713,8 @@ Disassembly of section .text:
      5da:	73 9a       	sbi	0x0e, 3	; 14
      5dc:	8f ef       	ldi	r24, 0xFF	; 255
      5de:	80 93 c6 00 	sts	0x00C6, r24
-     5e2:	10 92 76 10 	sts	0x1076, r1
-     5e6:	10 92 77 10 	sts	0x1077, r1
+     5e2:	10 92 78 10 	sts	0x1078, r1
+     5e6:	10 92 79 10 	sts	0x1079, r1
      5ea:	81 e0       	ldi	r24, 0x01	; 1
      5ec:	90 e0       	ldi	r25, 0x00	; 0
      5ee:	1f 91       	pop	r17
@@ -727,8 +727,8 @@ Disassembly of section .text:
      5f8:	08 95       	ret
 
 000005fa <dxl_hal_clear>:
-     5fa:	80 91 77 10 	lds	r24, 0x1077
-     5fe:	80 93 76 10 	sts	0x1076, r24
+     5fa:	80 91 79 10 	lds	r24, 0x1079
+     5fe:	80 93 78 10 	sts	0x1078, r24
      602:	08 95       	ret
 
 00000604 <dxl_hal_tx>:
@@ -972,24 +972,24 @@ _delay_loop_1(uint8_t __count)
      7a6:	08 95       	ret
 
 000007a8 <dxl_hal_get_qstate>:
-     7a8:	90 91 76 10 	lds	r25, 0x1076
-     7ac:	80 91 77 10 	lds	r24, 0x1077
+     7a8:	90 91 78 10 	lds	r25, 0x1078
+     7ac:	80 91 79 10 	lds	r24, 0x1079
      7b0:	98 17       	cp	r25, r24
      7b2:	19 f4       	brne	.+6      	; 0x7ba <dxl_hal_get_qstate+0x12>
      7b4:	20 e0       	ldi	r18, 0x00	; 0
      7b6:	30 e0       	ldi	r19, 0x00	; 0
      7b8:	17 c0       	rjmp	.+46     	; 0x7e8 <dxl_hal_get_qstate+0x40>
-     7ba:	90 91 76 10 	lds	r25, 0x1076
-     7be:	80 91 77 10 	lds	r24, 0x1077
+     7ba:	90 91 78 10 	lds	r25, 0x1078
+     7be:	80 91 79 10 	lds	r24, 0x1079
      7c2:	98 17       	cp	r25, r24
      7c4:	38 f4       	brcc	.+14     	; 0x7d4 <dxl_hal_get_qstate+0x2c>
-     7c6:	80 91 77 10 	lds	r24, 0x1077
-     7ca:	90 91 76 10 	lds	r25, 0x1076
+     7c6:	80 91 79 10 	lds	r24, 0x1079
+     7ca:	90 91 78 10 	lds	r25, 0x1078
      7ce:	28 2f       	mov	r18, r24
      7d0:	30 e0       	ldi	r19, 0x00	; 0
      7d2:	08 c0       	rjmp	.+16     	; 0x7e4 <dxl_hal_get_qstate+0x3c>
-     7d4:	80 91 77 10 	lds	r24, 0x1077
-     7d8:	90 91 76 10 	lds	r25, 0x1076
+     7d4:	80 91 79 10 	lds	r24, 0x1079
+     7d8:	90 91 78 10 	lds	r25, 0x1078
      7dc:	28 2f       	mov	r18, r24
      7de:	30 e0       	ldi	r19, 0x00	; 0
      7e0:	20 50       	subi	r18, 0x00	; 0
@@ -1006,42 +1006,42 @@ _delay_loop_1(uint8_t __count)
      7f2:	8f 3f       	cpi	r24, 0xFF	; 255
      7f4:	91 05       	cpc	r25, r1
      7f6:	91 f0       	breq	.+36     	; 0x81c <dxl_hal_put_queue+0x30>
-     7f8:	e0 91 77 10 	lds	r30, 0x1077
+     7f8:	e0 91 79 10 	lds	r30, 0x1079
      7fc:	f0 e0       	ldi	r31, 0x00	; 0
-     7fe:	ea 58       	subi	r30, 0x8A	; 138
+     7fe:	e8 58       	subi	r30, 0x88	; 136
      800:	f0 4f       	sbci	r31, 0xF0	; 240
      802:	10 83       	st	Z, r17
-     804:	80 91 77 10 	lds	r24, 0x1077
+     804:	80 91 79 10 	lds	r24, 0x1079
      808:	8f 3f       	cpi	r24, 0xFF	; 255
      80a:	19 f4       	brne	.+6      	; 0x812 <dxl_hal_put_queue+0x26>
-     80c:	10 92 77 10 	sts	0x1077, r1
+     80c:	10 92 79 10 	sts	0x1079, r1
      810:	05 c0       	rjmp	.+10     	; 0x81c <dxl_hal_put_queue+0x30>
-     812:	80 91 77 10 	lds	r24, 0x1077
+     812:	80 91 79 10 	lds	r24, 0x1079
      816:	8f 5f       	subi	r24, 0xFF	; 255
-     818:	80 93 77 10 	sts	0x1077, r24
+     818:	80 93 79 10 	sts	0x1079, r24
      81c:	1f 91       	pop	r17
      81e:	08 95       	ret
 
 00000820 <dxl_hal_get_queue>:
-     820:	90 91 76 10 	lds	r25, 0x1076
-     824:	80 91 77 10 	lds	r24, 0x1077
+     820:	90 91 78 10 	lds	r25, 0x1078
+     824:	80 91 79 10 	lds	r24, 0x1079
      828:	98 17       	cp	r25, r24
      82a:	11 f4       	brne	.+4      	; 0x830 <dxl_hal_get_queue+0x10>
      82c:	ef ef       	ldi	r30, 0xFF	; 255
      82e:	12 c0       	rjmp	.+36     	; 0x854 <dxl_hal_get_queue+0x34>
-     830:	e0 91 76 10 	lds	r30, 0x1076
+     830:	e0 91 78 10 	lds	r30, 0x1078
      834:	f0 e0       	ldi	r31, 0x00	; 0
-     836:	ea 58       	subi	r30, 0x8A	; 138
+     836:	e8 58       	subi	r30, 0x88	; 136
      838:	f0 4f       	sbci	r31, 0xF0	; 240
      83a:	e0 81       	ld	r30, Z
-     83c:	80 91 76 10 	lds	r24, 0x1076
+     83c:	80 91 78 10 	lds	r24, 0x1078
      840:	8f 3f       	cpi	r24, 0xFF	; 255
      842:	19 f4       	brne	.+6      	; 0x84a <dxl_hal_get_queue+0x2a>
-     844:	10 92 76 10 	sts	0x1076, r1
+     844:	10 92 78 10 	sts	0x1078, r1
      848:	05 c0       	rjmp	.+10     	; 0x854 <dxl_hal_get_queue+0x34>
-     84a:	80 91 76 10 	lds	r24, 0x1076
+     84a:	80 91 78 10 	lds	r24, 0x1078
      84e:	8f 5f       	subi	r24, 0xFF	; 255
-     850:	80 93 76 10 	sts	0x1076, r24
+     850:	80 93 78 10 	sts	0x1078, r24
      854:	8e 2f       	mov	r24, r30
      856:	08 95       	ret
 
@@ -1054,8 +1054,8 @@ _delay_loop_1(uint8_t __count)
      862:	df 93       	push	r29
      864:	7c 01       	movw	r14, r24
      866:	eb 01       	movw	r28, r22
-     868:	90 91 76 10 	lds	r25, 0x1076
-     86c:	80 91 77 10 	lds	r24, 0x1077
+     868:	90 91 78 10 	lds	r25, 0x1078
+     86c:	80 91 79 10 	lds	r24, 0x1079
      870:	98 17       	cp	r25, r24
      872:	19 f4       	brne	.+6      	; 0x87a <dxl_hal_rx+0x22>
      874:	00 e0       	ldi	r16, 0x00	; 0
@@ -1152,30 +1152,30 @@ _delay_loop_1(uint8_t __count)
 
 00000928 <serial_read>:
      928:	dc 01       	movw	r26, r24
-     92a:	90 91 f8 10 	lds	r25, 0x10F8
-     92e:	80 91 f9 10 	lds	r24, 0x10F9
+     92a:	90 91 fa 10 	lds	r25, 0x10FA
+     92e:	80 91 fb 10 	lds	r24, 0x10FB
      932:	98 17       	cp	r25, r24
      934:	11 f4       	brne	.+4      	; 0x93a <serial_read+0x12>
      936:	80 e0       	ldi	r24, 0x00	; 0
      938:	08 95       	ret
-     93a:	90 91 f8 10 	lds	r25, 0x10F8
-     93e:	80 91 f9 10 	lds	r24, 0x10F9
+     93a:	90 91 fa 10 	lds	r25, 0x10FA
+     93e:	80 91 fb 10 	lds	r24, 0x10FB
      942:	98 17       	cp	r25, r24
      944:	19 f4       	brne	.+6      	; 0x94c <serial_read+0x24>
      946:	20 e0       	ldi	r18, 0x00	; 0
      948:	30 e0       	ldi	r19, 0x00	; 0
      94a:	17 c0       	rjmp	.+46     	; 0x97a <serial_read+0x52>
-     94c:	90 91 f8 10 	lds	r25, 0x10F8
-     950:	80 91 f9 10 	lds	r24, 0x10F9
+     94c:	90 91 fa 10 	lds	r25, 0x10FA
+     950:	80 91 fb 10 	lds	r24, 0x10FB
      954:	98 17       	cp	r25, r24
      956:	38 f4       	brcc	.+14     	; 0x966 <serial_read+0x3e>
-     958:	80 91 f9 10 	lds	r24, 0x10F9
-     95c:	90 91 f8 10 	lds	r25, 0x10F8
+     958:	80 91 fb 10 	lds	r24, 0x10FB
+     95c:	90 91 fa 10 	lds	r25, 0x10FA
      960:	28 2f       	mov	r18, r24
      962:	30 e0       	ldi	r19, 0x00	; 0
      964:	08 c0       	rjmp	.+16     	; 0x976 <serial_read+0x4e>
-     966:	80 91 f9 10 	lds	r24, 0x10F9
-     96a:	90 91 f8 10 	lds	r25, 0x10F8
+     966:	80 91 fb 10 	lds	r24, 0x10FB
+     96a:	90 91 fa 10 	lds	r25, 0x10FA
      96e:	28 2f       	mov	r18, r24
      970:	30 e0       	ldi	r19, 0x00	; 0
      972:	20 58       	subi	r18, 0x80	; 128
@@ -1190,25 +1190,25 @@ _delay_loop_1(uint8_t __count)
      984:	20 e0       	ldi	r18, 0x00	; 0
      986:	30 e0       	ldi	r19, 0x00	; 0
      988:	20 c0       	rjmp	.+64     	; 0x9ca <serial_read+0xa2>
-     98a:	90 91 f8 10 	lds	r25, 0x10F8
-     98e:	80 91 f9 10 	lds	r24, 0x10F9
+     98a:	90 91 fa 10 	lds	r25, 0x10FA
+     98e:	80 91 fb 10 	lds	r24, 0x10FB
      992:	98 17       	cp	r25, r24
      994:	11 f4       	brne	.+4      	; 0x99a <serial_read+0x72>
      996:	9f ef       	ldi	r25, 0xFF	; 255
      998:	12 c0       	rjmp	.+36     	; 0x9be <serial_read+0x96>
-     99a:	e0 91 f8 10 	lds	r30, 0x10F8
+     99a:	e0 91 fa 10 	lds	r30, 0x10FA
      99e:	f0 e0       	ldi	r31, 0x00	; 0
-     9a0:	e8 58       	subi	r30, 0x88	; 136
+     9a0:	e6 58       	subi	r30, 0x86	; 134
      9a2:	ff 4e       	sbci	r31, 0xEF	; 239
      9a4:	90 81       	ld	r25, Z
-     9a6:	80 91 f8 10 	lds	r24, 0x10F8
+     9a6:	80 91 fa 10 	lds	r24, 0x10FA
      9aa:	8f 37       	cpi	r24, 0x7F	; 127
      9ac:	19 f4       	brne	.+6      	; 0x9b4 <serial_read+0x8c>
-     9ae:	10 92 f8 10 	sts	0x10F8, r1
+     9ae:	10 92 fa 10 	sts	0x10FA, r1
      9b2:	05 c0       	rjmp	.+10     	; 0x9be <serial_read+0x96>
-     9b4:	80 91 f8 10 	lds	r24, 0x10F8
+     9b4:	80 91 fa 10 	lds	r24, 0x10FA
      9b8:	8f 5f       	subi	r24, 0xFF	; 255
-     9ba:	80 93 f8 10 	sts	0x10F8, r24
+     9ba:	80 93 fa 10 	sts	0x10FA, r24
      9be:	fd 01       	movw	r30, r26
      9c0:	e2 0f       	add	r30, r18
      9c2:	f3 1f       	adc	r31, r19
@@ -1222,24 +1222,24 @@ _delay_loop_1(uint8_t __count)
      9d2:	08 95       	ret
 
 000009d4 <serial_get_qstate>:
-     9d4:	90 91 f8 10 	lds	r25, 0x10F8
-     9d8:	80 91 f9 10 	lds	r24, 0x10F9
+     9d4:	90 91 fa 10 	lds	r25, 0x10FA
+     9d8:	80 91 fb 10 	lds	r24, 0x10FB
      9dc:	98 17       	cp	r25, r24
      9de:	19 f4       	brne	.+6      	; 0x9e6 <serial_get_qstate+0x12>
      9e0:	20 e0       	ldi	r18, 0x00	; 0
      9e2:	30 e0       	ldi	r19, 0x00	; 0
      9e4:	17 c0       	rjmp	.+46     	; 0xa14 <serial_get_qstate+0x40>
-     9e6:	90 91 f8 10 	lds	r25, 0x10F8
-     9ea:	80 91 f9 10 	lds	r24, 0x10F9
+     9e6:	90 91 fa 10 	lds	r25, 0x10FA
+     9ea:	80 91 fb 10 	lds	r24, 0x10FB
      9ee:	98 17       	cp	r25, r24
      9f0:	38 f4       	brcc	.+14     	; 0xa00 <serial_get_qstate+0x2c>
-     9f2:	80 91 f9 10 	lds	r24, 0x10F9
-     9f6:	90 91 f8 10 	lds	r25, 0x10F8
+     9f2:	80 91 fb 10 	lds	r24, 0x10FB
+     9f6:	90 91 fa 10 	lds	r25, 0x10FA
      9fa:	28 2f       	mov	r18, r24
      9fc:	30 e0       	ldi	r19, 0x00	; 0
      9fe:	08 c0       	rjmp	.+16     	; 0xa10 <serial_get_qstate+0x3c>
-     a00:	80 91 f9 10 	lds	r24, 0x10F9
-     a04:	90 91 f8 10 	lds	r25, 0x10F8
+     a00:	80 91 fb 10 	lds	r24, 0x10FB
+     a04:	90 91 fa 10 	lds	r25, 0x10FA
      a08:	28 2f       	mov	r18, r24
      a0a:	30 e0       	ldi	r19, 0x00	; 0
      a0c:	20 58       	subi	r18, 0x80	; 128
@@ -1251,21 +1251,21 @@ _delay_loop_1(uint8_t __count)
 
 00000a18 <serial_put_queue>:
      a18:	48 2f       	mov	r20, r24
-     a1a:	90 91 f8 10 	lds	r25, 0x10F8
-     a1e:	80 91 f9 10 	lds	r24, 0x10F9
+     a1a:	90 91 fa 10 	lds	r25, 0x10FA
+     a1e:	80 91 fb 10 	lds	r24, 0x10FB
      a22:	98 17       	cp	r25, r24
      a24:	d1 f0       	breq	.+52     	; 0xa5a <serial_put_queue+0x42>
-     a26:	90 91 f8 10 	lds	r25, 0x10F8
-     a2a:	80 91 f9 10 	lds	r24, 0x10F9
+     a26:	90 91 fa 10 	lds	r25, 0x10FA
+     a2a:	80 91 fb 10 	lds	r24, 0x10FB
      a2e:	98 17       	cp	r25, r24
      a30:	38 f4       	brcc	.+14     	; 0xa40 <serial_put_queue+0x28>
-     a32:	80 91 f9 10 	lds	r24, 0x10F9
-     a36:	90 91 f8 10 	lds	r25, 0x10F8
+     a32:	80 91 fb 10 	lds	r24, 0x10FB
+     a36:	90 91 fa 10 	lds	r25, 0x10FA
      a3a:	28 2f       	mov	r18, r24
      a3c:	30 e0       	ldi	r19, 0x00	; 0
      a3e:	08 c0       	rjmp	.+16     	; 0xa50 <serial_put_queue+0x38>
-     a40:	80 91 f9 10 	lds	r24, 0x10F9
-     a44:	90 91 f8 10 	lds	r25, 0x10F8
+     a40:	80 91 fb 10 	lds	r24, 0x10FB
+     a44:	90 91 fa 10 	lds	r25, 0x10FA
      a48:	28 2f       	mov	r18, r24
      a4a:	30 e0       	ldi	r19, 0x00	; 0
      a4c:	20 58       	subi	r18, 0x80	; 128
@@ -1275,41 +1275,41 @@ _delay_loop_1(uint8_t __count)
      a54:	2f 37       	cpi	r18, 0x7F	; 127
      a56:	31 05       	cpc	r19, r1
      a58:	91 f0       	breq	.+36     	; 0xa7e <serial_put_queue+0x66>
-     a5a:	e0 91 f9 10 	lds	r30, 0x10F9
+     a5a:	e0 91 fb 10 	lds	r30, 0x10FB
      a5e:	f0 e0       	ldi	r31, 0x00	; 0
-     a60:	e8 58       	subi	r30, 0x88	; 136
+     a60:	e6 58       	subi	r30, 0x86	; 134
      a62:	ff 4e       	sbci	r31, 0xEF	; 239
      a64:	40 83       	st	Z, r20
-     a66:	80 91 f9 10 	lds	r24, 0x10F9
+     a66:	80 91 fb 10 	lds	r24, 0x10FB
      a6a:	8f 37       	cpi	r24, 0x7F	; 127
      a6c:	19 f4       	brne	.+6      	; 0xa74 <serial_put_queue+0x5c>
-     a6e:	10 92 f9 10 	sts	0x10F9, r1
+     a6e:	10 92 fb 10 	sts	0x10FB, r1
      a72:	08 95       	ret
-     a74:	80 91 f9 10 	lds	r24, 0x10F9
+     a74:	80 91 fb 10 	lds	r24, 0x10FB
      a78:	8f 5f       	subi	r24, 0xFF	; 255
-     a7a:	80 93 f9 10 	sts	0x10F9, r24
+     a7a:	80 93 fb 10 	sts	0x10FB, r24
      a7e:	08 95       	ret
 
 00000a80 <serial_get_queue>:
-     a80:	90 91 f8 10 	lds	r25, 0x10F8
-     a84:	80 91 f9 10 	lds	r24, 0x10F9
+     a80:	90 91 fa 10 	lds	r25, 0x10FA
+     a84:	80 91 fb 10 	lds	r24, 0x10FB
      a88:	98 17       	cp	r25, r24
      a8a:	11 f4       	brne	.+4      	; 0xa90 <serial_get_queue+0x10>
      a8c:	ef ef       	ldi	r30, 0xFF	; 255
      a8e:	12 c0       	rjmp	.+36     	; 0xab4 <serial_get_queue+0x34>
-     a90:	e0 91 f8 10 	lds	r30, 0x10F8
+     a90:	e0 91 fa 10 	lds	r30, 0x10FA
      a94:	f0 e0       	ldi	r31, 0x00	; 0
-     a96:	e8 58       	subi	r30, 0x88	; 136
+     a96:	e6 58       	subi	r30, 0x86	; 134
      a98:	ff 4e       	sbci	r31, 0xEF	; 239
      a9a:	e0 81       	ld	r30, Z
-     a9c:	80 91 f8 10 	lds	r24, 0x10F8
+     a9c:	80 91 fa 10 	lds	r24, 0x10FA
      aa0:	8f 37       	cpi	r24, 0x7F	; 127
      aa2:	19 f4       	brne	.+6      	; 0xaaa <serial_get_queue+0x2a>
-     aa4:	10 92 f8 10 	sts	0x10F8, r1
+     aa4:	10 92 fa 10 	sts	0x10FA, r1
      aa8:	05 c0       	rjmp	.+10     	; 0xab4 <serial_get_queue+0x34>
-     aaa:	80 91 f8 10 	lds	r24, 0x10F8
+     aaa:	80 91 fa 10 	lds	r24, 0x10FA
      aae:	8f 5f       	subi	r24, 0xFF	; 255
-     ab0:	80 93 f8 10 	sts	0x10F8, r24
+     ab0:	80 93 fa 10 	sts	0x10FA, r24
      ab4:	8e 2f       	mov	r24, r30
      ab6:	08 95       	ret
 
@@ -1395,21 +1395,21 @@ _delay_loop_1(uint8_t __count)
      b5a:	08 95       	ret
 
 00000b5c <std_getchar>:
-     b5c:	90 91 f8 10 	lds	r25, 0x10F8
-     b60:	80 91 f9 10 	lds	r24, 0x10F9
+     b5c:	90 91 fa 10 	lds	r25, 0x10FA
+     b60:	80 91 fb 10 	lds	r24, 0x10FB
      b64:	98 17       	cp	r25, r24
      b66:	d1 f3       	breq	.-12     	; 0xb5c <std_getchar>
-     b68:	90 91 f8 10 	lds	r25, 0x10F8
-     b6c:	80 91 f9 10 	lds	r24, 0x10F9
+     b68:	90 91 fa 10 	lds	r25, 0x10FA
+     b6c:	80 91 fb 10 	lds	r24, 0x10FB
      b70:	98 17       	cp	r25, r24
      b72:	38 f4       	brcc	.+14     	; 0xb82 <std_getchar+0x26>
-     b74:	80 91 f9 10 	lds	r24, 0x10F9
-     b78:	90 91 f8 10 	lds	r25, 0x10F8
+     b74:	80 91 fb 10 	lds	r24, 0x10FB
+     b78:	90 91 fa 10 	lds	r25, 0x10FA
      b7c:	28 2f       	mov	r18, r24
      b7e:	30 e0       	ldi	r19, 0x00	; 0
      b80:	08 c0       	rjmp	.+16     	; 0xb92 <std_getchar+0x36>
-     b82:	80 91 f9 10 	lds	r24, 0x10F9
-     b86:	90 91 f8 10 	lds	r25, 0x10F8
+     b82:	80 91 fb 10 	lds	r24, 0x10FB
+     b86:	90 91 fa 10 	lds	r25, 0x10FA
      b8a:	28 2f       	mov	r18, r24
      b8c:	30 e0       	ldi	r19, 0x00	; 0
      b8e:	20 58       	subi	r18, 0x80	; 128
@@ -1418,25 +1418,25 @@ _delay_loop_1(uint8_t __count)
      b94:	31 09       	sbc	r19, r1
      b96:	23 2b       	or	r18, r19
      b98:	09 f3       	breq	.-62     	; 0xb5c <std_getchar>
-     b9a:	90 91 f8 10 	lds	r25, 0x10F8
-     b9e:	80 91 f9 10 	lds	r24, 0x10F9
+     b9a:	90 91 fa 10 	lds	r25, 0x10FA
+     b9e:	80 91 fb 10 	lds	r24, 0x10FB
      ba2:	98 17       	cp	r25, r24
      ba4:	11 f4       	brne	.+4      	; 0xbaa <std_getchar+0x4e>
      ba6:	ef ef       	ldi	r30, 0xFF	; 255
      ba8:	15 c0       	rjmp	.+42     	; 0xbd4 <std_getchar+0x78>
-     baa:	e0 91 f8 10 	lds	r30, 0x10F8
+     baa:	e0 91 fa 10 	lds	r30, 0x10FA
      bae:	f0 e0       	ldi	r31, 0x00	; 0
-     bb0:	e8 58       	subi	r30, 0x88	; 136
+     bb0:	e6 58       	subi	r30, 0x86	; 134
      bb2:	ff 4e       	sbci	r31, 0xEF	; 239
      bb4:	e0 81       	ld	r30, Z
-     bb6:	80 91 f8 10 	lds	r24, 0x10F8
+     bb6:	80 91 fa 10 	lds	r24, 0x10FA
      bba:	8f 37       	cpi	r24, 0x7F	; 127
      bbc:	19 f4       	brne	.+6      	; 0xbc4 <std_getchar+0x68>
-     bbe:	10 92 f8 10 	sts	0x10F8, r1
+     bbe:	10 92 fa 10 	sts	0x10FA, r1
      bc2:	05 c0       	rjmp	.+10     	; 0xbce <std_getchar+0x72>
-     bc4:	80 91 f8 10 	lds	r24, 0x10F8
+     bc4:	80 91 fa 10 	lds	r24, 0x10FA
      bc8:	8f 5f       	subi	r24, 0xFF	; 255
-     bca:	80 93 f8 10 	sts	0x10F8, r24
+     bca:	80 93 fa 10 	sts	0x10FA, r24
      bce:	ed 30       	cpi	r30, 0x0D	; 13
      bd0:	09 f4       	brne	.+2      	; 0xbd4 <std_getchar+0x78>
      bd2:	ea e0       	ldi	r30, 0x0A	; 10
@@ -1464,8 +1464,8 @@ _delay_loop_1(uint8_t __count)
      c04:	20 93 ca 00 	sts	0x00CA, r18
      c08:	2f ef       	ldi	r18, 0xFF	; 255
      c0a:	20 93 ce 00 	sts	0x00CE, r18
-     c0e:	10 92 f8 10 	sts	0x10F8, r1
-     c12:	10 92 f9 10 	sts	0x10F9, r1
+     c0e:	10 92 fa 10 	sts	0x10FA, r1
+     c12:	10 92 fb 10 	sts	0x10FB, r1
      c16:	27 2f       	mov	r18, r23
      c18:	33 27       	eor	r19, r19
      c1a:	27 fd       	sbrc	r18, 7
@@ -1479,8 +1479,8 @@ _delay_loop_1(uint8_t __count)
      c2e:	6e ea       	ldi	r22, 0xAE	; 174
      c30:	75 e0       	ldi	r23, 0x05	; 5
      c32:	0e 94 3b 11 	call	0x2276	; 0x2276 <fdevopen>
-     c36:	90 93 fb 10 	sts	0x10FB, r25
-     c3a:	80 93 fa 10 	sts	0x10FA, r24
+     c36:	90 93 fd 10 	sts	0x10FD, r25
+     c3a:	80 93 fc 10 	sts	0x10FC, r24
      c3e:	08 95       	ret
 
 00000c40 <initSerial>:
@@ -1520,19 +1520,19 @@ int checkSerialRead(void){
      c68:	8d 30       	cpi	r24, 0x0D	; 13
      c6a:	91 f4       	brne	.+36     	; 0xc90 <checkSerialRead+0x42>
 			if( buffCnt > 0 ){
-     c6c:	80 91 4e 11 	lds	r24, 0x114E
-     c70:	90 91 4f 11 	lds	r25, 0x114F
+     c6c:	80 91 50 11 	lds	r24, 0x1150
+     c70:	90 91 51 11 	lds	r25, 0x1151
      c74:	18 16       	cp	r1, r24
      c76:	19 06       	cpc	r1, r25
      c78:	8c f5       	brge	.+98     	; 0xcdc <checkSerialRead+0x8e>
 				buffCnt = 0;
-     c7a:	10 92 4f 11 	sts	0x114F, r1
-     c7e:	10 92 4e 11 	sts	0x114E, r1
+     c7a:	10 92 51 11 	sts	0x1151, r1
+     c7e:	10 92 50 11 	sts	0x1150, r1
 				isRead = 1;
      c82:	81 e0       	ldi	r24, 0x01	; 1
      c84:	90 e0       	ldi	r25, 0x00	; 0
-     c86:	90 93 51 11 	sts	0x1151, r25
-     c8a:	80 93 50 11 	sts	0x1150, r24
+     c86:	90 93 53 11 	sts	0x1153, r25
+     c8a:	80 93 52 11 	sts	0x1152, r24
      c8e:	08 95       	ret
 				ret = 1;
 			}
@@ -1540,31 +1540,31 @@ int checkSerialRead(void){
      c90:	88 23       	and	r24, r24
      c92:	39 f1       	breq	.+78     	; 0xce2 <checkSerialRead+0x94>
 			readBuffer[buffCnt++] = ReceivedData;
-     c94:	20 91 4e 11 	lds	r18, 0x114E
-     c98:	30 91 4f 11 	lds	r19, 0x114F
+     c94:	20 91 50 11 	lds	r18, 0x1150
+     c98:	30 91 51 11 	lds	r19, 0x1151
      c9c:	a9 01       	movw	r20, r18
      c9e:	4f 5f       	subi	r20, 0xFF	; 255
      ca0:	5f 4f       	sbci	r21, 0xFF	; 255
-     ca2:	50 93 4f 11 	sts	0x114F, r21
-     ca6:	40 93 4e 11 	sts	0x114E, r20
+     ca2:	50 93 51 11 	sts	0x1151, r21
+     ca6:	40 93 50 11 	sts	0x1150, r20
      caa:	f9 01       	movw	r30, r18
-     cac:	e2 50       	subi	r30, 0x02	; 2
+     cac:	e0 50       	subi	r30, 0x00	; 0
      cae:	ff 4e       	sbci	r31, 0xEF	; 239
      cb0:	80 83       	st	Z, r24
 			if( buffCnt >= SERIAL_BUFFER_SIZE-1 ){
-     cb2:	80 91 4e 11 	lds	r24, 0x114E
-     cb6:	90 91 4f 11 	lds	r25, 0x114F
+     cb2:	80 91 50 11 	lds	r24, 0x1150
+     cb6:	90 91 51 11 	lds	r25, 0x1151
      cba:	8f 34       	cpi	r24, 0x4F	; 79
      cbc:	91 05       	cpc	r25, r1
      cbe:	a4 f0       	brlt	.+40     	; 0xce8 <checkSerialRead+0x9a>
 				buffCnt = 0;
-     cc0:	10 92 4f 11 	sts	0x114F, r1
-     cc4:	10 92 4e 11 	sts	0x114E, r1
+     cc0:	10 92 51 11 	sts	0x1151, r1
+     cc4:	10 92 50 11 	sts	0x1150, r1
 				isRead = 1;
      cc8:	81 e0       	ldi	r24, 0x01	; 1
      cca:	90 e0       	ldi	r25, 0x00	; 0
-     ccc:	90 93 51 11 	sts	0x1151, r25
-     cd0:	80 93 50 11 	sts	0x1150, r24
+     ccc:	90 93 53 11 	sts	0x1153, r25
+     cd0:	80 93 52 11 	sts	0x1152, r24
      cd4:	08 95       	ret
 	isRead = 0;
 	memset( &readBuffer[0], 0x00, SERIAL_BUFFER_SIZE );
@@ -1597,8 +1597,8 @@ char * getReadBuffer(){
 //	printf( "getReadBuffer %d\n", isRead );
 	char * ret = NULL;
 	if( isRead > 0 ){
-     cee:	80 91 50 11 	lds	r24, 0x1150
-     cf2:	90 91 51 11 	lds	r25, 0x1151
+     cee:	80 91 52 11 	lds	r24, 0x1152
+     cf2:	90 91 53 11 	lds	r25, 0x1153
      cf6:	18 16       	cp	r1, r24
      cf8:	19 06       	cpc	r1, r25
      cfa:	3c f4       	brge	.+14     	; 0xd0a <getReadBuffer+0x1c>
@@ -1608,16 +1608,16 @@ char * getReadBuffer(){
 		//}
 		ret = &readBuffer[0];
 		isRead = 0;
-     cfc:	10 92 51 11 	sts	0x1151, r1
-     d00:	10 92 50 11 	sts	0x1150, r1
+     cfc:	10 92 53 11 	sts	0x1153, r1
+     d00:	10 92 52 11 	sts	0x1152, r1
 			//memcpy( &ret, &readBuffer, sizeof(unsigned char) * BUFFER_SIZE );
 			//memset( &readBuffer[0], 0x00, BUFFER_SIZE );
 			//isRead = 0;
 			//printf( "ret=%s\n", ret );
 		//}
 		ret = &readBuffer[0];
-     d04:	8e ef       	ldi	r24, 0xFE	; 254
-     d06:	90 e1       	ldi	r25, 0x10	; 16
+     d04:	80 e0       	ldi	r24, 0x00	; 0
+     d06:	91 e1       	ldi	r25, 0x11	; 17
      d08:	08 95       	ret
 	return ret;
 }
@@ -1642,7 +1642,7 @@ char * getReadBuffer(){
 }
 
 void ServoReadState(){
-     d10:	8c e8       	ldi	r24, 0x8C	; 140
+     d10:	8e e8       	ldi	r24, 0x8E	; 142
      d12:	9b e0       	ldi	r25, 0x0B	; 11
      d14:	0e 94 d4 11 	call	0x23a8	; 0x23a8 <puts>
      d18:	60 e0       	ldi	r22, 0x00	; 0
@@ -1769,7 +1769,7 @@ void ServoReadState(){
 00000e12 <sendAck>:
      e12:	9f 93       	push	r25
      e14:	8f 93       	push	r24
-     e16:	8b e9       	ldi	r24, 0x9B	; 155
+     e16:	8d e9       	ldi	r24, 0x9D	; 157
      e18:	9b e0       	ldi	r25, 0x0B	; 11
      e1a:	9f 93       	push	r25
      e1c:	8f 93       	push	r24
@@ -1899,7 +1899,7 @@ void ServoReadState(){
      f20:	ba 27       	eor	r27, r26
      f22:	a0 7f       	andi	r26, 0xF0	; 240
      f24:	ba 27       	eor	r27, r26
-     f26:	a2 55       	subi	r26, 0x52	; 82
+     f26:	a0 55       	subi	r26, 0x50	; 80
      f28:	bd 4f       	sbci	r27, 0xFD	; 253
      f2a:	22 ea       	ldi	r18, 0xA2	; 162
      f2c:	31 e1       	ldi	r19, 0x11	; 17
@@ -1936,11 +1936,11 @@ void ServoReadState(){
      f66:	1d 92       	st	X+, r1
      f68:	8a 95       	dec	r24
      f6a:	e9 f7       	brne	.-6      	; 0xf66 <getAngle+0x28>
-     f6c:	0e e6       	ldi	r16, 0x6E	; 110
+     f6c:	00 e7       	ldi	r16, 0x70	; 112
      f6e:	1b e0       	ldi	r17, 0x0B	; 11
      f70:	7f 01       	movw	r14, r30
      f72:	0f 2e       	mov	r0, r31
-     f74:	fc e8       	ldi	r31, 0x8C	; 140
+     f74:	fe e8       	ldi	r31, 0x8E	; 142
      f76:	cf 2e       	mov	r12, r31
      f78:	fb e0       	ldi	r31, 0x0B	; 11
      f7a:	df 2e       	mov	r13, r31
@@ -1990,7 +1990,7 @@ void ServoReadState(){
      fd2:	1f 92       	push	r1
      fd4:	82 e0       	ldi	r24, 0x02	; 2
      fd6:	8f 93       	push	r24
-     fd8:	80 ea       	ldi	r24, 0xA0	; 160
+     fd8:	82 ea       	ldi	r24, 0xA2	; 162
      fda:	9b e0       	ldi	r25, 0x0B	; 11
      fdc:	9f 93       	push	r25
      fde:	8f 93       	push	r24
@@ -2026,7 +2026,7 @@ void ServoReadState(){
     1018:	80 7f       	andi	r24, 0xF0	; 240
     101a:	98 27       	eor	r25, r24
     101c:	fc 01       	movw	r30, r24
-    101e:	e2 55       	subi	r30, 0x52	; 82
+    101e:	e0 55       	subi	r30, 0x50	; 80
     1020:	fd 4f       	sbci	r31, 0xFD	; 253
     1022:	81 8d       	ldd	r24, Z+25	; 0x19
     1024:	8f 93       	push	r24
@@ -2083,7 +2083,7 @@ void ServoReadState(){
     108a:	1f 92       	push	r1
     108c:	83 e0       	ldi	r24, 0x03	; 3
     108e:	8f 93       	push	r24
-    1090:	89 ec       	ldi	r24, 0xC9	; 201
+    1090:	8b ec       	ldi	r24, 0xCB	; 203
     1092:	9b e0       	ldi	r25, 0x0B	; 11
     1094:	9f 93       	push	r25
     1096:	8f 93       	push	r24
@@ -2122,11 +2122,11 @@ void ServoReadState(){
     10d6:	1d 92       	st	X+, r1
     10d8:	8a 95       	dec	r24
     10da:	e9 f7       	brne	.-6      	; 0x10d6 <getLoad+0x28>
-    10dc:	0e e6       	ldi	r16, 0x6E	; 110
+    10dc:	00 e7       	ldi	r16, 0x70	; 112
     10de:	1b e0       	ldi	r17, 0x0B	; 11
     10e0:	7f 01       	movw	r14, r30
     10e2:	0f 2e       	mov	r0, r31
-    10e4:	fc e8       	ldi	r31, 0x8C	; 140
+    10e4:	fe e8       	ldi	r31, 0x8E	; 142
     10e6:	cf 2e       	mov	r12, r31
     10e8:	fb e0       	ldi	r31, 0x0B	; 11
     10ea:	df 2e       	mov	r13, r31
@@ -2196,7 +2196,7 @@ void ServoReadState(){
     116a:	1f 92       	push	r1
     116c:	84 e0       	ldi	r24, 0x04	; 4
     116e:	8f 93       	push	r24
-    1170:	84 ef       	ldi	r24, 0xF4	; 244
+    1170:	86 ef       	ldi	r24, 0xF6	; 246
     1172:	9b e0       	ldi	r25, 0x0B	; 11
     1174:	9f 93       	push	r25
     1176:	8f 93       	push	r24
@@ -2246,11 +2246,11 @@ void ServoReadState(){
     11cc:	1d 92       	st	X+, r1
     11ce:	8a 95       	dec	r24
     11d0:	e9 f7       	brne	.-6      	; 0x11cc <getVoltage+0x28>
-    11d2:	0e e6       	ldi	r16, 0x6E	; 110
+    11d2:	00 e7       	ldi	r16, 0x70	; 112
     11d4:	1b e0       	ldi	r17, 0x0B	; 11
     11d6:	7f 01       	movw	r14, r30
     11d8:	0f 2e       	mov	r0, r31
-    11da:	fc e8       	ldi	r31, 0x8C	; 140
+    11da:	fe e8       	ldi	r31, 0x8E	; 142
     11dc:	cf 2e       	mov	r12, r31
     11de:	fb e0       	ldi	r31, 0x0B	; 11
     11e0:	df 2e       	mov	r13, r31
@@ -2321,7 +2321,7 @@ void ServoReadState(){
     1264:	1f 92       	push	r1
     1266:	85 e0       	ldi	r24, 0x05	; 5
     1268:	8f 93       	push	r24
-    126a:	84 ef       	ldi	r24, 0xF4	; 244
+    126a:	86 ef       	ldi	r24, 0xF6	; 246
     126c:	9b e0       	ldi	r25, 0x0B	; 11
     126e:	9f 93       	push	r25
     1270:	8f 93       	push	r24
@@ -2386,7 +2386,7 @@ void ServoReadState(){
     1308:	ff 1f       	adc	r31, r31
     130a:	ee 0f       	add	r30, r30
     130c:	ff 1f       	adc	r31, r31
-    130e:	e0 5f       	subi	r30, 0xF0	; 240
+    130e:	ee 5e       	subi	r30, 0xEE	; 238
     1310:	fd 4f       	sbci	r31, 0xFD	; 253
     1312:	80 81       	ld	r24, Z
     1314:	91 81       	ldd	r25, Z+1	; 0x01
@@ -2410,7 +2410,7 @@ void ServoReadState(){
     1344:	ff 1f       	adc	r31, r31
     1346:	ee 0f       	add	r30, r30
     1348:	ff 1f       	adc	r31, r31
-    134a:	e0 5f       	subi	r30, 0xF0	; 240
+    134a:	ee 5e       	subi	r30, 0xEE	; 238
     134c:	fd 4f       	sbci	r31, 0xFD	; 253
     134e:	62 81       	ldd	r22, Z+2	; 0x02
     1350:	73 81       	ldd	r23, Z+3	; 0x03
@@ -2422,8 +2422,8 @@ void ServoReadState(){
     1360:	01 96       	adiw	r24, 0x01	; 1
     1362:	90 93 77 11 	sts	0x1177, r25
     1366:	80 93 76 11 	sts	0x1176, r24
-    136a:	20 91 12 02 	lds	r18, 0x0212
-    136e:	30 91 13 02 	lds	r19, 0x0213
+    136a:	20 91 14 02 	lds	r18, 0x0214
+    136e:	30 91 15 02 	lds	r19, 0x0215
     1372:	28 17       	cp	r18, r24
     1374:	39 07       	cpc	r19, r25
     1376:	34 f4       	brge	.+12     	; 0x1384 <setModeAction+0xb0>
@@ -2442,8 +2442,8 @@ void ServoReadState(){
     139a:	10 92 6a 11 	sts	0x116A, r1
     139e:	81 e0       	ldi	r24, 0x01	; 1
     13a0:	90 e0       	ldi	r25, 0x00	; 0
-    13a2:	90 93 0f 02 	sts	0x020F, r25
-    13a6:	80 93 0e 02 	sts	0x020E, r24
+    13a2:	90 93 11 02 	sts	0x0211, r25
+    13a6:	80 93 10 02 	sts	0x0210, r24
     13aa:	10 92 71 11 	sts	0x1171, r1
     13ae:	10 92 70 11 	sts	0x1170, r1
     13b2:	08 95       	ret
@@ -2451,16 +2451,16 @@ void ServoReadState(){
 000013b4 <stopMotion>:
     13b4:	81 e0       	ldi	r24, 0x01	; 1
     13b6:	90 e0       	ldi	r25, 0x00	; 0
-    13b8:	90 93 0f 02 	sts	0x020F, r25
-    13bc:	80 93 0e 02 	sts	0x020E, r24
+    13b8:	90 93 11 02 	sts	0x0211, r25
+    13bc:	80 93 10 02 	sts	0x0210, r24
     13c0:	10 92 73 11 	sts	0x1173, r1
     13c4:	10 92 72 11 	sts	0x1172, r1
     13c8:	10 92 71 11 	sts	0x1171, r1
     13cc:	10 92 70 11 	sts	0x1170, r1
     13d0:	8f ef       	ldi	r24, 0xFF	; 255
     13d2:	9f ef       	ldi	r25, 0xFF	; 255
-    13d4:	90 93 0d 02 	sts	0x020D, r25
-    13d8:	80 93 0c 02 	sts	0x020C, r24
+    13d4:	90 93 0f 02 	sts	0x020F, r25
+    13d8:	80 93 0e 02 	sts	0x020E, r24
     13dc:	08 95       	ret
 
 000013de <PrintErrorCode>:
@@ -2476,7 +2476,7 @@ void PrintErrorCode()
     13e6:	01 97       	sbiw	r24, 0x01	; 1
     13e8:	19 f4       	brne	.+6      	; 0x13f0 <PrintErrorCode+0x12>
 	printf("Input voltage error!\n");
-    13ea:	81 e2       	ldi	r24, 0x21	; 33
+    13ea:	83 e2       	ldi	r24, 0x23	; 35
     13ec:	9c e0       	ldi	r25, 0x0C	; 12
     13ee:	dc d7       	rcall	.+4024   	; 0x23a8 <puts>
 
@@ -2487,7 +2487,7 @@ void PrintErrorCode()
     13f8:	01 97       	sbiw	r24, 0x01	; 1
     13fa:	19 f4       	brne	.+6      	; 0x1402 <PrintErrorCode+0x24>
 	printf("Angle limit error!\n");
-    13fc:	86 e3       	ldi	r24, 0x36	; 54
+    13fc:	88 e3       	ldi	r24, 0x38	; 56
     13fe:	9c e0       	ldi	r25, 0x0C	; 12
     1400:	d3 d7       	rcall	.+4006   	; 0x23a8 <puts>
 
@@ -2498,7 +2498,7 @@ void PrintErrorCode()
     140a:	01 97       	sbiw	r24, 0x01	; 1
     140c:	19 f4       	brne	.+6      	; 0x1414 <PrintErrorCode+0x36>
 	printf("Overheat error!\n");
-    140e:	89 e4       	ldi	r24, 0x49	; 73
+    140e:	8b e4       	ldi	r24, 0x4B	; 75
     1410:	9c e0       	ldi	r25, 0x0C	; 12
     1412:	ca d7       	rcall	.+3988   	; 0x23a8 <puts>
 
@@ -2509,7 +2509,7 @@ void PrintErrorCode()
     141c:	01 97       	sbiw	r24, 0x01	; 1
     141e:	19 f4       	brne	.+6      	; 0x1426 <PrintErrorCode+0x48>
 	printf("Out of range error!\n");
-    1420:	89 e5       	ldi	r24, 0x59	; 89
+    1420:	8b e5       	ldi	r24, 0x5B	; 91
     1422:	9c e0       	ldi	r25, 0x0C	; 12
     1424:	c1 d7       	rcall	.+3970   	; 0x23a8 <puts>
 
@@ -2520,7 +2520,7 @@ void PrintErrorCode()
     142e:	01 97       	sbiw	r24, 0x01	; 1
     1430:	19 f4       	brne	.+6      	; 0x1438 <PrintErrorCode+0x5a>
 	printf("Checksum error!\n");
-    1432:	8d e6       	ldi	r24, 0x6D	; 109
+    1432:	8f e6       	ldi	r24, 0x6F	; 111
     1434:	9c e0       	ldi	r25, 0x0C	; 12
     1436:	b8 d7       	rcall	.+3952   	; 0x23a8 <puts>
 
@@ -2531,7 +2531,7 @@ void PrintErrorCode()
     1440:	01 97       	sbiw	r24, 0x01	; 1
     1442:	19 f4       	brne	.+6      	; 0x144a <PrintErrorCode+0x6c>
 	printf("Overload error!\n");
-    1444:	8d e7       	ldi	r24, 0x7D	; 125
+    1444:	8f e7       	ldi	r24, 0x7F	; 127
     1446:	9c e0       	ldi	r25, 0x0C	; 12
     1448:	af d7       	rcall	.+3934   	; 0x23a8 <puts>
 
@@ -2542,7 +2542,7 @@ void PrintErrorCode()
     1452:	01 97       	sbiw	r24, 0x01	; 1
     1454:	19 f4       	brne	.+6      	; 0x145c <PrintErrorCode+0x7e>
 	printf("Instruction code error!\n");
-    1456:	8d e8       	ldi	r24, 0x8D	; 141
+    1456:	8f e8       	ldi	r24, 0x8F	; 143
     1458:	9c e0       	ldi	r25, 0x0C	; 12
     145a:	a6 c7       	rjmp	.+3916   	; 0x23a8 <puts>
     145c:	08 95       	ret
@@ -2574,7 +2574,7 @@ void PrintCommStatus(int CommStatus)
 	{
 		case COMM_TXFAIL:
 		printf("COMM_TXFAIL: Failed transmit instruction packet!\n");
-    1480:	85 ea       	ldi	r24, 0xA5	; 165
+    1480:	87 ea       	ldi	r24, 0xA7	; 167
     1482:	9c e0       	ldi	r25, 0x0C	; 12
     1484:	91 c7       	rjmp	.+3874   	; 0x23a8 <puts>
 		break;
@@ -2582,7 +2582,7 @@ void PrintCommStatus(int CommStatus)
 
 		case COMM_TXERROR:
 		printf("COMM_TXERROR: Incorrect instruction packet!\n");
-    1488:	86 ed       	ldi	r24, 0xD6	; 214
+    1488:	88 ed       	ldi	r24, 0xD8	; 216
     148a:	9c e0       	ldi	r25, 0x0C	; 12
     148c:	8d c7       	rjmp	.+3866   	; 0x23a8 <puts>
 		break;
@@ -2590,7 +2590,7 @@ void PrintCommStatus(int CommStatus)
 
 		case COMM_RXFAIL:
 		printf("COMM_RXFAIL: Failed get status packet from device!\n");
-    1490:	82 e0       	ldi	r24, 0x02	; 2
+    1490:	84 e0       	ldi	r24, 0x04	; 4
     1492:	9d e0       	ldi	r25, 0x0D	; 13
     1494:	89 c7       	rjmp	.+3858   	; 0x23a8 <puts>
 		break;
@@ -2598,7 +2598,7 @@ void PrintCommStatus(int CommStatus)
 
 		case COMM_RXWAITING:
 		printf("COMM_RXWAITING: Now recieving status packet!\n");
-    1498:	85 e3       	ldi	r24, 0x35	; 53
+    1498:	87 e3       	ldi	r24, 0x37	; 55
     149a:	9d e0       	ldi	r25, 0x0D	; 13
     149c:	85 c7       	rjmp	.+3850   	; 0x23a8 <puts>
 		break;
@@ -2606,7 +2606,7 @@ void PrintCommStatus(int CommStatus)
 
 		case COMM_RXTIMEOUT:
 		printf("COMM_RXTIMEOUT: There is no status packet!\n");
-    14a0:	82 e6       	ldi	r24, 0x62	; 98
+    14a0:	84 e6       	ldi	r24, 0x64	; 100
     14a2:	9d e0       	ldi	r25, 0x0D	; 13
     14a4:	81 c7       	rjmp	.+3842   	; 0x23a8 <puts>
 		break;
@@ -2614,7 +2614,7 @@ void PrintCommStatus(int CommStatus)
 
 		case COMM_RXCORRUPT:
 		printf("COMM_RXCORRUPT: Incorrect status packet!\n");
-    14a8:	8d e8       	ldi	r24, 0x8D	; 141
+    14a8:	8f e8       	ldi	r24, 0x8F	; 143
     14aa:	9d e0       	ldi	r25, 0x0D	; 13
     14ac:	7d c7       	rjmp	.+3834   	; 0x23a8 <puts>
 		break;
@@ -2622,7 +2622,7 @@ void PrintCommStatus(int CommStatus)
 
 		default:
 		printf("This is unknown error code!\n");
-    14b0:	86 eb       	ldi	r24, 0xB6	; 182
+    14b0:	88 eb       	ldi	r24, 0xB8	; 184
     14b2:	9d e0       	ldi	r25, 0x0D	; 13
     14b4:	79 c7       	rjmp	.+3826   	; 0x23a8 <puts>
     14b6:	08 95       	ret
@@ -2780,7 +2780,7 @@ void ServoControl( int act ){
     15a4:	80 7f       	andi	r24, 0xF0	; 240
     15a6:	98 27       	eor	r25, r24
     15a8:	9c 01       	movw	r18, r24
-    15aa:	22 55       	subi	r18, 0x52	; 82
+    15aa:	20 55       	subi	r18, 0x50	; 80
     15ac:	3d 4f       	sbci	r19, 0xFD	; 253
     15ae:	27 96       	adiw	r28, 0x07	; 7
     15b0:	3f af       	std	Y+63, r19	; 0x3f
@@ -2789,14 +2789,14 @@ void ServoControl( int act ){
     15b6:	6e 2e       	mov	r6, r30
     15b8:	7f 2e       	mov	r7, r31
     15ba:	0f 2e       	mov	r0, r31
-    15bc:	fc e8       	ldi	r31, 0x8C	; 140
+    15bc:	fe e8       	ldi	r31, 0x8E	; 142
     15be:	8f 2e       	mov	r8, r31
     15c0:	fb e0       	ldi	r31, 0x0B	; 11
     15c2:	9f 2e       	mov	r9, r31
     15c4:	f0 2d       	mov	r31, r0
     15c6:	7f 01       	movw	r14, r30
     15c8:	59 01       	movw	r10, r18
-    15ca:	0e e6       	ldi	r16, 0x6E	; 110
+    15ca:	00 e7       	ldi	r16, 0x70	; 112
     15cc:	1b e0       	ldi	r17, 0x0B	; 11
 		return;
 	}
@@ -2902,7 +2902,7 @@ void ServoControl( int act ){
     164c:	fe 27       	eor	r31, r30
     164e:	e0 7f       	andi	r30, 0xF0	; 240
     1650:	fe 27       	eor	r31, r30
-    1652:	e2 55       	subi	r30, 0x52	; 82
+    1652:	e0 55       	subi	r30, 0x50	; 80
     1654:	fd 4f       	sbci	r31, 0xFD	; 253
     1656:	66 8d       	ldd	r22, Z+30	; 0x1e
     1658:	77 8d       	ldd	r23, Z+31	; 0x1f
@@ -3012,7 +3012,7 @@ void ServoControl( int act ){
     16fe:	fe 27       	eor	r31, r30
     1700:	e0 7f       	andi	r30, 0xF0	; 240
     1702:	fe 27       	eor	r31, r30
-    1704:	e2 55       	subi	r30, 0x52	; 82
+    1704:	e0 55       	subi	r30, 0x50	; 80
     1706:	fd 4f       	sbci	r31, 0xFD	; 253
     1708:	66 8d       	ldd	r22, Z+30	; 0x1e
     170a:	77 8d       	ldd	r23, Z+31	; 0x1f
@@ -3080,7 +3080,7 @@ void ServoControl( int act ){
     1776:	df ac       	ldd	r13, Y+63	; 0x3f
     1778:	29 97       	sbiw	r28, 0x09	; 9
     177a:	0f 2e       	mov	r0, r31
-    177c:	fe e6       	ldi	r31, 0x6E	; 110
+    177c:	f0 e7       	ldi	r31, 0x70	; 112
     177e:	ef 2e       	mov	r14, r31
     1780:	fb e0       	ldi	r31, 0x0B	; 11
     1782:	ff 2e       	mov	r15, r31
@@ -3170,7 +3170,7 @@ void ServoControl( int act ){
     1810:	df ac       	ldd	r13, Y+63	; 0x3f
     1812:	27 97       	sbiw	r28, 0x07	; 7
     1814:	0f 2e       	mov	r0, r31
-    1816:	fe e6       	ldi	r31, 0x6E	; 110
+    1816:	f0 e7       	ldi	r31, 0x70	; 112
     1818:	ef 2e       	mov	r14, r31
     181a:	fb e0       	ldi	r31, 0x0B	; 11
     181c:	ff 2e       	mov	r15, r31
@@ -3363,8 +3363,8 @@ void setMode(void){
     195a:	01 97       	sbiw	r24, 0x01	; 1
     195c:	41 f4       	brne	.+16     	; 0x196e <setMode+0xb2>
 				modeWait = mode1act[0][0];
-    195e:	80 91 10 02 	lds	r24, 0x0210
-    1962:	90 91 11 02 	lds	r25, 0x0211
+    195e:	80 91 12 02 	lds	r24, 0x0212
+    1962:	90 91 13 02 	lds	r25, 0x0213
     1966:	90 93 79 11 	sts	0x1179, r25
     196a:	80 93 78 11 	sts	0x1178, r24
     196e:	08 95       	ret
@@ -3384,7 +3384,7 @@ void move(void){
     197a:	f0 91 75 11 	lds	r31, 0x1175
     197e:	ee 0f       	add	r30, r30
     1980:	ff 1f       	adc	r31, r31
-    1982:	e4 5c       	subi	r30, 0xC4	; 196
+    1982:	e2 5c       	subi	r30, 0xC2	; 194
     1984:	fd 4f       	sbci	r31, 0xFD	; 253
     1986:	01 90       	ld	r0, Z+
     1988:	f0 81       	ld	r31, Z
@@ -3395,8 +3395,8 @@ void move(void){
 		if( motionCount > max ){
     198c:	20 81       	ld	r18, Z
     198e:	31 81       	ldd	r19, Z+1	; 0x01
-    1990:	80 91 0e 02 	lds	r24, 0x020E
-    1994:	90 91 0f 02 	lds	r25, 0x020F
+    1990:	80 91 10 02 	lds	r24, 0x0210
+    1994:	90 91 11 02 	lds	r25, 0x0211
     1998:	28 17       	cp	r18, r24
     199a:	39 07       	cpc	r19, r25
     199c:	64 f4       	brge	.+24     	; 0x19b6 <move+0x46>
@@ -3413,16 +3413,16 @@ void move(void){
 			motionCount = 1;
     19aa:	81 e0       	ldi	r24, 0x01	; 1
     19ac:	90 e0       	ldi	r25, 0x00	; 0
-    19ae:	90 93 0f 02 	sts	0x020F, r25
-    19b2:	80 93 0e 02 	sts	0x020E, r24
+    19ae:	90 93 11 02 	sts	0x0211, r25
+    19b2:	80 93 10 02 	sts	0x0210, r24
 				return;
 			}
 			*/
 		}
 //		printf("### motionCount:%d\n", motionCount);
 		ServoControl( motion[motionCount] );
-    19b6:	80 91 0e 02 	lds	r24, 0x020E
-    19ba:	90 91 0f 02 	lds	r25, 0x020F
+    19b6:	80 91 10 02 	lds	r24, 0x0210
+    19ba:	90 91 11 02 	lds	r25, 0x0211
     19be:	88 0f       	add	r24, r24
     19c0:	99 1f       	adc	r25, r25
     19c2:	e8 0f       	add	r30, r24
@@ -3431,11 +3431,11 @@ void move(void){
     19c8:	91 81       	ldd	r25, Z+1	; 0x01
     19ca:	b8 dd       	rcall	.-1168   	; 0x153c <ServoControl>
 		motionCount++;
-    19cc:	80 91 0e 02 	lds	r24, 0x020E
-    19d0:	90 91 0f 02 	lds	r25, 0x020F
+    19cc:	80 91 10 02 	lds	r24, 0x0210
+    19d0:	90 91 11 02 	lds	r25, 0x0211
     19d4:	01 96       	adiw	r24, 0x01	; 1
-    19d6:	90 93 0f 02 	sts	0x020F, r25
-    19da:	80 93 0e 02 	sts	0x020E, r24
+    19d6:	90 93 11 02 	sts	0x0211, r25
+    19da:	80 93 10 02 	sts	0x0210, r24
     19de:	08 95       	ret
 
 000019e0 <moveTest>:
@@ -3452,7 +3452,7 @@ void moveTest(void){
     19ea:	f0 91 75 11 	lds	r31, 0x1175
     19ee:	ee 0f       	add	r30, r30
     19f0:	ff 1f       	adc	r31, r31
-    19f2:	e4 5c       	subi	r30, 0xC4	; 196
+    19f2:	e2 5c       	subi	r30, 0xC2	; 194
     19f4:	fd 4f       	sbci	r31, 0xFD	; 253
     19f6:	01 90       	ld	r0, Z+
     19f8:	f0 81       	ld	r31, Z
@@ -3461,8 +3461,8 @@ void moveTest(void){
 		if( motionCount > max ){
     19fc:	20 81       	ld	r18, Z
     19fe:	31 81       	ldd	r19, Z+1	; 0x01
-    1a00:	80 91 0e 02 	lds	r24, 0x020E
-    1a04:	90 91 0f 02 	lds	r25, 0x020F
+    1a00:	80 91 10 02 	lds	r24, 0x0210
+    1a04:	90 91 11 02 	lds	r25, 0x0211
     1a08:	28 17       	cp	r18, r24
     1a0a:	39 07       	cpc	r19, r25
     1a0c:	74 f4       	brge	.+28     	; 0x1a2a <moveTest+0x4a>
@@ -3474,12 +3474,12 @@ void moveTest(void){
 			motionCount = 1;
     1a1e:	81 e0       	ldi	r24, 0x01	; 1
     1a20:	90 e0       	ldi	r25, 0x00	; 0
-    1a22:	90 93 0f 02 	sts	0x020F, r25
-    1a26:	80 93 0e 02 	sts	0x020E, r24
+    1a22:	90 93 11 02 	sts	0x0211, r25
+    1a26:	80 93 10 02 	sts	0x0210, r24
 		}
 		ServoControl( motion[motionCount] );
-    1a2a:	80 91 0e 02 	lds	r24, 0x020E
-    1a2e:	90 91 0f 02 	lds	r25, 0x020F
+    1a2a:	80 91 10 02 	lds	r24, 0x0210
+    1a2e:	90 91 11 02 	lds	r25, 0x0211
     1a32:	88 0f       	add	r24, r24
     1a34:	99 1f       	adc	r25, r25
     1a36:	e8 0f       	add	r30, r24
@@ -3488,11 +3488,11 @@ void moveTest(void){
     1a3c:	91 81       	ldd	r25, Z+1	; 0x01
     1a3e:	7e dd       	rcall	.-1284   	; 0x153c <ServoControl>
 		motionCount++;
-    1a40:	80 91 0e 02 	lds	r24, 0x020E
-    1a44:	90 91 0f 02 	lds	r25, 0x020F
+    1a40:	80 91 10 02 	lds	r24, 0x0210
+    1a44:	90 91 11 02 	lds	r25, 0x0211
     1a48:	01 96       	adiw	r24, 0x01	; 1
-    1a4a:	90 93 0f 02 	sts	0x020F, r25
-    1a4e:	80 93 0e 02 	sts	0x020E, r24
+    1a4a:	90 93 11 02 	sts	0x0211, r25
+    1a4e:	80 93 10 02 	sts	0x0210, r24
     1a52:	08 95       	ret
 
 00001a54 <main>:
@@ -3894,14 +3894,14 @@ int main(void){
     1c54:	01 99       	sbic	0x00, 1	; 0
     1c56:	17 c0       	rjmp	.+46     	; 0x1c86 <main+0x232>
 			if( iStart > 0 ){
-    1c58:	80 91 0a 02 	lds	r24, 0x020A
-    1c5c:	90 91 0b 02 	lds	r25, 0x020B
+    1c58:	80 91 0c 02 	lds	r24, 0x020C
+    1c5c:	90 91 0d 02 	lds	r25, 0x020D
     1c60:	18 16       	cp	r1, r24
     1c62:	19 06       	cpc	r1, r25
     1c64:	ac f5       	brge	.+106    	; 0x1cd0 <main+0x27c>
 				iStart = 0;
-    1c66:	10 92 0b 02 	sts	0x020B, r1
-    1c6a:	10 92 0a 02 	sts	0x020A, r1
+    1c66:	10 92 0d 02 	sts	0x020D, r1
+    1c6a:	10 92 0c 02 	sts	0x020C, r1
 				PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_MANAGE|LED_PROGRAM|LED_PLAY;
     1c6e:	8f e7       	ldi	r24, 0x7F	; 127
     1c70:	88 b9       	out	0x08, r24	; 8
@@ -3917,8 +3917,8 @@ int main(void){
 			}
 		}else{
 			if( iStart == 0 ){
-    1c86:	80 91 0a 02 	lds	r24, 0x020A
-    1c8a:	90 91 0b 02 	lds	r25, 0x020B
+    1c86:	80 91 0c 02 	lds	r24, 0x020C
+    1c8a:	90 91 0d 02 	lds	r25, 0x020D
     1c8e:	89 2b       	or	r24, r25
     1c90:	39 f4       	brne	.+14     	; 0x1ca0 <main+0x24c>
 				PORTC &= ~LED_PLAY;
@@ -3926,8 +3926,8 @@ int main(void){
 				iStart = 1;
     1c94:	81 e0       	ldi	r24, 0x01	; 1
     1c96:	90 e0       	ldi	r25, 0x00	; 0
-    1c98:	90 93 0b 02 	sts	0x020B, r25
-    1c9c:	80 93 0a 02 	sts	0x020A, r24
+    1c98:	90 93 0d 02 	sts	0x020D, r25
+    1c9c:	80 93 0c 02 	sts	0x020C, r24
 			}
 			if( modeWait <= 0 ){
     1ca0:	80 91 78 11 	lds	r24, 0x1178
@@ -3938,8 +3938,8 @@ int main(void){
 				setModeAction();
     1cae:	12 db       	rcall	.-2524   	; 0x12d4 <setModeAction>
 				if (isMovetest == 1) {
-    1cb0:	80 91 52 11 	lds	r24, 0x1152
-    1cb4:	90 91 53 11 	lds	r25, 0x1153
+    1cb0:	80 91 0a 02 	lds	r24, 0x020A
+    1cb4:	90 91 0b 02 	lds	r25, 0x020B
     1cb8:	01 97       	sbiw	r24, 0x01	; 1
     1cba:	11 f4       	brne	.+4      	; 0x1cc0 <main+0x26c>
 					moveTest();
@@ -3970,7 +3970,7 @@ int main(void){
     1ce0:	89 2b       	or	r24, r25
     1ce2:	81 f0       	breq	.+32     	; 0x1d04 <main+0x2b0>
 			printf( "### main() sensorValue[0] == 0\n");
-    1ce4:	82 ed       	ldi	r24, 0xD2	; 210
+    1ce4:	84 ed       	ldi	r24, 0xD4	; 212
     1ce6:	9d e0       	ldi	r25, 0x0D	; 13
     1ce8:	5f d3       	rcall	.+1726   	; 0x23a8 <puts>
 			PORTC &= ~LED_PROGRAM;
@@ -3984,7 +3984,7 @@ int main(void){
     1cf6:	93 07       	cpc	r25, r19
     1cf8:	29 f0       	breq	.+10     	; 0x1d04 <main+0x2b0>
 			printf( "### main() sensorValue[0] == 1\n");
-    1cfa:	81 ef       	ldi	r24, 0xF1	; 241
+    1cfa:	83 ef       	ldi	r24, 0xF3	; 243
     1cfc:	9d e0       	ldi	r25, 0x0D	; 13
     1cfe:	54 d3       	rcall	.+1704   	; 0x23a8 <puts>
 			PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_MANAGE|LED_PLAY;
@@ -4004,7 +4004,7 @@ int main(void){
     1d14:	89 2b       	or	r24, r25
     1d16:	81 f0       	breq	.+32     	; 0x1d38 <main+0x2e4>
 			printf( "### main() sensorValue[1] == 0\n");
-    1d18:	80 e1       	ldi	r24, 0x10	; 16
+    1d18:	82 e1       	ldi	r24, 0x12	; 18
     1d1a:	9e e0       	ldi	r25, 0x0E	; 14
     1d1c:	45 d3       	rcall	.+1674   	; 0x23a8 <puts>
 			PORTC &= ~LED_MANAGE;
@@ -4018,7 +4018,7 @@ int main(void){
     1d2a:	93 07       	cpc	r25, r19
     1d2c:	29 f0       	breq	.+10     	; 0x1d38 <main+0x2e4>
 			printf( "### main() sensorValue[1] == 1\n");
-    1d2e:	8f e2       	ldi	r24, 0x2F	; 47
+    1d2e:	81 e3       	ldi	r24, 0x31	; 49
     1d30:	9e e0       	ldi	r25, 0x0E	; 14
     1d32:	3a d3       	rcall	.+1652   	; 0x23a8 <puts>
 			PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_PROGRAM|LED_PLAY;
@@ -4038,7 +4038,7 @@ int main(void){
     1d48:	89 2b       	or	r24, r25
     1d4a:	81 f0       	breq	.+32     	; 0x1d6c <main+0x318>
 			printf( "### main() sensorValue[2] == 0\n");
-    1d4c:	8e e4       	ldi	r24, 0x4E	; 78
+    1d4c:	80 e5       	ldi	r24, 0x50	; 80
     1d4e:	9e e0       	ldi	r25, 0x0E	; 14
     1d50:	2b d3       	rcall	.+1622   	; 0x23a8 <puts>
 			PORTC &= ~LED_AUX;
@@ -4052,7 +4052,7 @@ int main(void){
     1d5e:	93 07       	cpc	r25, r19
     1d60:	29 f0       	breq	.+10     	; 0x1d6c <main+0x318>
 			printf( "### main() sensorValue[2] == 1\n");
-    1d62:	8d e6       	ldi	r24, 0x6D	; 109
+    1d62:	8f e6       	ldi	r24, 0x6F	; 111
     1d64:	9e e0       	ldi	r25, 0x0E	; 14
     1d66:	20 d3       	rcall	.+1600   	; 0x23a8 <puts>
 			PORTC = LED_BAT|LED_TxD|LED_RxD|LED_MANAGE|LED_PROGRAM|LED_PLAY;
@@ -4739,7 +4739,7 @@ int main(void){
     2210:	08 95       	ret
 
 00002212 <strtok>:
-    2212:	4c ef       	ldi	r20, 0xFC	; 252
+    2212:	4e ef       	ldi	r20, 0xFE	; 254
     2214:	50 e1       	ldi	r21, 0x10	; 16
     2216:	00 c0       	rjmp	.+0      	; 0x2218 <strtok_r>
 

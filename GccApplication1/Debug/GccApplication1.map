@@ -785,7 +785,7 @@ END GROUP
  *(.fini0)
                 0x00002bbe                _etext = .
 
-.data           0x00800200      0xc8c load address 0x00002bbe
+.data           0x00800200      0xc8e load address 0x00002bbe
                 0x00800200                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800200        0x2 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
@@ -798,79 +798,79 @@ END GROUP
  .data.testMotionNumber
                 0x00800208        0x2 GccApplication1.o
                 0x00800208                testMotionNumber
- .data.iStart   0x0080020a        0x2 GccApplication1.o
-                0x0080020a                iStart
+ .data.isMovetest
+                0x0080020a        0x2 GccApplication1.o
+                0x0080020a                isMovetest
+ .data.iStart   0x0080020c        0x2 GccApplication1.o
+                0x0080020c                iStart
  .data.motionFirst
-                0x0080020c        0x2 GccApplication1.o
-                0x0080020c                motionFirst
- .data.motionCount
                 0x0080020e        0x2 GccApplication1.o
-                0x0080020e                motionCount
+                0x0080020e                motionFirst
+ .data.motionCount
+                0x00800210        0x2 GccApplication1.o
+                0x00800210                motionCount
  .data.mode1act
-                0x00800210       0x2c GccApplication1.o
-                0x00800210                mode1act
+                0x00800212       0x2c GccApplication1.o
+                0x00800212                mode1act
  .data.motionList
-                0x0080023c       0x10 GccApplication1.o
-                0x0080023c                motionList
- .data.motion7  0x0080024c       0x10 GccApplication1.o
-                0x0080024c                motion7
- .data.motion6  0x0080025c        0xe GccApplication1.o
-                0x0080025c                motion6
- .data.motion5  0x0080026a        0xe GccApplication1.o
-                0x0080026a                motion5
- .data.motion4  0x00800278        0xe GccApplication1.o
-                0x00800278                motion4
- .data.motion3  0x00800286        0xe GccApplication1.o
-                0x00800286                motion3
- .data.motion2  0x00800294       0x12 GccApplication1.o
-                0x00800294                motion2
- .data.motion1  0x008002a6        0x4 GccApplication1.o
-                0x008002a6                motion1
- .data.motion0  0x008002aa        0x4 GccApplication1.o
-                0x008002aa                motion0
+                0x0080023e       0x10 GccApplication1.o
+                0x0080023e                motionList
+ .data.motion7  0x0080024e       0x10 GccApplication1.o
+                0x0080024e                motion7
+ .data.motion6  0x0080025e        0xe GccApplication1.o
+                0x0080025e                motion6
+ .data.motion5  0x0080026c        0xe GccApplication1.o
+                0x0080026c                motion5
+ .data.motion4  0x0080027a        0xe GccApplication1.o
+                0x0080027a                motion4
+ .data.motion3  0x00800288        0xe GccApplication1.o
+                0x00800288                motion3
+ .data.motion2  0x00800296       0x12 GccApplication1.o
+                0x00800296                motion2
+ .data.motion1  0x008002a8        0x4 GccApplication1.o
+                0x008002a8                motion1
+ .data.motion0  0x008002ac        0x4 GccApplication1.o
+                0x008002ac                motion0
  .data.angleList
-                0x008002ae      0x8c0 GccApplication1.o
-                0x008002ae                angleList
- .data.servoId  0x00800b6e       0x1e GccApplication1.o
-                0x00800b6e                servoId
+                0x008002b0      0x8c0 GccApplication1.o
+                0x008002b0                angleList
+ .data.servoId  0x00800b70       0x1e GccApplication1.o
+                0x00800b70                servoId
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00800b8c      0x300 GccApplication1.o
+                0x00800b8e      0x300 GccApplication1.o
  *(.gnu.linkonce.d*)
-                0x00800e8c                . = ALIGN (0x2)
-                0x00800e8c                _edata = .
-                0x00800e8c                PROVIDE (__data_end, .)
+                0x00800e8e                . = ALIGN (0x2)
+                0x00800e8e                _edata = .
+                0x00800e8e                PROVIDE (__data_end, .)
 
-.bss            0x00800e8c      0x3c4
-                0x00800e8c                PROVIDE (__bss_start, .)
+.bss            0x00800e8e      0x3c2
+                0x00800e8e                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800e8c       0xea C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
-                0x00800e8c                gbInstructionPacket
-                0x00800f2c                gbStatusPacket
-                0x00800f72                gbRxPacketLength
-                0x00800f73                gbRxGetLength
-                0x00800f74                giBusUsing
- .bss           0x00800f76      0x102 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
-                0x00800f76                gbDxlBuffer
-                0x00801076                gbDxlBufferHead
-                0x00801077                gbDxlBufferTail
- .bss           0x00801078       0x84 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
-                0x00801078                gbSerialBuffer
-                0x008010f8                gbSerialBufferHead
-                0x008010f9                gbSerialBufferTail
- .bss           0x008010fc        0x2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(strtok.o)
+ .bss           0x00800e8e       0xea C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dynamixel.o)
+                0x00800e8e                gbInstructionPacket
+                0x00800f2e                gbStatusPacket
+                0x00800f74                gbRxPacketLength
+                0x00800f75                gbRxGetLength
+                0x00800f76                giBusUsing
+ .bss           0x00800f78      0x102 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libdynamixel.a(dxl_hal.o)
+                0x00800f78                gbDxlBuffer
+                0x00801078                gbDxlBufferHead
+                0x00801079                gbDxlBufferTail
+ .bss           0x0080107a       0x84 C:\Users\sapporo574\Documents\80_ARC\2015_10th\embeded_c(cm700_v1.02)\lib\libserial.a(serial.o)
+                0x0080107a                gbSerialBuffer
+                0x008010fa                gbSerialBufferHead
+                0x008010fb                gbSerialBufferTail
+ .bss           0x008010fe        0x2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(strtok.o)
  *(.bss*)
  .bss.readBuffer
-                0x008010fe       0x50 SerialManager.o
-                0x008010fe                readBuffer
- .bss.buffCnt   0x0080114e        0x2 SerialManager.o
-                0x0080114e                buffCnt
- .bss.isRead    0x00801150        0x2 SerialManager.o
-                0x00801150                isRead
- .bss.isMovetest
-                0x00801152        0x2 GccApplication1.o
-                0x00801152                isMovetest
+                0x00801100       0x50 SerialManager.o
+                0x00801100                readBuffer
+ .bss.buffCnt   0x00801150        0x2 SerialManager.o
+                0x00801150                buffCnt
+ .bss.isRead    0x00801152        0x2 SerialManager.o
+                0x00801152                isRead
  .bss.sensorValueOld
                 0x00801154        0x6 GccApplication1.o
                 0x00801154                sensorValueOld
@@ -934,7 +934,7 @@ END GROUP
                 0x0080124e                __flp
                 0x00801250                PROVIDE (__bss_end, .)
                 0x00002bbe                __data_load_start = LOADADDR (.data)
-                0x0000384a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000384c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00801250        0x0
                 0x00801250                PROVIDE (__noinit_start, .)
