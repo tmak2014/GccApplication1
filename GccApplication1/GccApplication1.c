@@ -72,7 +72,7 @@
 
 int serCmd[SERIAL_BUFFER_SIZE] = {0};
                          //RF1 RF2 LF1 LF2 RR1 RR2 LR1 LR2 Necks
-int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6,   13,12,11,10,9,8,2  };
+int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6,   13,12,11,10,9,8,15  };
 //int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6};
 
 #define 	ANGLE_0    0
