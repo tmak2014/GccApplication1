@@ -47,7 +47,7 @@
 #define P_EEP_LOCK  		47
 //#define SERVO_MAX	  		8
 #define SERVO_MAX	  		15
-#define ACT_MAX				50
+#define ACT_MAX				70
 
 //Servo Speed
 #define CYCLE_TIME  495
@@ -104,69 +104,90 @@ int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6,   13,12,
 
 int angleList[ACT_MAX][SERVO_MAX + 1] = {
    // RF1    RF2    LF1    LF2    RR1    RR2    LR1    LR2    Speed
-    { 112, 317, 910, 706, 910, 706, 112, 317, 815, 202, 302, 842, 853, 237, 471, 100 },	//0 Default
-    { 112, 307, 910, 706, 910, 706,  37, 342, 815, 202, 302, 842, 853, 237, 471, 100 },	//1 Pre Walk
+    { 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//0 Default
+    { 112, 307, 910, 706, 910, 706,  37, 342, 752, 514, 937, 194, 680, 823, 517, 100 },	//1 Pre Walk
 	{ 37, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 815, 202, 302, 842, 853, 237, 471, SPEED_MIDDLE },	//2 Pre Walk
 		
-/* Neck */
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 557, 198, 515, 874, 830, 379, 471, 100 },	//3 Neck stretch 1
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 434, 820, 475, 893, 757, 335, 471, 100 },	//4 Neck stretch 2
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 523, 814, 578, 466, 585, 394, 471, 100 },	//5 Neck stretch goal
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 530, 954, 647, 460, 631, 444, 471, 100 },	//6 Neck swing 1
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 520, 673, 707, 465, 642, 457, 471, 100 },	//7 Neck swing 2
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 520, 673, 707, 465, 642, 457, 950, 100 },	//8 Neck release
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 520, 673, 707, 465, 642, 457, 950, 100 },	//9 Neck 
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//3 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//4 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//5 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//6 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//7 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//8 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//9 Default
 
 /* Walk2 */
-    { 222, 357, 930, 706, 910, 706, 47, 352, 815, 202, 302, 842, 853, 237, 455, 150 },	//10 Walk2
-    { 92, 317, 960, 736, 860, 666, 112, 317, 815, 202, 302, 842, 853, 237, 455, 150 },	//11 Walk2
-    { 92, 317, 960, 736, 975, 671, 112, 317, 815, 202, 302, 842, 853, 237, 455, 150 },	//12 Walk2
-    { 92, 317, 800, 656, 975, 671, 112, 317, 815, 202, 302, 842, 853, 237, 455, 150 },	//14 Walk2
-    { 82, 297, 930, 706, 910, 686, 162, 327, 815, 202, 302, 842, 853, 237, 455, 150 },	//15 Walk2
-    { 82, 297, 930, 706, 910, 706, 47, 352, 815, 202, 302, 842, 853, 237, 455, 150 },   //16 Walk2
+    { 222, 357, 930, 706, 910, 706, 47, 352, 752, 514, 937, 194, 680, 823, 517, 150 },	//10 Walk2
+    { 92, 317, 960, 736, 860, 666, 112, 317, 752, 514, 937, 194, 680, 823, 517, 150 },	//11 Walk2
+    { 92, 317, 960, 736, 975, 671, 112, 317, 752, 514, 937, 194, 680, 823, 517, 150 },	//12 Walk2
+    { 82, 307, 800, 656, 975, 671, 102, 307, 752, 514, 937, 194, 680, 823, 517, 150 },	//13 Walk2
+    { 82, 297, 930, 706, 910, 686, 162, 327, 752, 514, 937, 194, 680, 823, 517, 150 },	//14 Walk2
+    { 82, 297, 930, 706, 910, 706, 47, 352, 752, 514, 937, 194, 680, 823, 517, 150 },   //15 Walk2
 	
 
-{ 122, 347, 960, 736, 975, 671, 52, 302, 815, 202, 302, 842, 853, 237, 455, 100 },	//13 Walk2
-		{ 82, 297, 905, 706, 915, 711, 62, 352, 815, 202, 302, 842, 853, 237, 455, 100 },	//17 Walk2
-    { 112, 317, 910, 706, 910, 706, 112, 317,  815, 202, 302, 842, 853, 237, 455, 100 },	//18
-    { 112, 317, 910, 706, 910, 706, 112, 317,  815, 202, 302, 842, 853, 237, 455, 100 },	//19
+    { 122, 347, 960, 736, 975, 671, 52, 302, 752, 514, 937, 194, 680, 823, 517, 100 },	//16 Walk2
+	{ 82, 297, 905, 706, 915, 711, 62, 352, 752, 514, 937, 194, 680, 823, 517, 100 },	//17 Walk2
+	{ 82, 297, 905, 706, 915, 711, 62, 352, 752, 514, 937, 194, 680, 823, 517, 100 },	//18 Walk2
+	{ 82, 297, 905, 706, 915, 711, 62, 352, 752, 514, 937, 194, 680, 823, 517, 100 },	//19 Walk2
 
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//20 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//21 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//22 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//23 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//24 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//25 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//26 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//27 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//28 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//20 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//21 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//22 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//23 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//24 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//25 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//26 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//27 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//28 Walk2
 
 /* Turn Left */
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//29 Turn Left
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//30 Turn Left
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//31 Turn Left
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW},	//32 Turn Left
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//33 Turn Left
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, SPEED_SLOW },	//34 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//29 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//30 Turn Left
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//31 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW},	//32 Turn Left
+	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//33 Turn Left
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, SPEED_SLOW },	//34 Turn Left
 
 /* Turn Right */
-	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 815, 202, 302, 842, 853, 237, 455, 100 },	//35 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//36 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//37 Turn Right
-	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 815, 202, 302, 842, 853, 237, 455, 100 },	//38 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//39 Turn Right
-    { ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//40 Turn Right
+	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 752, 514, 937, 194, 680, 823, 517, 100 },	//35 Turn Right
+	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, 100 },	//36 Turn Right
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, 100 },	//37 Turn Right
+	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 752, 514, 937, 194, 680, 823, 517, 100 },	//38 Turn Right
+	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, 100 },	//39 Turn Right
+    { ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, 100 },	//40 Turn Right
 	
-	{ ANGLE_4, ANGLE_7, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//41 Walk1_1
-	{ ANGLE_3, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_2, ANGLE_5, 815, 202, 302, 842, 853, 237, 455, 100 },	//42 Walk1_1
-	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_0, ANGLE_3, 815, 202, 302, 842, 853, 237, 455, 100 },	//43 Walk1_1
-	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 815, 202, 302, 842, 853, 237, 455, 100 },	//44 Walk1_1
-	{ ANGLE_2, ANGLE_5, ANGLE_6, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_4, 815, 202, 302, 842, 853, 237, 455, 100 },	//45 Walk1_1
-	{ ANGLE_2, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_1, ANGLE_5, 815, 202, 302, 842, 853, 237, 455, 100 },	//46 Walk1_1
-	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_10, ANGLE_7, ANGLE_2, ANGLE_5, 815, 202, 302, 842, 853, 237, 455, 100 },	//47 Walk1_1
-	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 815, 202, 302, 842, 853, 237, 455, 100 },	//48 Walk1_1
+	{ ANGLE_4, ANGLE_7, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_0, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, 100 },	//41 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_2, ANGLE_5, 752, 514, 937, 194, 680, 823, 517, 100 },	//42 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_0, ANGLE_3, 752, 514, 937, 194, 680, 823, 517, 100 },	//43 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 752, 514, 937, 194, 680, 823, 517, 100 },	//44 Walk1_1
+	{ ANGLE_2, ANGLE_5, ANGLE_6, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_4, 752, 514, 937, 194, 680, 823, 517, 100 },	//45 Walk1_1
+	{ ANGLE_2, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_1, ANGLE_5, 752, 514, 937, 194, 680, 823, 517, 100 },	//46 Walk1_1
+	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_10, ANGLE_7, ANGLE_2, ANGLE_5, 752, 514, 937, 194, 680, 823, 517, 100 },	//47 Walk1_1
+	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 752, 514, 937, 194, 680, 823, 517, 100 },	//48 Walk1_1
 	
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 815, 202, 302, 842, 853, 237, 455, 100 },	//49
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 752, 514, 937, 194, 680, 823, 517, 100 },	//49
+		
+/* Neck */
+    { 112, 317, 910, 706, 910, 706, 112, 317, 752, 509, 877, 250, 710, 780, 517, 100 },	//50 Neck stretch 1
+    { 112, 317, 910, 706, 910, 706, 112, 317, 606, 514, 683, 320, 709, 694, 515, 100 },	//51 Neck stretch 2
+    { 112, 317, 910, 706, 910, 706, 112, 317, 507, 512, 500, 345, 653, 477, 515, 100 },	//52 Neck stretch 3
+    { 112, 317, 910, 706, 910, 706, 112, 317, 532, 652, 544, 306, 656, 480, 517, 100 },	//53 Neck swing 1
+    { 112, 317, 910, 706, 910, 706, 112, 317, 519, 402, 563, 306, 682, 497, 517, 100 },	//54 Neck swing 2
+    { 112, 317, 910, 706, 910, 706, 112, 317, 606, 514, 683, 320, 709, 694, 515, 100 },	//55 Neck shorten 1
+    { 112, 317, 910, 706, 910, 706, 112, 317, 752, 509, 877, 250, 710, 780, 517, 100 },	//56 Neck shorten 2
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//57 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//58 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//59 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//60 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//61 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//62 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//63 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//64 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//65 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//66 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//67 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//68 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 752, 514, 937, 194, 680, 823, 517, 100 },	//69 Default
 };
 
 int motion0[] =	{1, 0 };  //Default
@@ -176,7 +197,7 @@ int motion3[] =	{6, 10, 11, 12, 13, 14, 15};  //Walk2
 int motion4[] =	{6, 29, 30, 31, 32, 33, 34 };      //Turn Left
 int motion5[] =	{6, 35, 36, 37, 38, 39, 40 };      //Turn Right
 int motion6[] =	{6, 10, 11, 12, 13, 14, 15 };  //Step
-int motion7[] =	{7, 3, 4, 5, 6, 7, 8, 9 };  //Neck
+int motion7[] =	{7, 50, 51, 52, 53, 54, 55, 56 };  //Neck
 int *motionList[] = { &motion0[0], &motion1[0], &motion2[0], &motion3[0], &motion4[0], &motion5[0], &motion6[0], &motion7[0] };
 enum ActType {
 	ACT_DEFAULT         = 0,
@@ -310,6 +331,11 @@ int sensorValueOld[3] = {0};
 int sensorValueArray[3][5];
 int walkCounter = 0;
 
+// Move test
+int isMovetest = 0;
+int testMotionNumber = ACT_TURN_LEFT;
+void moveTest(void);
+
 
 //Event
 enum EventType {
@@ -438,7 +464,11 @@ int main(void){
 			}
 			if( modeWait <= 0 ){
 				setModeAction();
-				move();
+				if (isMovetest == 1) {
+					moveTest();
+				} else {
+					move();
+				}
 			}else{
 				modeWait -= MAIN_DELAY;
 			}
@@ -475,7 +505,7 @@ int main(void){
 		
 		caputureCount1++;
 		if (caputureCount1 == 25){
-			getAngle();
+//			getAngle();
 			caputureCount1 = 0;
 		}
 	}
@@ -766,11 +796,13 @@ void move(void){
 		int *motion = motionList[motionNumber];
 //        printf("### motionNumber = %d, motion = %d\n", motionNumber, *motion);
 		int max = motion[0];
+
 		if( motionCount > max ){
-//			if (motionNumber != ACT_WALK2) {
+			motionNumber = ACT_WALK2;
+			/*
+			if (motionNumber != ACT_WALK2) {
 		        printf("### move 1\n");
 				motionNumber = ACT_WALK2;
-				/*
 			}else{
 				if (sensorValue[2] == 1) {
     		        printf("### move 2\n");
@@ -792,11 +824,11 @@ void move(void){
 					printf("### move 6\n");
 					motionNumber = ACT_TURN_LEFT;
 					walkCounter = 0;
-				}
-				*/
-//			}
+			    }
+		    }
+			*/
 			
-        printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
+//        printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
 //			printf("#%d,%d,%d,%d,%d,%d;\n", diffmaxTest[0],diffmaxTest[1],diffmaxTest[2],diffmaxTest[3],diffmaxTest[4],diffmaxTest[5] );
 			motionCount = 1;
 			/*
@@ -823,7 +855,20 @@ void move(void){
 			}
 			*/
 		}
-		printf("### motionCount:%d\n", motionCount);
+//		printf("### motionCount:%d\n", motionCount);
+		ServoControl( motion[motionCount] );
+		motionCount++;
+	}
+}
+
+void moveTest(void){
+	if(isMoving() == 0 ){
+		int *motion = motionList[motionNumber];
+		int max = motion[0];
+		if( motionCount > max ){
+			motionNumber = testMotionNumber;
+			motionCount = 1;
+		}
 		ServoControl( motion[motionCount] );
 		motionCount++;
 	}
