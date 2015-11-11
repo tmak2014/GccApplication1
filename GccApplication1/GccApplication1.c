@@ -141,20 +141,20 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, SPEED_SLOW },	//28 Walk2
 
 /* Turn Left */
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//29 Turn Left
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//30 Turn Left
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//31 Turn Left
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_8, ANGLE_9, ANGLE_8, ANGLE_0, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//32 Turn Left
-	{ ANGLE_0, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_0, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//33 Turn Left
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//34 Turn Left
+	{ 0, 307, 920, 818, 920, 818, 0, 307, 756, 500, 404, 201, 157, 681, 800, 180 },	//29 Turn Left
+	{ 0, 307, 920, 716, 920, 716, 0, 307, 756, 500, 404, 201, 157, 681, 800, 180 },	//30 Turn Left
+	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 500, 404, 201, 157, 681, 800, 180 },	//31 Turn Left
+	{ 0, 307, 920, 818, 920, 818, 0, 307, 756, 500, 404, 201, 157, 681, 800, 180 },	//32 Turn Left
+	{ 0, 307, 920, 716, 920, 716, 0, 307, 756, 500, 404, 201, 157, 681, 800, 180 },	//33 Turn Left
+	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 500, 404, 201, 157, 681, 800, 180 },	//34 Turn Left
 
 /* Turn Right */
-	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 756, 500, 404, 201, 157, 681, 800, 200 },	//35 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//36 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//37 Turn Right
-	{ ANGLE_1, ANGLE_2, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_2, 756, 500, 404, 201, 157, 681, 800, 200 },	//38 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//39 Turn Right
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 200 },	//40 Turn Right
+	{ 102, 205, 1023, 716, 1023, 716, 102, 205, 756, 500, 404, 201, 157, 681, 800, 180 }, //35 Turn Right
+	{ 102, 307, 1023, 716, 1023, 716, 102, 307, 756, 500, 404, 201, 157, 681, 800, 180 }, //36 Turn Right
+	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 500, 404, 201, 157, 681, 800, 180 }, //37 Turn Right
+	{ 102, 205, 1023, 716, 1023, 716, 102, 205, 756, 500, 404, 201, 157, 681, 800, 180 }, //38 Turn Right
+	{ 102, 307, 1023, 716, 1023, 716, 102, 307, 756, 500, 404, 201, 157, 681, 800, 180 }, //39 Turn Right
+	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 500, 404, 201, 157, 681, 800, 180 },	//40 Turn Right
 	
 	{ ANGLE_4, ANGLE_7, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_0, ANGLE_3, 756, 500, 404, 201, 157, 681, 800, 100 },	//41 Walk1_1
 	{ ANGLE_3, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_2, ANGLE_5, 756, 500, 404, 201, 157, 681, 800, 100 },	//42 Walk1_1
@@ -333,7 +333,7 @@ int walkCounter = 0;
 
 // Move test
 int isMovetest = 1;
-int testMotionNumber = ACT_WALK2;
+int testMotionNumber = ACT_TURN_LEFT;
 void moveTest(void);
 
 
@@ -866,7 +866,20 @@ void moveTest(void){
 		int *motion = motionList[motionNumber];
 		int max = motion[0];
 		if( motionCount > max ){
-			motionNumber = testMotionNumber;
+			motionNumber = ACT_WALK2;
+			/*
+			walkCounter++;
+			if (walkCounter < 10) {
+				printf("### moveTest 1\n");
+				motionNumber = ACT_TURN_LEFT;
+			} else if (walkCounter < 20) {
+				printf("### moveTest 2\n");
+				motionNumber = ACT_TURN_RIGHT;
+			} else {
+				printf("### workCounter reset\n");
+				walkCounter=0;
+			}
+			*/
 			motionCount = 1;
 		}
 		ServoControl( motion[motionCount] );
