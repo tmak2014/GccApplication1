@@ -227,37 +227,47 @@ int mode1act[11][2] = {
 };
 */
 
-int mode1act[11][2] = {
-	 { 1000, 10 },  //Start Wait, Total Num
-     {    0,  1 },  //Default
-     {    3,  10 },  //Walk2
-     {    3,  10 },  //Walk2
-     {    3,  10 },  //Walk2
-     {    3,  10 },  //Walk2
-     {    3,  10 },  //Walk2
-     {    3,  10 },  //Walk2
-     {    3,  10 },  //Walk2
-     {    3,  10 },  //Walk2
-     {    0,  1 },  //Default
+enum modeType {
+	MODE_ACT_1           = 0,
+	MODE_ACT_2           = 1,
+	MODE_ACT_3           = 2,
+	MODE_ACT_4           = 3,
+	MODE_ACT_5           = 4,
+	MODE_ACT_6           = 5,
+	MODE_MAX,
 };
 
-/*
-int mode1act[11][2] = {
-	 { 1000, 10 },  //Start Wait, Total Num
-     {    0,  1 },  //Default
-     {    1,  1 },  //Pre Walk
-     {    4,  10 },  //Turn Left
-     {    4,  10 },  //Turn Left
-     {    4,  10 },  //Turn Left
-     {    4,  10 },  //Turn Left
-     {    4,  10 },  //Turn Left
-     {    4,  10 },  //Turn Left
-     {    4,  10 },  //Turn Left
-     {    0,  1 },  //Default
+int mode1act[2][2] = {
+	 { 1000, 1 },  //Start Wait, Total Num
+     { ACT_WALK2,  5 },
 };
-*/
 
+int mode2act[2][2] = {
+	{ 100, 1 },  //Start Wait, Total Num
+	{ ACT_TURN_LEFT,  3 },
+};
 
+int mode3act[2][2] = {
+	{ 100, 1 },  //Start Wait, Total Num
+	{ ACT_TURN_RIGHT,  3 },
+};
+
+int mode4act[3][2] = {
+	{ 100, 2 },  //Start Wait, Total Num
+	{ ACT_WALK2,  2 },
+	{ ACT_TURN_LEFT,  1 },
+};
+
+int mode5act[3][2] = {
+	{ 100, 2 },  //Start Wait, Total Num
+	{ ACT_TURN_LEFT,  3 },
+	{ ACT_WALK2,  3 },
+};
+
+int mode6act[2][2] = {
+	{ 100, 1 },  //Start Wait, Total Num
+	{ ACT_WALK2,  2 },
+};
 
 /*
 int minmaxList[2][SERVO_MAX] = {
@@ -299,6 +309,7 @@ void move(void);
 void setModeAction();
 void sensorInit(void);
 void sensorTest(int);
+void judgeModeAct(void);
 
 //Mode
 int mMode = MODE_0;
@@ -317,6 +328,8 @@ int motionFirst = -1;
 int nextMotionNumber = 0;
 int nextMotionTimes = 0;
 
+int preMotionNumber = 0;
+
 int iStart = 1;
 long watchDogCnt = 0;
 int iPreWalkFlag = 0;
@@ -332,10 +345,11 @@ int sensorValueArray[3][5];
 int walkCounter = 0;
 
 // Move test
-int isMovetest = 1;
+int isMovetest = 0;
 int testMotionNumber = ACT_TURN_LEFT;
 void moveTest(void);
 
+int mModeAct = MODE_ACT_1;
 
 //Event
 enum EventType {
@@ -474,26 +488,26 @@ int main(void){
 			}
 		}
 		if (sensorValue[0] == 0 && sensorValueOld[0] != sensorValue[0]) {
-			printf( "### main() sensorValue[0] == 0\n");
+//			printf( "### main() sensorValue[0] == 0\n");
 			PORTC &= ~LED_PROGRAM;
 		}else if (sensorValueOld[0] != sensorValue[0]){
-			printf( "### main() sensorValue[0] == 1\n");
+//			printf( "### main() sensorValue[0] == 1\n");
 			PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_MANAGE|LED_PLAY;
 		}
 		
 		if (sensorValue[1] == 0 && sensorValueOld[1] != sensorValue[1]) {
-			printf( "### main() sensorValue[1] == 0\n");
+//			printf( "### main() sensorValue[1] == 0\n");
 			PORTC &= ~LED_MANAGE;
 		}else if (sensorValueOld[1] != sensorValue[1]){
-			printf( "### main() sensorValue[1] == 1\n");
+//			printf( "### main() sensorValue[1] == 1\n");
 			PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_PROGRAM|LED_PLAY;
 		}
 
 		if (sensorValue[2] == 0 && sensorValueOld[2] != sensorValue[2]) {
-			printf( "### main() sensorValue[2] == 0\n");
+//			printf( "### main() sensorValue[2] == 0\n");
 			PORTC &= ~LED_AUX;
 		}else if (sensorValueOld[2] != sensorValue[2]){
-			printf( "### main() sensorValue[2] == 1\n");
+//			printf( "### main() sensorValue[2] == 1\n");
 			PORTC = LED_BAT|LED_TxD|LED_RxD|LED_MANAGE|LED_PROGRAM|LED_PLAY;
     	}
 	    sensorValueOld[0] = sensorValue[0];
@@ -505,7 +519,7 @@ int main(void){
 		
 		caputureCount1++;
 		if (caputureCount1 == 25){
-			getAngle();
+//			getAngle();
 			caputureCount1 = 0;
 		}
 	}
@@ -576,7 +590,9 @@ void sensorTest(int iNum){
 		sensorValue[iNum] = 0;
 	}
 	
-//	if(iNum == 0)printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
+//	if(iNum == 0) printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
+//	if(iNum == 1) printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
+//	if(iNum == 2) printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
 
 //	_delay_ms(50);
 }
@@ -597,8 +613,6 @@ void sendAck( int ack ){
 }
 
 void setMode(void){
-	//		PORTC = ~(LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_MANAGE|LED_PROGRAM|LED_PLAY);
-	//		PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_MANAGE|LED_PROGRAM|LED_PLAY;
 	if( ~PIND & SW_BUTTON ){
 //        printf( "PIND is OFF\n");
 		if( SwitchSts == 0 ){
@@ -627,16 +641,44 @@ void setMode(void){
 }
 
 void setModeAction(){
+	int *modeAct = &mode1act[modeCounter][0];
+	int counterMax = mode1act[0][1];
+		
+	switch(mModeAct){
+		case MODE_ACT_1:
+			// do nothing
+			break;
+		case MODE_ACT_2:
+			modeAct = &mode2act[modeCounter][0];
+			counterMax = mode2act[0][1];
+			break;
+		case MODE_ACT_3:
+			modeAct = &mode3act[modeCounter][0];
+			counterMax = mode3act[0][1];
+			break;
+		case MODE_ACT_4:
+			modeAct = &mode4act[modeCounter][0];
+			counterMax = mode4act[0][1];
+			break;
+		case MODE_ACT_5:
+			modeAct = &mode5act[modeCounter][0];
+			counterMax = mode5act[0][1];
+			break;
+		case MODE_ACT_6:
+			modeAct = &mode6act[modeCounter][0];
+			counterMax = mode6act[0][1];
+		break;
+		default:
+			break;
+	}
+	
 	if( motionTimes <= 0 ){
 		if( mMode == MODE_1 ){
-			if( iPreWalkFlag == 0 &&
-			    (mode1act[modeCounter][0] == ACT_WALK1 || mode1act[modeCounter][0] == ACT_WALK1) ){
+			if( preMotionNumber != ACT_WALK2 && preMotionNumber != ACT_PRE_WALK && modeAct[0] == ACT_WALK2 ){
 				startMotion( ACT_PRE_WALK, 1 );
-				iPreWalkFlag = 1;
 			}else{
-				iPreWalkFlag = 0;
-				startMotion( mode1act[modeCounter][0], mode1act[modeCounter][1] );
-				if( ++modeCounter > mode1act[0][1] ){
+				startMotion( modeAct[0], modeAct[1] );
+				if( ++modeCounter > counterMax ){
 //					PORTC = LED_BAT|LED_TxD|LED_RxD|LED_AUX|LED_MANAGE|LED_PROGRAM|LED_PLAY;
 //					mMode = MODE_0;
 					modeCounter = 1;
@@ -770,6 +812,7 @@ void startMotion( int motion, int times ){
 	nextMotionNumber = motion;
 	nextMotionTimes = times;
 	if( motionTimes == 0 ){
+		preMotionNumber = motionNumber;
 		motionNumber = nextMotionNumber;
 		motionTimes = nextMotionTimes;
 		nextMotionTimes = 0;
@@ -792,13 +835,12 @@ void stopMotion(void){
 }
 
 void move(void){
-	if( /* motionTimes > 0 && */ isMoving() == 0 ){
+	if( motionTimes > 0 && isMoving() == 0 ){
 		int *motion = motionList[motionNumber];
 //        printf("### motionNumber = %d, motion = %d\n", motionNumber, *motion);
 		int max = motion[0];
 
 		if( motionCount > max ){
-			motionNumber = ACT_WALK2;
 			/*
 			if (motionNumber != ACT_WALK2) {
 		        printf("### move 1\n");
@@ -831,29 +873,20 @@ void move(void){
 //        printf("### motionCount > max. motionCount:%d, max:%d\n", motionCount, max);
 //			printf("#%d,%d,%d,%d,%d,%d;\n", diffmaxTest[0],diffmaxTest[1],diffmaxTest[2],diffmaxTest[3],diffmaxTest[4],diffmaxTest[5] );
 			motionCount = 1;
-			/*
 			if( motionTimes < 99 && --motionTimes <= 0 ){
+				/*
 				if( nextMotionTimes > 0 ){
-					if( (nextMotionNumber == ACT_WALK1 || nextMotionNumber == ACT_WALK2) &&
-						motionNumber != ACT_PRE_WALK ){
-						motionNumber = ACT_PRE_WALK;
-						motionTimes = 1;
-					}else if( (motionNumber == ACT_TURN_LEFT && nextMotionNumber == ACT_TURN_RIGHT) ||
-						(nextMotionNumber == ACT_TURN_LEFT && motionNumber == ACT_TURN_RIGHT) ){
-						motionNumber = ACT_DEFAULT;
-						motionTimes = 1;
-					}else{
-						motionNumber = nextMotionNumber;
-						motionTimes = nextMotionTimes;
-						nextMotionTimes = 0;
-					}
+					motionNumber = nextMotionNumber;
+					motionTimes = nextMotionTimes;
+					nextMotionTimes = 0;
 					_delay_ms(300);
 				}else{
 					stopMotion();
-				}
-				return;
 			}
 			*/
+				judgeModeAct();
+				return;
+			}
 		}
 //		printf("### motionCount:%d\n", motionCount);
 		ServoControl( motion[motionCount] );
@@ -861,13 +894,53 @@ void move(void){
 	}
 }
 
+void judgeModeAct() {
+	/* Sennsor patterns */
+	/* Pattern: Head_0 Front_1 Rear_2 */
+	/* 1: 0 0 0 */
+	/* 2: 1 0 0 */
+	/* 3: 0 1 0 */
+	/* 4: 0 0 1 */
+	/* 5: 1 1 0 */
+	/* 6: 1 0 1 */
+	/* 7: 0 1 1 */
+	/* 8: 1 1 1 */
+	if (sensorValue[0] == 0 && sensorValue[1] == 0 && sensorValue[2] == 0) {
+		printf("judgeModeAct pattern:1\n");
+		mModeAct = MODE_ACT_4;
+	} else if (sensorValue[0] == 1 && sensorValue[1] == 0 && sensorValue[2] == 0) {
+		printf("judgeModeAct pattern:2\n");
+		mModeAct = MODE_ACT_5;
+	} else if (sensorValue[0] == 0 && sensorValue[1] == 1 && sensorValue[2] == 0) {
+		printf("judgeModeAct pattern:3\n");
+		// TODO Search
+		mModeAct = MODE_ACT_4;
+	} else if (sensorValue[0] == 0 && sensorValue[1] == 0 && sensorValue[2] == 1) {
+		printf("judgeModeAct pattern:4\n");
+		mModeAct = MODE_ACT_2;
+	} else if (sensorValue[0] == 1 && sensorValue[1] == 1 && sensorValue[2] == 0) {
+		printf("judgeModeAct pattern:5\n");
+		mModeAct = MODE_ACT_3;
+	} else if (sensorValue[0] == 1 && sensorValue[1] == 0 && sensorValue[2] == 1) {
+		printf("judgeModeAct pattern:6\n");
+		// TODO Search
+		mModeAct = MODE_ACT_4;
+	} else if (sensorValue[0] == 0 && sensorValue[1] == 1 && sensorValue[2] == 1) {
+		printf("judgeModeAct pattern:7\n");
+		mModeAct = MODE_ACT_6;
+	} else if (sensorValue[0] == 1 && sensorValue[1] == 1 && sensorValue[2] == 1) {
+		printf("judgeModeAct pattern:8\n");
+		// TODO Search
+		mModeAct = MODE_ACT_4;
+	}
+}
+
+
 void moveTest(void){
 	if(isMoving() == 0 ){
 		int *motion = motionList[motionNumber];
 		int max = motion[0];
 		if( motionCount > max ){
-			motionNumber = ACT_WALK2;
-			/*
 			walkCounter++;
 			if (walkCounter < 10) {
 				printf("### moveTest 1\n");
@@ -875,11 +948,12 @@ void moveTest(void){
 			} else if (walkCounter < 20) {
 				printf("### moveTest 2\n");
 				motionNumber = ACT_TURN_RIGHT;
+			} else if (walkCounter < 30) {
+				printf("### moveTest 3\n");
+				motionNumber = ACT_WALK2;
 			} else {
-				printf("### workCounter reset\n");
 				walkCounter=0;
 			}
-			*/
 			motionCount = 1;
 		}
 		ServoControl( motion[motionCount] );
