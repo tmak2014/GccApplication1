@@ -49,6 +49,8 @@
 #define SERVO_MAX	  		15
 #define ACT_MAX				100
 
+#define SENSOR_SEARCH_MAX  5
+
 //Servo Speed
 #define CYCLE_TIME  495
 #define VALUE_MAX   1023
@@ -72,7 +74,7 @@
 
 int serCmd[SERIAL_BUFFER_SIZE] = {0};
                          //RF1 RF2 LF1 LF2 RR1 RR2 LR1 LR2 Necks
-int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6,   13,12,11,10,9,8,15  };
+int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6,   13,12,11,10,9,8,15 };
 //int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6};
 
 #define 	ANGLE_0    0
@@ -104,124 +106,127 @@ int servoId[SERVO_MAX] = { 19,   4,    14,   17,   5,    7,    16,   6,   13,12,
 
 int angleList[ACT_MAX][SERVO_MAX + 1] = {
    // RF1  RF2  LF1  LF2  RR1  RR2  LR1  LR2  Neck                               Speed
-    { 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//0 Default
-    { 112, 307, 910, 706, 910, 706,  37, 342, 756, 515, 404, 189, 232, 673, 800, 100 },	//1 Pre Walk
-	{ 37, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 756, 515, 404, 189, 232, 673, 800, SPEED_MIDDLE },	//2 Pre Walk
+    { 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//0 Default
+    { 112, 307, 910, 706, 910, 706,  37, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//1 Pre Walk
+	{ 37, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 756, 518, 577, 252, 310, 497, 1000, SPEED_MIDDLE },	//2 Pre Walk
 		
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//3 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//4 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//5 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//6 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//7 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//8 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//9 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//3 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//4 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//5 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//6 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//7 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//8 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//9 Default
 
 /* Walk2 */
-    { 222, 307, 930, 706, 910, 706, 47, 352, 756, 490, 404, 201, 157, 681, 800, 150 },	//10 Walk2
-    { 92, 317, 950, 736, 860, 666, 112, 317, 756, 490, 404, 201, 157, 681, 800, 150 },	//11 Walk2
-    { 92, 317, 950, 736, 975, 671, 112, 317, 756, 490, 404, 201, 157, 681, 800, 150 },	//12 Walk2
-    { 82, 307, 800, 686, 975, 671, 102, 307, 756, 490, 404, 201, 157, 681, 800, 150 },	//13 Walk2
-    { 82, 297, 930, 706, 910, 686, 162, 327, 756, 490, 404, 201, 157, 681, 800, 150 },	//14 Walk2
-    { 82, 297, 930, 706, 910, 706, 47, 352, 756, 490, 404, 201, 157, 681, 800, 150 },   //15 Walk2
-	
+    { 222, 307, 930, 706, 910, 706, 47, 352, 756, 518, 577, 252, 310, 497, 1000, 150 },	//10 Walk2
+    { 92, 317, 950, 736, 860, 666, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 150 },	//11 Walk2
+    { 92, 317, 950, 736, 975, 671, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 150 },	//12 Walk2
+    { 82, 307, 800, 686, 975, 671, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 150 },	//13 Walk2
+    { 82, 297, 930, 706, 910, 686, 162, 327, 756, 518, 577, 252, 310, 497, 1000, 150 },	//14 Walk2
+    { 82, 297, 930, 706, 910, 706, 47, 352, 756, 518, 577, 252, 310, 497, 1000, 150 },   //15 Walk2
 
-    { 122, 347, 960, 736, 975, 671, 52, 302, 756, 515, 404, 189, 232, 673, 800, 100 },	//16 Walk2
-	{ 82, 297, 905, 706, 915, 711, 62, 352, 756, 515, 404, 189, 232, 673, 800, 100 },	//17 Walk2
-	{ 82, 297, 905, 706, 915, 711, 62, 352, 756, 515, 404, 189, 232, 673, 800, 100 },	//18 Walk2
-	{ 82, 297, 905, 706, 915, 711, 62, 352, 756, 515, 404, 189, 232, 673, 800, 100 },	//19 Walk2
+    { 122, 347, 960, 736, 975, 671, 52, 302, 756, 518, 577, 252, 310, 497, 1000, 100 },	//16 Walk2 no use
+	{ 82, 297, 905, 706, 915, 711, 62, 352, 756, 518, 577, 252, 310, 497, 1000, 100 },	//17 Walk2 no use
+	{ 82, 297, 905, 706, 915, 711, 62, 352, 756, 518, 577, 252, 310, 497, 1000, 100 },	//18 Walk2 no use
+	{ 82, 297, 905, 706, 915, 711, 62, 352, 756, 518, 577, 252, 310, 497, 1000, 100 },	//19 Walk2 no use
 
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, SPEED_SLOW },	//20 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, SPEED_SLOW },	//21 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, SPEED_SLOW },	//22 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, SPEED_SLOW },	//23 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, SPEED_SLOW },	//24 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, SPEED_SLOW },	//25 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, SPEED_SLOW },	//26 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, SPEED_SLOW },	//27 Walk2
-	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, SPEED_SLOW },	//28 Walk2
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//20 Walk2 no use
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//21 Walk2 no use
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//22 Walk2 no use
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//23 Walk2 no use
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//24 Walk2 no use
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//25 Walk2 no use
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//26 Walk2 no use
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//27 Walk2 no use
+	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//28 Walk2 no use
 
 /* Turn Left */
-	{ 0, 307, 920, 818, 920, 818, 0, 307, 756, 515, 404, 189, 232, 673, 800, 180 },	//29 Turn Left
-	{ 0, 307, 920, 716, 920, 716, 0, 307, 756, 515, 404, 189, 232, 673, 800, 180 },	//30 Turn Left
-	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 515, 404, 189, 232, 673, 800, 180 },	//31 Turn Left
-	{ 0, 307, 920, 818, 920, 818, 0, 307, 756, 515, 404, 189, 232, 673, 800, 180 },	//32 Turn Left
-	{ 0, 307, 920, 716, 920, 716, 0, 307, 756, 515, 404, 189, 232, 673, 800, 180 },	//33 Turn Left
-	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 515, 404, 189, 232, 673, 800, 180 },	//34 Turn Left
+	{ 0, 307, 920, 818, 920, 818, 0, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//29 Turn Left
+	{ 0, 307, 920, 716, 920, 716, 0, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//30 Turn Left
+	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//31 Turn Left
+	{ 0, 307, 920, 818, 920, 818, 0, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//32 Turn Left
+	{ 0, 307, 920, 716, 920, 716, 0, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//33 Turn Left
+	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//34 Turn Left
 
 /* Turn Right */
-	{ 102, 205, 1023, 716, 1023, 716, 102, 205, 756, 515, 404, 189, 232, 673, 800, 180 }, //35 Turn Right
-	{ 102, 307, 1023, 716, 1023, 716, 102, 307, 756, 515, 404, 189, 232, 673, 800, 180 }, //36 Turn Right
-	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 515, 404, 189, 232, 673, 800, 180 }, //37 Turn Right
-	{ 102, 205, 1023, 716, 1023, 716, 102, 205, 756, 515, 404, 189, 232, 673, 800, 180 }, //38 Turn Right
-	{ 102, 307, 1023, 716, 1023, 716, 102, 307, 756, 515, 404, 189, 232, 673, 800, 180 }, //39 Turn Right
-	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 515, 404, 189, 232, 673, 800, 180 },	//40 Turn Right
+	{ 102, 205, 1023, 716, 1023, 716, 102, 205, 756, 518, 577, 252, 310, 497, 1000, 180 }, //35 Turn Right
+	{ 102, 307, 1023, 716, 1023, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 }, //36 Turn Right
+	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 }, //37 Turn Right
+	{ 102, 205, 1023, 716, 1023, 716, 102, 205, 756, 518, 577, 252, 310, 497, 1000, 180 }, //38 Turn Right
+	{ 102, 307, 1023, 716, 1023, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 }, //39 Turn Right
+	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//40 Turn Right
 	
-	{ ANGLE_4, ANGLE_7, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_0, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, 100 },	//41 Walk1_1
-	{ ANGLE_3, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_2, ANGLE_5, 756, 515, 404, 189, 232, 673, 800, 100 },	//42 Walk1_1
-	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_0, ANGLE_3, 756, 515, 404, 189, 232, 673, 800, 100 },	//43 Walk1_1
-	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 756, 515, 404, 189, 232, 673, 800, 100 },	//44 Walk1_1
-	{ ANGLE_2, ANGLE_5, ANGLE_6, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_4, 756, 515, 404, 189, 232, 673, 800, 100 },	//45 Walk1_1
-	{ ANGLE_2, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_1, ANGLE_5, 756, 515, 404, 189, 232, 673, 800, 100 },	//46 Walk1_1
-	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_10, ANGLE_7, ANGLE_2, ANGLE_5, 756, 515, 404, 189, 232, 673, 800, 100 },	//47 Walk1_1
-	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 756, 515, 404, 189, 232, 673, 800, 100 },	//48 Walk1_1
+	{ ANGLE_4, ANGLE_7, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_0, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, 100 },	//41 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_2, ANGLE_5, 756, 518, 577, 252, 310, 497, 1000, 100 },	//42 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_0, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, 100 },	//43 Walk1_1
+	{ ANGLE_3, ANGLE_5, ANGLE_9, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 756, 518, 577, 252, 310, 497, 1000, 100 },	//44 Walk1_1
+	{ ANGLE_2, ANGLE_5, ANGLE_6, ANGLE_3, ANGLE_10, ANGLE_7, ANGLE_1, ANGLE_4, 756, 518, 577, 252, 310, 497, 1000, 100 },	//45 Walk1_1
+	{ ANGLE_2, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_1, ANGLE_5, 756, 518, 577, 252, 310, 497, 1000, 100 },	//46 Walk1_1
+	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_10, ANGLE_7, ANGLE_2, ANGLE_5, 756, 518, 577, 252, 310, 497, 1000, 100 },	//47 Walk1_1
+	{ ANGLE_1, ANGLE_5, ANGLE_7, ANGLE_5, ANGLE_9, ANGLE_6, ANGLE_1, ANGLE_4, 756, 518, 577, 252, 310, 497, 1000, 100 },	//48 Walk1_1
 	
-	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 756, 515, 404, 189, 232, 673, 800, 100 },	//49
+	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 756, 518, 577, 252, 310, 497, 1000, 100 },	//49
 		
 /* Neck */
-    { 112, 317, 910, 706, 910, 706, 112, 317, 597, 508, 192, 300, 157, 501, 780, 100 },	//50 Neck search stretch 1
-    { 112, 317, 910, 706, 910, 706, 112, 317, 498, 502, 196, 713, 157, 342, 788, 100 },	//51 Neck search stretch 2
-    { 112, 317, 910, 706, 910, 706, 112, 317, 498, 502, 196, 713, 157, 342, 788, 100 },	//52 Neck search stretch 3
-	
-    { 112, 317, 910, 706, 910, 706, 112, 317, 498, 673, 196, 713, 157, 342, 788, 100 },	//53 Neck search swing 1
-    { 112, 317, 910, 706, 910, 706, 112, 317, 498, 513, 196, 713, 157, 342, 788, 100 },	//54 Neck search swing 2
-    { 112, 317, 910, 706, 910, 706, 112, 317, 498, 380, 196, 713, 157, 342, 788, 100 },	//55 Neck search swing 3
-    { 112, 317, 910, 706, 910, 706, 112, 317, 498, 196, 196, 713, 157, 342, 788, 100 },	//56 Neck search swing 4
+    { 112, 317, 910, 706, 910, 706, 112, 317, 601, 508, 291, 271, 248, 547, 1000, 50 },	//50 Neck search stretch 1
+    { 112, 317, 910, 706, 910, 706, 112, 317, 498, 508, 196, 713, 157, 342, 1000, 50 },	//51 Neck search stretch 2
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 508, 161, 472, 179, 446, 1000, 50 },	//52 Neck search stretch 3
 
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 808, 502, 196, 713, 157, 342, 788, 100 },	//57 Neck search 
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//58 Neck search 
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//59 Neck search 
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//60 Neck search 
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 825, 161, 472, 179, 446, 1000, 100 },	//53 Neck search swing 1
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 673, 161, 472, 179, 446, 1000, 100 },	//54 Neck search swing 2
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 513, 161, 472, 179, 446, 1000, 100 },	//55 Neck search swing 3
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 380, 161, 472, 179, 446, 1000, 100 },	//56 Neck search swing 4
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 196, 161, 472, 179, 446, 1000, 100 },	//57 Neck search swing 5
 	
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 498, 513, 196, 713, 157, 342, 788, 100 },	//61 Neck search shorten 1
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 597, 508, 192, 300, 157, 501, 780, 100 },	//62 Neck search shorten 2
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//63 Neck search shorten 3
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 1000, 100 },	//58 Neck search no use
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 1000, 100 },	//59 Neck search no use
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 1000, 100 },	//60 Neck search no use
 	
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//64 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//65 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//66 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//67 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//68 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//69 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//70 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//71 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//72 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//73 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//74 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//75 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//76 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//77 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//78 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//79 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//80 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//81 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//82 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//83 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//84 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//85 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//86 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//87 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//88 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//89 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//90 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//91 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//92 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//93 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//94 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//95 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//96 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//97 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//98 Default
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 800, 100 },	//99 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 498, 502, 161, 472, 179, 446, 1000, 50 },	//61 Neck search shorten 1
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 597, 508, 192, 300, 157, 501, 1000, 50 },	//62 Neck search shorten 2
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 1000, 50 },	//63 Neck search shorten 3
+	
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//64 No use
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//65 No use
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//66 No use
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//67 No use
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//68 No use
+
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 50 },	//69 Neck pre goal stretch 1
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 642, 546, 630, 427, 368, 574, 1000, 50 },	//70 Neck pre goal stretch 2
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 696, 531, 719, 562, 447, 526, 1000, 50 },	//71 Neck pre goal stretch 3
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 688, 603, 727, 562, 476, 499, 1000, 50 },	//72 Neck pre goal swing 
+
+	{ 222, 307, 930, 706, 910, 706, 47, 352, 688, 603, 727, 562, 476, 499, 1000, 100 },	//73 Neck pre goal walk 1
+	{ 92, 317, 950, 736, 860, 666, 112, 317, 688, 603, 727, 562, 476, 499, 1000, 100 },	//74 Neck pre goal walk 2
+	{ 92, 317, 950, 736, 975, 671, 112, 317, 688, 603, 727, 562, 476, 499, 1000, 100 },	//75 Neck pre goal walk 3
+	{ 82, 307, 800, 686, 975, 671, 102, 307, 688, 603, 727, 562, 476, 499, 1000, 100 },	//76 Neck pre goal walk 4
+	{ 82, 297, 930, 706, 910, 686, 162, 327, 688, 603, 727, 562, 476, 499, 1000, 100 },	//77 Neck pre goal walk 5
+	{ 82, 297, 930, 706, 910, 706, 47, 352, 688, 603, 727, 562, 476, 499, 1000, 100 },	//78 Neck pre goal walk 6
+
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 472, 320, 626, 560, 567, 464, 1000, 50 },	//79 Neck goal swing
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 472, 320, 626, 560, 567, 464, 500, 100 },	//80 Neck goal release
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 506, 505, 528, 514, 587, 457, 500, 50 },	//81 Neck goal shorten 1
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 600, 529, 528, 413, 509, 634, 500, 50 },	//82 Neck goal shorten 2
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 500, 50 },	//83 Neck goal shorten 3
+
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//84 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//85 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//86 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//87 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//88 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//89 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//90 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//91 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//92 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//93 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//94 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//95 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//96 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//97 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//98 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//99 Default
 };
 
 int motion0[] =	{1, 0 };  //Default
@@ -230,12 +235,15 @@ int motion2[] =	{8, 41, 42, 43, 44, 45, 46, 47, 48};  //Walk1
 int motion3[] =	{6, 10, 11, 12, 13, 14, 15};  //Walk2
 int motion4[] =	{6, 29, 30, 31, 32, 33, 34 };      //Turn Left
 int motion5[] =	{6, 35, 36, 37, 38, 39, 40 };      //Turn Right
-int motion6[] =	{6, 10, 11, 12, 13, 14, 15 };  //Step
-int motion7[] =	{4, 50, 51, 52, 53};  //Neck search stretch
-int motion8[] =	{5, 53, 54, 55, 56, 56};  //Neck search swing
-int motion9[] =	{3, 61, 62, 63};  //Neck search shorten
-int motion10[] =	{3, 50, 51, 52};  //Neck goal
-int *motionList[] = { &motion0[0], &motion1[0], &motion2[0], &motion3[0], &motion4[0], &motion5[0], &motion6[0], &motion7[0], &motion8[0], &motion9[0], &motion10[0] };
+int motion6[] =	{6, 10, 11, 12, 13, 14, 15 };		//Step
+int motion7[] =	{4, 50, 51, 52, 53};				//Neck search stretch
+int motion8[] =	{5, 54, 55, 56, 57, 57};			//Neck search swing
+int motion9[] =	{3, 61, 62, 63};					//Neck search shorten
+int motion10[] = {4, 69, 70, 71, 72};				//Neck pre goal swing
+int motion11[] = {6, 73, 74, 75, 76, 77, 78};		//Neck pre goal walk
+int motion12[] = {5, 79, 80, 81, 82, 83};			//Neck goal swing
+int *motionList[] = { &motion0[0], &motion1[0], &motion2[0], &motion3[0], &motion4[0], &motion5[0], &motion6[0], 
+					  &motion7[0], &motion8[0], &motion9[0], &motion10[0], &motion11[0], &motion12[0] };
 enum ActType {
 	ACT_DEFAULT         = 0,
 	ACT_PRE_WALK        = 1,
@@ -247,8 +255,10 @@ enum ActType {
 	ACT_NECK_SEARCH_STRETCH   = 7,
 	ACT_NECK_SEARCH_SWING     = 8,
 	ACT_NECK_SEARCH_SHORTEN   = 9,
-	ACT_NECK_GOAL       = 10,
-	ACT_TYPE_MAX        = 11,
+	ACT_NECK_PRE_GOAL_SWING   = 10,
+	ACT_NECK_PRE_GOAL_WALK    = 11,
+	ACT_NECK_GOAL_SWING       = 12,
+	ACT_TYPE_MAX        = 13,
 };
 
 /*
@@ -275,34 +285,35 @@ enum modeType {
 	MODE_ACT_5           = 4,
 	MODE_ACT_6           = 5,
 	MODE_ACT_7           = 6,
+	MODE_ACT_8           = 7,
 	MODE_MAX,
 };
 
 int mode1act[2][2] = {
 	 { 1000, 1 },  //Start Wait, Total Num
-     { ACT_WALK2,  5 },
+     { ACT_WALK2,  8 },
 };
 
 int mode2act[2][2] = {
-	{ 100, 1 },  //Start Wait, Total Num
-	{ ACT_TURN_LEFT,  3 },
+	{ 100, 2 },  //Start Wait, Total Num
+	{ ACT_TURN_LEFT,  5 },
 };
 
 int mode3act[2][2] = {
 	{ 100, 1 },  //Start Wait, Total Num
-	{ ACT_TURN_RIGHT,  3 },
+	{ ACT_TURN_RIGHT,  5 },
 };
 
 int mode4act[3][2] = {
 	{ 100, 2 },  //Start Wait, Total Num
 	{ ACT_WALK2,  2 },
-	{ ACT_TURN_LEFT,  1 },
+	{ ACT_TURN_LEFT,  3 },
 };
 
 int mode5act[3][2] = {
 	{ 100, 2 },  //Start Wait, Total Num
-	{ ACT_TURN_LEFT,  3 },
-	{ ACT_WALK2,  3 },
+	{ ACT_TURN_LEFT,  5 },
+	{ ACT_WALK2,  2 },
 };
 
 int mode6act[2][2] = {
@@ -317,7 +328,12 @@ int mode7act[4][2] = {
 	{ ACT_NECK_SEARCH_SHORTEN,  1 },
 };
 
-int searchSensors[5] = {0, 0, 0, 0, 0};
+int mode8act[4][2] = {
+	{ 100, 3 },  //Start Wait, Total Num
+	{ ACT_WALK2,  3 },
+	{ ACT_NECK_PRE_GOAL_SWING,  1 },
+	{ ACT_NECK_GOAL_SWING,  1 },
+};
 
 /*
 int minmaxList[2][SERVO_MAX] = {
@@ -358,9 +374,9 @@ void stopMotion(void);
 void move(void);
 void setModeAction();
 void sensorInit(void);
-void sensorTest(int);
+int sensorTest(int);
 void judgeModeAct(void);
-void brinkLed(void);
+void brinkLED(void);
 
 //Mode
 int mMode = MODE_0;
@@ -395,12 +411,16 @@ int sensorValueOld[3] = {0};
 int sensorValueArray[3][5];
 int walkCounter = 0;
 
+// Arrays for sensor search 
+int searchSensors[SENSOR_SEARCH_MAX] = {0, 0, 0, 0, 0};
+
 // Move test
 int isMovetest = 0;
 int testMotionNumber = ACT_TURN_LEFT;
 void moveTest(void);
 
 int mModeAct = MODE_ACT_1;
+int mOldModeAct = MODE_ACT_1;
 int ledCounter = 0;
 
 //Event
@@ -570,8 +590,8 @@ int main(void){
 		sensorValueOld[1] = sensorValue[1];
 		sensorValueOld[2] = sensorValue[2];
 		
-		// walk pattern led
-		brinkLed();
+		// walk pattern LED
+//		brinkLED();
 		
 		_delay_ms(MAIN_DELAY);
 		watchDogCnt++;
@@ -584,43 +604,49 @@ int main(void){
 	}
 }
 
-void brinkLed() {
+void brinkLED() {
 	if (mModeAct > 0) {
-		switch (mModeAct)
-		{
-		case MODE_ACT_1: 
-    		PORTC |= LED_BAT|LED_RxD|LED_TxD;
-			break;
-		case MODE_ACT_2: 
-		    PORTC &= ~LED_BAT;
-			PORTC |= LED_RxD|LED_TxD;
-			break;
-		case MODE_ACT_3: 
-		    PORTC &= ~LED_RxD;
-		    PORTC |= LED_BAT|LED_TxD;
-			break;
-		case MODE_ACT_4: 
-		    PORTC &= ~LED_TxD;
-		    PORTC |= LED_BAT|LED_RxD;
-			break;
-		case MODE_ACT_5: 
-		    PORTC &= ~LED_BAT;
-			PORTC &= ~LED_RxD;
-		    PORTC |= LED_TxD;		
-			break;
-		case MODE_ACT_6: 
-		    PORTC &= ~LED_BAT;
-			PORTC &= ~LED_TxD;
-		    PORTC |= LED_RxD;
-			break;
-		case MODE_ACT_7:
-			PORTC &= ~LED_RxD;
-			PORTC &= ~LED_TxD;
-			PORTC |= LED_BAT;
-			break;
-		default:
-		    PORTC |= LED_BAT|LED_RxD|LED_TxD;
-			break;
+		if (mModeAct != mOldModeAct) {
+			switch (mModeAct){
+				case MODE_ACT_1:
+					PORTC |= LED_BAT|LED_RxD|LED_TxD;
+					break;
+				case MODE_ACT_2:
+					PORTC &= ~LED_BAT;
+					PORTC |= LED_RxD|LED_TxD;
+					break;
+				case MODE_ACT_3:
+					PORTC &= ~LED_RxD;
+					PORTC |= LED_BAT|LED_TxD;
+					break;
+				case MODE_ACT_4:
+					PORTC &= ~LED_TxD;
+					PORTC |= LED_BAT|LED_RxD;
+					break;
+				case MODE_ACT_5:
+					PORTC &= ~LED_BAT;
+					PORTC &= ~LED_RxD;
+					PORTC |= LED_TxD;
+					break;
+				case MODE_ACT_6:
+					PORTC &= ~LED_BAT;
+					PORTC &= ~LED_TxD;
+					PORTC |= LED_RxD;
+					break;
+				case MODE_ACT_7:
+					PORTC &= ~LED_RxD;
+					PORTC &= ~LED_TxD;
+					PORTC |= LED_BAT;
+					break;
+				case MODE_ACT_8:
+					PORTC &= ~LED_RxD;
+					PORTC &= ~LED_TxD;
+					PORTC &= ~LED_BAT;
+					break;
+				default:
+					PORTC |= LED_BAT|LED_RxD|LED_TxD;
+					break;
+			}
 		}
 	} else {
     	PORTC |= LED_BAT|LED_RxD|LED_TxD;
@@ -640,21 +666,21 @@ printf( "### sensorInit\n");
 	ADMUX = ADC_PORT_1; // ADC Port X Select
 }
 
-void sensorTest(int iNum){
+int sensorTest(int iNum){
 	
 	int i, irValue;
 	
 	switch(iNum) {
 	case 0:
-		ADMUX = ADC_PORT_1; // ADC Port X Select
+		ADMUX = ADC_PORT_1; // ADC Port 1 Select
 		PORTA &= ~0x80;
 		break;
 	case 1:
-		ADMUX = ADC_PORT_2; // ADC Port X Select
+		ADMUX = ADC_PORT_2; // ADC Port 2 Select
 		PORTA &= ~0x40;
 		break;
 	case 2:
-		ADMUX = ADC_PORT_3; // ADC Port X Select
+		ADMUX = ADC_PORT_3; // ADC Port 3 Select
 		PORTA &= ~0x20;
 		break;
 	}
@@ -686,17 +712,31 @@ void sensorTest(int iNum){
 		irValue += sensorValueArray[iNum][i];
 	}
 	irValue += sensorValueArray[iNum][5] = ADC;
-	if ((irValue / 5) > 30) {
+	
+	int threshold = 0;
+	switch(iNum) {
+		case 0:
+			threshold = 45;
+			break;
+		case 1:
+		case 2:
+		default:
+			threshold = 55;
+			break;
+		}
+	
+	if ((irValue / 5) > threshold) {
 		sensorValue[iNum] = 1;
 	}else{
 		sensorValue[iNum] = 0;
 	}
 	
-//	if(iNum == 0) printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
-//	if(iNum == 1) printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
-//	if(iNum == 2) printf( "### sensorTest() ADC:%d, i:%d\r\n", ADC, iNum); // Print Value on USART
+//	if(iNum == 0) printf( "### sensorTest() ADC:%d, sensorValue[%d]:%d\r\n", ADC, iNum, sensorValue[iNum]); // Print Value on USART
+//	if(iNum == 1) printf( "### sensorTest() ADC:%d, sensorValue[%d]:%d\r\n", ADC, iNum, sensorValue[iNum]); // Print Value on USART
+//	if(iNum == 2) printf( "### sensorTest() ADC:%d, sensorValue[%d]:%d\r\n", ADC, iNum, sensorValue[iNum]); // Print Value on USART
 
 //	_delay_ms(50);
+    return ADC;
 }
 
 void motionEdit(){
@@ -775,6 +815,10 @@ void setModeAction(){
 		case MODE_ACT_7:
 			modeAct = &mode7act[modeCounter][0];
 			counterMax = mode7act[0][1];
+			break;
+		case MODE_ACT_8:
+			modeAct = &mode8act[modeCounter][0];
+			counterMax = mode8act[0][1];
 			break;
 		default:
 			break;
@@ -950,17 +994,17 @@ void stopMotion(void){
 }
 
 void move(void){
-	int log = 0;
+	int log = 1;
 	if( motionTimes > 0 && isMoving() == 0 ){
 		if (motionNumber >= ACT_TYPE_MAX) {
 			printf("move Oops! motionNumber:%d\n", motionNumber);
 //			motionNumber = ACT_WALK2;
 		}
 		int *motion = motionList[motionNumber];
-        if (log == 1) printf("move motionNumber:%d, motion = %d\n", motionNumber, *motion);
+//        if (log == 1) printf("move motionNumber:%d, motion = %d\n", motionNumber, *motion);
 		int max = motion[0];
 
-        if (log == 1)printf("move motionCount:%d, max:%d\n", motionCount, max);
+//        if (log == 1) printf("move motionCount:%d, max:%d\n", motionCount, max);
 		if( motionCount > max ){
 			if (log == 1) printf("move 1\n");
 			/*
@@ -1011,10 +1055,12 @@ void move(void){
 				return;
 			}
 			
-			if (motionNumber == ACT_NECK_SEARCH_SWING) {
-				searchSensors[motionCount] = sensorValue[0];
-				printf("move searchSensors[%d]:%d\n", motionCount, searchSensors[motionCount]);
-			}
+		}
+		
+		if (log == 1) printf("move 3 motionNumber:%d\n", motionNumber);
+		if (motionNumber == ACT_NECK_SEARCH_SWING) {
+			searchSensors[motionCount] = sensorTest(0);
+			printf("move 4 searchSensors[%d]:%d\n", motionCount, searchSensors[motionCount]);
 		}
 //		printf("### motionCount:%d\n", motionCount);
 		ServoControl( motion[motionCount] );
@@ -1022,70 +1068,87 @@ void move(void){
 	}
 }
 
+
+
+
 void judgeModeAct() {
 	int log = 1;
 	
+	mOldModeAct = mModeAct;
+
 	if (mModeAct == MODE_ACT_7) {
+		if (log == 1) printf("judgeModeAct 1 \n");
+			
 		int sensorMaxId = 0;
 		int tmp = searchSensors[0];
-		for (int i=1; i < 5; i++){
+		for (int i = 1; i < SENSOR_SEARCH_MAX + 1; i++){
 			if (tmp < searchSensors[i]) {
 				tmp = searchSensors[i];
 				sensorMaxId = i;
 			}
 		}
+
+		if (tmp > 80 && searchSensors[2] > 20 && searchSensors[3] > 40 && searchSensors[4] > 20) {
+			if (log == 1) printf("judgeModeAct 2 \n");
+			mModeAct = MODE_ACT_8;
+			return;
+		}
+
+		if (log == 1) printf("judgeModeAct 3 sensorMaxId:%d\n", sensorMaxId);
 		
 		switch(sensorMaxId) {
-			case 0:
 			case 1:
+			case 2:
 				mModeAct = MODE_ACT_2;
 				break;
-			case 2:
+			case 3:
 			    mModeAct = MODE_ACT_6;
 				break;
-			case 3:
 			case 4:
+			case 5:
 				mModeAct = MODE_ACT_3;
 				break;
+			default:
+			    mModeAct = MODE_ACT_6;
+			    break;
 		}
-		
 	} else {
-	/* Sensor patterns */
-	/* Pattern: Head_0 Front_1 Rear_2 */
-	/* 1: 0 0 0 */
-	/* 2: 1 0 0 */
-	/* 3: 0 1 0 */
-	/* 4: 0 0 1 */
-	/* 5: 1 1 0 */
-	/* 6: 1 0 1 */
-	/* 7: 0 1 1 */
-	/* 8: 1 1 1 */
-	if (sensorValue[0] == 0 && sensorValue[1] == 0 && sensorValue[2] == 0) {
-		if (log == 1) printf("judgeModeAct pattern:1\n");
-		mModeAct = MODE_ACT_4;
+		if (log == 1) printf("judgeModeAct 4 \n");
+		/* Sensor patterns */
+		/* Pattern: Head_0 Front_1 Rear_2 */
+		/* 1: 0 0 0 */
+		/* 2: 1 0 0 */
+		/* 3: 0 1 0 */
+		/* 4: 0 0 1 */
+		/* 5: 1 1 0 */
+		/* 6: 1 0 1 */
+		/* 7: 0 1 1 */
+		/* 8: 1 1 1 */
+		if (sensorValue[0] == 0 && sensorValue[1] == 0 && sensorValue[2] == 0) {
+			if (log == 1) printf("judgeModeAct pattern:1\n");
+			mModeAct = MODE_ACT_4;
 		} else if (sensorValue[0] == 1 && sensorValue[1] == 0 && sensorValue[2] == 0) {
-		if (log == 1) printf("judgeModeAct pattern:2\n");
-		mModeAct = MODE_ACT_5;
+			if (log == 1) printf("judgeModeAct pattern:2\n");
+			mModeAct = MODE_ACT_5;
 		} else if (sensorValue[0] == 0 && sensorValue[1] == 1 && sensorValue[2] == 0) {
-		if (log == 1) printf("judgeModeAct pattern:3\n");
-		mModeAct = MODE_ACT_7;
+			if (log == 1) printf("judgeModeAct pattern:3\n");
+			mModeAct = MODE_ACT_7;
 		} else if (sensorValue[0] == 0 && sensorValue[1] == 0 && sensorValue[2] == 1) {
-		if (log == 1) printf("judgeModeAct pattern:4\n");
-		mModeAct = MODE_ACT_2;
+			if (log == 1) printf("judgeModeAct pattern:4\n");
+			mModeAct = MODE_ACT_2;
 		} else if (sensorValue[0] == 1 && sensorValue[1] == 1 && sensorValue[2] == 0) {
-		if (log == 1) printf("judgeModeAct pattern:5\n");
-		mModeAct = MODE_ACT_3;
+			if (log == 1) printf("judgeModeAct pattern:5\n");
+			mModeAct = MODE_ACT_3;
 		} else if (sensorValue[0] == 1 && sensorValue[1] == 0 && sensorValue[2] == 1) {
-		if (log == 1) printf("judgeModeAct pattern:6\n");
-		mModeAct = MODE_ACT_7;
+			if (log == 1) printf("judgeModeAct pattern:6\n");
+			mModeAct = MODE_ACT_7;
 		} else if (sensorValue[0] == 0 && sensorValue[1] == 1 && sensorValue[2] == 1) {
-		if (log == 1) printf("judgeModeAct pattern:7\n");
-		mModeAct = MODE_ACT_6;
+			if (log == 1) printf("judgeModeAct pattern:7\n");
+			mModeAct = MODE_ACT_6;
 		} else if (sensorValue[0] == 1 && sensorValue[1] == 1 && sensorValue[2] == 1) {
-		if (log == 1) printf("judgeModeAct pattern:8\n");
-		mModeAct = MODE_ACT_7;
-	}
-		mModeAct = MODE_ACT_7;
+			if (log == 1) printf("judgeModeAct pattern:8\n");
+			mModeAct = MODE_ACT_7;
+		}
 	}
 }
 
