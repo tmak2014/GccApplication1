@@ -1100,7 +1100,7 @@ void judgeModeAct() {
 			}
 		}
 
-		if (tmp > 80 && searchSensors[2] > 20 && searchSensors[3] > 40 && searchSensors[4] > 20) {
+		if (tmp > 100 && searchSensors[2] > 40 && searchSensors[3] > 80 && searchSensors[4] > 40) {
 			if (log == 1) printf("judgeModeAct 2 \n");
 			mModeAct = MODE_ACT_8;
 			return;
