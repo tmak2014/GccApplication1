@@ -45,6 +45,7 @@
 #define P_PRESENT_VOLTAGE	42
 #define P_MOVING	  		46
 #define P_EEP_LOCK  		47
+//#define SERVO_MAX	  		8
 #define SERVO_MAX	  		15
 #define ACT_MAX				100
 
@@ -141,7 +142,7 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ ANGLE_1, ANGLE_3, ANGLE_9, ANGLE_7, ANGLE_9, ANGLE_7, ANGLE_1, ANGLE_3, 756, 518, 577, 252, 310, 497, 1000, SPEED_SLOW },	//28 Walk2 no use
 
 /* Turn Left */
-	{ 0, 307, 920, 818, 920, 818, 0, 307, 756, 518, 577, 252, 310, 497, 1000, 150 },	//29 Turn Left
+	{ 0, 307, 920, 818, 920, 818, 0, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//29 Turn Left
 	{ 0, 307, 920, 716, 920, 716, 0, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//30 Turn Left
 	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//31 Turn Left
 	{ 0, 307, 920, 818, 920, 818, 0, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//32 Turn Left
@@ -149,7 +150,7 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 },	//34 Turn Left
 
 /* Turn Right */
-	{ 102, 205, 1023, 716, 1023, 716, 102, 205, 756, 518, 577, 252, 310, 497, 1000, 150 }, //35 Turn Right
+	{ 102, 205, 1023, 716, 1023, 716, 102, 205, 756, 518, 577, 252, 310, 497, 1000, 180 }, //35 Turn Right
 	{ 102, 307, 1023, 716, 1023, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 }, //36 Turn Right
 	{ 102, 307, 920, 716, 920, 716, 102, 307, 756, 518, 577, 252, 310, 497, 1000, 180 }, //37 Turn Right
 	{ 102, 205, 1023, 716, 1023, 716, 102, 205, 756, 518, 577, 252, 310, 497, 1000, 180 }, //38 Turn Right
@@ -167,24 +168,24 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	
 	{ ANGLE_2, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_8, ANGLE_5, ANGLE_2, ANGLE_5, 756, 518, 577, 252, 310, 497, 1000, 100 },	//49
 		
-/* Neck search */
-    { 112, 317, 910, 706, 910, 706, 112, 317, 758, 515, 466, 343, 248, 449, 1000, 50 },	//50 Neck search stretch 1
-    { 112, 317, 910, 706, 910, 706, 112, 317, 573, 527, 196, 397, 207, 515, 1000, 50 },	//51 Neck search stretch 2
-    { 112, 317, 910, 706, 910, 706, 112, 317, 504, 527, 125, 385, 159, 537, 1000, 50 },	//52 Neck search stretch 3
+/* Neck */
+    { 112, 317, 910, 706, 910, 706, 112, 317, 601, 508, 291, 271, 248, 547, 1000, 50 },	//50 Neck search stretch 1
+    { 112, 317, 910, 706, 910, 706, 112, 317, 498, 508, 196, 713, 157, 342, 1000, 50 },	//51 Neck search stretch 2
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 508, 161, 472, 179, 446, 1000, 50 },	//52 Neck search stretch 3
 
-    { 112, 317, 910, 706, 910, 706, 112, 317, 504, 825, 161, 472, 179, 446, 1000, 100 },	//53 Neck search swing 1
-    { 112, 317, 910, 706, 910, 706, 112, 317, 504, 673, 161, 472, 179, 446, 1000, 100 },	//54 Neck search swing 2
-    { 112, 317, 910, 706, 910, 706, 112, 317, 504, 513, 161, 472, 179, 446, 1000, 100 },	//55 Neck search swing 3
-    { 112, 317, 910, 706, 910, 706, 112, 317, 504, 380, 161, 472, 179, 446, 1000, 100 },	//56 Neck search swing 4
-    { 112, 317, 910, 706, 910, 706, 112, 317, 504, 196, 161, 472, 179, 446, 1000, 100 },	//57 Neck search swing 5
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 825, 161, 472, 179, 446, 1000, 100 },	//53 Neck search swing 1
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 673, 161, 472, 179, 446, 1000, 100 },	//54 Neck search swing 2
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 513, 161, 472, 179, 446, 1000, 100 },	//55 Neck search swing 3
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 380, 161, 472, 179, 446, 1000, 100 },	//56 Neck search swing 4
+    { 112, 317, 910, 706, 910, 706, 112, 317, 490, 196, 161, 472, 179, 446, 1000, 100 },	//57 Neck search swing 5
 	
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 1000, 100 },	//58 Neck search no use
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 1000, 100 },	//59 Neck search no use
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 1000, 100 },	//60 Neck search no use
 	
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 504, 527, 125, 385, 159, 537, 1000, 50 },	//61 Neck search shorten 1
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 573, 527, 196, 397, 207, 515, 1000, 50 },	//62 Neck search shorten 2
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 758, 515, 466, 343, 248, 449, 1000, 50 },	//63 Neck search shorten 3
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 498, 502, 161, 472, 179, 446, 1000, 50 },	//61 Neck search shorten 1
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 597, 508, 192, 300, 157, 501, 1000, 50 },	//62 Neck search shorten 2
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 515, 404, 189, 232, 673, 1000, 50 },	//63 Neck search shorten 3
 	
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//64 No use
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//65 No use
@@ -192,29 +193,28 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//67 No use
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//68 No use
 
-/* Neck goal */
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 758, 512, 466, 343, 248, 449, 1000, 50 },	//69 Neck pre goal stretch 1
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 573, 512, 196, 397, 207, 515, 1000, 50 },	//70 Neck pre goal stretch 2
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 530, 512, 250, 375, 310, 507, 1000, 50 },	//71 Neck pre goal stretch 3
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 512, 300, 350, 430, 500, 1000, 50 },	//72 Neck pre goal stretch 4
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 560, 400, 350, 430, 500, 1000, 50 },	//73 Neck pre goal stretch 5
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 600, 500, 480, 480, 420, 1000, 50 },	//74 Neck pre goal stretch 6 
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 50 },	//69 Neck pre goal stretch 1
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 642, 546, 630, 427, 368, 574, 1000, 50 },	//70 Neck pre goal stretch 2
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 696, 531, 719, 562, 447, 526, 1000, 50 },	//71 Neck pre goal stretch 3
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 688, 603, 727, 562, 476, 499, 1000, 50 },	//72 Neck pre goal swing 
 
-	{ 222, 307, 930, 706, 910, 706, 47, 352, 688, 603, 727, 562, 476, 499, 1000, 100 },	//75 Neck pre goal walk 1
-	{ 92, 317, 950, 736, 860, 666, 112, 317, 688, 603, 727, 562, 476, 499, 1000, 100 },	//76 Neck pre goal walk 2
-	{ 92, 317, 950, 736, 975, 671, 112, 317, 688, 603, 727, 562, 476, 499, 1000, 100 },	//77 Neck pre goal walk 3
-	{ 82, 307, 800, 686, 975, 671, 102, 307, 688, 603, 727, 562, 476, 499, 1000, 100 },	//78 Neck pre goal walk 4
-	{ 82, 297, 930, 706, 910, 686, 162, 327, 688, 603, 727, 562, 476, 499, 1000, 100 },	//79 Neck pre goal walk 5
-	{ 82, 297, 930, 706, 910, 706, 47, 352, 688, 603, 727, 562, 476, 499, 1000, 100 },	//80 Neck pre goal walk 6
+	{ 222, 307, 930, 706, 910, 706, 47, 352, 688, 603, 727, 562, 476, 499, 1000, 100 },	//73 Neck pre goal walk 1
+	{ 92, 317, 950, 736, 860, 666, 112, 317, 688, 603, 727, 562, 476, 499, 1000, 100 },	//74 Neck pre goal walk 2
+	{ 92, 317, 950, 736, 975, 671, 112, 317, 688, 603, 727, 562, 476, 499, 1000, 100 },	//75 Neck pre goal walk 3
+	{ 82, 307, 800, 686, 975, 671, 102, 307, 688, 603, 727, 562, 476, 499, 1000, 100 },	//76 Neck pre goal walk 4
+	{ 82, 297, 930, 706, 910, 686, 162, 327, 688, 603, 727, 562, 476, 499, 1000, 100 },	//77 Neck pre goal walk 5
+	{ 82, 297, 930, 706, 910, 706, 47, 352, 688, 603, 727, 562, 476, 499, 1000, 100 },	//78 Neck pre goal walk 6
 
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 320, 500, 480, 480, 420, 1000, 30 },	//81 Neck goal swing
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 320, 500, 480, 480, 420, 500, 100 },	//82 Neck goal release
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 375, 500, 480, 480, 420, 500, 50 },	//83 Neck goal shorten 1
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 425, 400, 350, 430, 500, 500, 50 },	//84 Neck goal shorten 2
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 512, 300, 350, 430, 500, 500, 50 },	//85 Neck goal shorten 3
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 573, 512, 196, 397, 207, 515, 500, 50 },	//86 Neck goal shorten 4
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 758, 512, 466, 343, 300, 449, 500, 50 },	//87 Neck goal shorten 5
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 472, 320, 626, 560, 567, 464, 1000, 50 },	//79 Neck goal swing
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 472, 320, 626, 560, 567, 464, 500, 100 },	//80 Neck goal release
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 506, 505, 528, 514, 587, 457, 500, 50 },	//81 Neck goal shorten 1
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 600, 529, 528, 413, 509, 634, 500, 50 },	//82 Neck goal shorten 2
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 500, 50 },	//83 Neck goal shorten 3
 
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//84 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//85 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//86 Default
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//87 Default
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//88 Default
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//89 Default
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 756, 518, 577, 252, 310, 497, 1000, 100 },	//90 Default
@@ -232,16 +232,16 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 int motion0[] =	{1, 0 };  //Default
 int motion1[] =	{1, 1 };  //Pre Walk
 int motion2[] =	{8, 41, 42, 43, 44, 45, 46, 47, 48};  //Walk1
-int motion3[] =	{6, 10, 11, 12, 13, 14, 15};			//Walk2
-int motion4[] =	{6, 29, 30, 31, 32, 33, 34 };			//Turn Left
-int motion5[] =	{6, 35, 36, 37, 38, 39, 40 };			//Turn Right
-int motion6[] =	{6, 10, 11, 12, 13, 14, 15 };			//Step
-int motion7[] =	{4, 50, 51, 52, 53};					//Neck search stretch
-int motion8[] =	{6, 54, 55, 56, 57, 57, 57};			//Neck search swing
-int motion9[] =	{3, 61, 62, 63};						//Neck search shorten
-int motion10[] = {6, 69, 70, 71, 72, 73, 74};			//Neck pre goal swing
-int motion11[] = {6, 75, 76, 77, 78, 79, 80};			//Neck pre goal walk
-int motion12[] = {7, 81, 82, 83, 84, 85, 86, 87};		//Neck goal swing
+int motion3[] =	{6, 10, 11, 12, 13, 14, 15};  //Walk2
+int motion4[] =	{6, 29, 30, 31, 32, 33, 34 };      //Turn Left
+int motion5[] =	{6, 35, 36, 37, 38, 39, 40 };      //Turn Right
+int motion6[] =	{6, 10, 11, 12, 13, 14, 15 };		//Step
+int motion7[] =	{4, 50, 51, 52, 53};				//Neck search stretch
+int motion8[] =	{5, 54, 55, 56, 57, 57};			//Neck search swing
+int motion9[] =	{3, 61, 62, 63};					//Neck search shorten
+int motion10[] = {4, 69, 70, 71, 72};				//Neck pre goal swing
+int motion11[] = {6, 73, 74, 75, 76, 77, 78};		//Neck pre goal walk
+int motion12[] = {5, 79, 80, 81, 82, 83};			//Neck goal swing
 int *motionList[] = { &motion0[0], &motion1[0], &motion2[0], &motion3[0], &motion4[0], &motion5[0], &motion6[0], 
 					  &motion7[0], &motion8[0], &motion9[0], &motion10[0], &motion11[0], &motion12[0] };
 enum ActType {
@@ -291,19 +291,17 @@ enum modeType {
 
 int mode1act[2][2] = {
 	 { 1000, 1 },  //Start Wait, Total Num
-     { ACT_WALK2,  6 },
+     { ACT_WALK2,  8 },
 };
 
-int mode2act[3][2] = {
+int mode2act[2][2] = {
 	{ 100, 2 },  //Start Wait, Total Num
-	{ ACT_TURN_LEFT,  4 },
-    { ACT_WALK2,  2 },
+	{ ACT_TURN_LEFT,  5 },
 };
 
-int mode3act[3][2] = {
-	{ 100, 2 },  //Start Wait, Total Num
-	{ ACT_TURN_RIGHT,  4 },
-    { ACT_WALK2,  2 },
+int mode3act[2][2] = {
+	{ 100, 1 },  //Start Wait, Total Num
+	{ ACT_TURN_RIGHT,  5 },
 };
 
 int mode4act[3][2] = {
@@ -424,10 +422,6 @@ void moveTest(void);
 int mModeAct = MODE_ACT_1;
 int mOldModeAct = MODE_ACT_1;
 int ledCounter = 0;
-
-// Mode action test
-int isModeActTest = 0;
-int mModeActTest = MODE_ACT_7;
 
 //Event
 enum EventType {
@@ -602,12 +596,10 @@ int main(void){
 		_delay_ms(MAIN_DELAY);
 		watchDogCnt++;
 		
-		if (isCaptureMode == 1) {
-			caputureCount1++;
-			if (caputureCount1 == 25){
-				getAngle();
-				caputureCount1 = 0;
-			}
+		caputureCount1++;
+		if (caputureCount1 == 25){
+			if (isCaptureMode == 1) getAngle();
+			caputureCount1 = 0;
 		}
 	}
 }
@@ -794,7 +786,7 @@ void setModeAction(){
 	int log = 0;
 	int *modeAct = &mode1act[modeCounter][0];
 	int counterMax = mode1act[0][1];
-//	if (log == 1) printf("setModeAction modeCounter:%d\n", modeCounter);
+	if (log == 1) printf("setModeAction modeCounter:%d\n", modeCounter);
 		
 	switch(mModeAct){
 		case MODE_ACT_1:
@@ -832,7 +824,7 @@ void setModeAction(){
 			break;
 	}
 	
-//	if (log == 1) printf("setModeAction motionTimes:%d, counterMax:%d\n", motionTimes, counterMax);
+	if (log == 1) printf("setModeAction motionTimes:%d, counterMax:%d\n", motionTimes, counterMax);
 	if( motionTimes <= 0 ){
 		if (log == 1) printf("setModeAction 2\n");
 		if( mMode == MODE_1 ){
@@ -1066,9 +1058,9 @@ void move(void){
 		}
 		
 		if (log == 1) printf("move 3 motionNumber:%d\n", motionNumber);
-		if (motionNumber == ACT_NECK_SEARCH_SWING && motionCount -1 < SENSOR_SEARCH_MAX) {
-			searchSensors[motionCount-1] = sensorTest(0);
-			printf("move 4 searchSensors[%d]:%d\n", motionCount-1, searchSensors[motionCount-1]);
+		if (motionNumber == ACT_NECK_SEARCH_SWING) {
+			searchSensors[motionCount] = sensorTest(0);
+			printf("move 4 searchSensors[%d]:%d\n", motionCount, searchSensors[motionCount]);
 		}
 //		printf("### motionCount:%d\n", motionCount);
 		ServoControl( motion[motionCount] );
@@ -1082,12 +1074,6 @@ void move(void){
 void judgeModeAct() {
 	int log = 1;
 	
-	if (isModeActTest == 1) {
-		printf("ModeActTest. mModeAct = %d\n", mModeActTest);
-		mModeAct = mModeActTest;
-		return;
-	}
-	
 	mOldModeAct = mModeAct;
 
 	if (mModeAct == MODE_ACT_7) {
@@ -1095,14 +1081,14 @@ void judgeModeAct() {
 			
 		int sensorMaxId = 0;
 		int tmp = searchSensors[0];
-		for (int i = 0; i < SENSOR_SEARCH_MAX; i++){
+		for (int i = 1; i < SENSOR_SEARCH_MAX + 1; i++){
 			if (tmp < searchSensors[i]) {
 				tmp = searchSensors[i];
 				sensorMaxId = i;
 			}
 		}
 
-		if (tmp > 100 && searchSensors[1] > 40 && searchSensors[2] > 80 && searchSensors[3] > 40) {
+		if (tmp > 80 && searchSensors[2] > 20 && searchSensors[3] > 40 && searchSensors[4] > 20) {
 			if (log == 1) printf("judgeModeAct 2 \n");
 			mModeAct = MODE_ACT_8;
 			return;
@@ -1140,7 +1126,7 @@ void judgeModeAct() {
 		/* 8: 1 1 1 */
 		if (sensorValue[0] == 0 && sensorValue[1] == 0 && sensorValue[2] == 0) {
 			if (log == 1) printf("judgeModeAct pattern:1\n");
-			mModeAct = MODE_ACT_7;
+			mModeAct = MODE_ACT_4;
 		} else if (sensorValue[0] == 1 && sensorValue[1] == 0 && sensorValue[2] == 0) {
 			if (log == 1) printf("judgeModeAct pattern:2\n");
 			mModeAct = MODE_ACT_5;
