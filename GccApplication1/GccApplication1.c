@@ -198,7 +198,7 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 530, 512, 250, 375, 310, 507, 1000, 50 },	//71 Neck pre goal stretch 3
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 512, 300, 350, 430, 500, 1000, 50 },	//72 Neck pre goal stretch 4
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 560, 400, 350, 430, 500, 1000, 50 },	//73 Neck pre goal stretch 5
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 600, 500, 480, 480, 420, 1000, 50 },	//74 Neck pre goal stretch 6 
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 600, 500, 360, 480, 420, 1000, 50 },	//74 Neck pre goal stretch 6 
 
 	{ 222, 307, 930, 706, 910, 706, 47, 352, 688, 603, 727, 562, 476, 499, 1000, 100 },	//75 Neck pre goal walk 1
 	{ 92, 317, 950, 736, 860, 666, 112, 317, 688, 603, 727, 562, 476, 499, 1000, 100 },	//76 Neck pre goal walk 2
@@ -207,8 +207,8 @@ int angleList[ACT_MAX][SERVO_MAX + 1] = {
 	{ 82, 297, 930, 706, 910, 686, 162, 327, 688, 603, 727, 562, 476, 499, 1000, 100 },	//79 Neck pre goal walk 5
 	{ 82, 297, 930, 706, 910, 706, 47, 352, 688, 603, 727, 562, 476, 499, 1000, 100 },	//80 Neck pre goal walk 6
 
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 320, 500, 480, 480, 420, 1000, 30 },	//81 Neck goal swing
-	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 320, 500, 480, 480, 420, 500, 100 },	//82 Neck goal release
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 450, 320, 500, 400, 480, 420, 1000, 30 },	//81 Neck goal swing
+	{ 112, 317, 910, 706, 910, 706, 112, 317, 450, 320, 500, 400, 480, 420, 500, 100 },	//82 Neck goal release
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 375, 500, 480, 480, 420, 500, 50 },	//83 Neck goal shorten 1
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 425, 400, 350, 430, 500, 500, 50 },	//84 Neck goal shorten 2
 	{ 112, 317, 910, 706, 910, 706, 112, 317, 500, 512, 300, 350, 430, 500, 500, 50 },	//85 Neck goal shorten 3
@@ -291,12 +291,12 @@ enum modeType {
 
 int mode1act[2][2] = {
 	 { 1000, 1 },  //Start Wait, Total Num
-     { ACT_WALK2,  6 },
+     { ACT_WALK2,  12 },
 };
 
 int mode2act[3][2] = {
 	{ 100, 2 },  //Start Wait, Total Num
-	{ ACT_TURN_LEFT,  4 },
+	{ ACT_TURN_LEFT,  5 },
     { ACT_WALK2,  2 },
 };
 
@@ -1007,10 +1007,10 @@ void move(void){
 //			motionNumber = ACT_WALK2;
 		}
 		int *motion = motionList[motionNumber];
-//        if (log == 1) printf("move motionNumber:%d, motion = %d\n", motionNumber, *motion);
+//        printf("move motionNumber:%d, motion = %d\n", motionNumber, *motion);
 		int max = motion[0];
 
-//        if (log == 1) printf("move motionCount:%d, max:%d\n", motionCount, max);
+//        printf("move motionCount:%d, max:%d\n", motionCount, max);
 		if( motionCount > max ){
 			if (log == 1) printf("move 1\n");
 			/*
@@ -1080,12 +1080,6 @@ void move(void){
 void judgeModeAct() {
 	int log = 1;
 	
-	if (isModeActTest == 1) {
-		printf("ModeActTest. mModeAct = %d\n", mModeActTest);
-		mModeAct = mModeActTest;
-		return;
-	}
-	
 	mOldModeAct = mModeAct;
 
 	if (mModeAct == MODE_ACT_7) {
@@ -1100,7 +1094,7 @@ void judgeModeAct() {
 			}
 		}
 
-		if (tmp > 100 && searchSensors[2] > 40 && searchSensors[3] > 80 && searchSensors[4] > 40) {
+		if (tmp > 150 && searchSensors[2] > 60 && searchSensors[3] > 120 && searchSensors[4] > 60) {
 			if (log == 1) printf("judgeModeAct 2 \n");
 			mModeAct = MODE_ACT_8;
 			return;
@@ -1161,6 +1155,11 @@ void judgeModeAct() {
 			if (log == 1) printf("judgeModeAct pattern:8\n");
 			mModeAct = MODE_ACT_7;
 		}
+	}
+	if (isModeActTest == 1) {
+		printf("ModeActTest. mModeAct = %d\n", mModeActTest);
+		mModeAct = mModeActTest;
+		return;
 	}
 }
 
